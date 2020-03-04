@@ -1,0 +1,84 @@
+﻿@model  GestaoContratos.Modules.Home.ContatoMail
+
+@{
+    ViewData["Title"] = "";
+    ViewData["PageId"] = "Login";
+    Layout = MVC.Views.Shared._LayoutNoNavigation;
+}
+
+@section Head {
+    @Html.Script("~/Scripts/vegas/vegas.js")
+    <script type="text/javascript">@Html.Raw(DynamicScriptManager.GetScriptText("Form.Membership.Login"))</script>
+    <script type="text/javascript">@Html.Raw(Html.GetLocalTextContent("Login"))</script>
+    @Html.Stylesheet("~/Scripts/vegas/vegas.css")
+
+    <style type="text/css">
+        body {
+            font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #000;
+            -ms-overflow-style: scrollbar;
+        }
+    </style>
+}
+@Html.Partial("~/Views/Shared/PartialNavgationSlim.cshtml")
+<div id="Template_LoginPanel" >
+    <div class="flex-layout">
+        <center>
+            <h3>Contato</h3><br />
+        </center>
+        <div class="row">
+            <div class="col-md-8 col-lg-offset-2">
+                <div class="col-md-12 s-Panel">
+                    <div class="col-md-7">
+                        <br />
+                        <p> Para esclarecer dúvidas ou informações complementares, envie um email para "contato@contratodeparceria.com.br" ou agende uma visita pelo telefone (11) 2478-2995.</p>
+                        <p> Por normas do Sindicato, os agentes não estão autorizados a passar informações por telefone.</p>
+                    </div>
+                    <div class="col-md-5">
+                        @using (Html.BeginForm("EnviaContato", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+                            //@Html.HiddenFor(m => m.Titulo, new { @type = "text", @value = "Mensagem incluída no site contratodeparceria.com.br" })
+                            @Html.HiddenFor(m => m.Titulo, new { @type = "hidden", Value = "Mensagem incluída no site contratodeparceria.com.br" })
+
+                            @Html.HiddenFor(m => m.TipoDestino, new { Value = "Sindicato" })
+
+
+
+                            <div>
+                                @Html.LabelFor(m => m.Nome)
+                                @Html.TextBoxFor(m => m.Nome, new { @type = "text", @class = "form-control" })
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email, new { @type = "email", @class = "form-control" })
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => m.Telefone)
+                                @Html.TextBoxFor(m => m.Telefone, new { @type = "text", @class = "form-control" })
+                            </div>
+                            <div>
+                                @Html.LabelFor(m => m.Mensagem)
+                                @Html.TextAreaFor(m => m.Mensagem, new { @class = "form-control" })
+                            </div>
+
+                            <button class="btn btn-black" type="submit" style="margin-top:10px">
+                                Enviar mensagem
+                            </button>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<button onclick="window.location.href = '/Cadastros/Credenciado/CredenciadoWizard/?tipo=Contador'">Contador</button>
+            <button onclick="window.location.href = '/Cadastros/Credenciado/CredenciadoWizard/?tipo=Advogado'">Advogado</button>
+            <button onclick="window.location.href = '/Cadastros/Credenciado/CredenciadoWizard/?tipo=Outros'">Outros</button>*@
+
+    </div>
+</div>
+
+

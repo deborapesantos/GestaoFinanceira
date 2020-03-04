@@ -1,0 +1,50 @@
+﻿@model WebMyMoney.Common.DashboardPageModel
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["PageId"] = "Dashboard";
+}
+
+@section Head {
+@Html.StyleBundle("Pages/Dashboard")
+@Html.ScriptBundle("Pages/Dashboard")
+}
+
+@section ContentHeader {
+    <h1>@LocalText.Get("Navigation.Dashboard")<small>@Html.Raw(Texts.Site.Dashboard.ContentDescription)</small></h1>
+}
+
+<!-- Small boxes (Stat box) -->
+<div class="row">
+
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3><sup style="font-size: 20px">R$</sup>@Model.Receitas</h3>
+                <p>Receitas</p>
+            </div>
+
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3><sup style="font-size: 20px">R$</sup>@Model.SaldoContas</h3>
+                <p>Saldo em conta</p>
+            </div>
+
+        </div>
+    </div><!-- ./col -->
+    <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3><sup style="font-size: 20px">R$</sup>@Model.Despesas</h3>
+                <p>Despesas</p>
+            </div>
+
+        </div>
+    </div><!-- ./col -->
+
+</div><!-- /.row -->
