@@ -8,6 +8,6 @@ namespace WebMyMoney.Modules.Default
 {
     public class DefaultListRequest : ListRequest
     {
-        
+        public int mes { get; set; }
     }
 }

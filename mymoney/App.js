@@ -4,14 +4,23 @@ import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import useLinking from './src/navigation/useLinking';
 
+import Login from './src/screens/Login';
+import Home from './src/screens/Home';
+import { Header } from 'react-native/Libraries/NewAppScreen';
+
 const Stack = createStackNavigator();
 
 export default function App(props) {
+
+  console.disableYellowBox = true;
+  
+ 
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
@@ -49,10 +58,13 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
+        <NavigationContainer ref={containerRef} initialState={initialNavigationState} >
+          <Stack.Navigator >
+            <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }} />
+            <Stack.Screen name="Root" component={BottomTabNavigator}  />
+            <Stack.Screen name="Carteira" component={Home}/>
           </Stack.Navigator>
+         
         </NavigationContainer>
       </View>
     );

@@ -1,4 +1,4 @@
-import Axios from "./node_modules/axios";
+import Axios from "axios";
 import Config from "./../Config";
 
 export class BaseService {  
@@ -13,7 +13,7 @@ export class BaseService {
     };
     static axioInstance;    
     baseUrl = Config.BASE_URL;
-    servicesUrl = this.baseUrl + "Services/"
+    servicesUrl = this.baseUrl + "Services/Default/"
 
     constructor(){
         if(!this.axionsInstance)

@@ -6,6 +6,7 @@ namespace WebMyMoney.Default.Endpoints
     using Serenity.Services;
     using System.Data;
     using System.Web.Mvc;
+    using WebMyMoney.Modules.Default;
     using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadContaRepository;
     using MyRow = Entities.CadContaRow;
@@ -44,10 +45,10 @@ namespace WebMyMoney.Default.Endpoints
             return new MyRepository().List(connection, request);
         }
 
-        [HttpGet]
-        public ListDashboardRequest<MyRow> GetSaldoAtual(IDbConnection connection)
+        [HttpPost]
+        public ListDashboardRequest<MyRow> GetDashboard(IDbConnection connection, DefaultListRequest request)
         {
-            return new MyRepository().GetSaldoAtual(connection);
+            return new MyRepository().GetDashboard(connection,request);
         }
 
     }

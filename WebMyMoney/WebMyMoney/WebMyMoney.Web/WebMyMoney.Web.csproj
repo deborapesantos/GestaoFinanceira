@@ -1864,6 +1864,7 @@
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
     <Compile Include="Modules\Membership\Account\EnvironmentSettings.cs" />
     <Compile Include="Modules\Membership\Account\ForgotPassword\AccountPage.ForgotPassword.cs" />
+    <Compile Include="Modules\Membership\Account\LoginResponse.cs" />
     <Compile Include="Modules\Membership\Account\ResetPassword\AccountPage.ResetPassword.cs" />
     <Compile Include="Modules\Membership\Account\ResetPassword\ResetPasswordModel.cs" />
     <Compile Include="Modules\Membership\Account\ResetPassword\ResetPasswordEmailModel.cs" />

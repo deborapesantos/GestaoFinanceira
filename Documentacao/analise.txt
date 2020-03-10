@@ -1,0 +1,203 @@
+situação problema: Não tem conhecimento financeiro e não tem controle, atolados em dividas e não consegue adquirir novos bens.
+resolução: criar uma aplicação de facil entendimento que ajude a conseguir pagar as contas e pagar as dividas de maneira mais facil.
+-Baixou ao todo 26 aplicativos financeiros, mas nenhum foi bom o bastante
+- melhores aplicativos: mobilis e guia bolso
+mobilis -  
+
+
+Esse aplicativo te ajuda a realizar seus objetos com base no seu custo de vida.
+
+primeiros passos: Ao abrir o aplicativo, o sistema faz um pequeno cadastro
+info pessoal: Nome, celular, email e senha.
+
+Objetivos: selecionar um ou mais objetivos
+- sanar dividas: 
+1. qual o valor da divida?
+2. em quanto tempo quer pagar a divida?
+3. esta divida já possui algum tipo de parcelamento?
+4. se sim, qual o valor?
+
+
+- comprar um carro
+1. qual o valor do carro?
+2. qual o valor da parcela?
+3. em quanto tempo quer pagar o carro?
+3. qual o valor inicial?
+
+- comprar uma casa
+1. qual o valor do carro?
+2. qual o valor da parcela?
+3. em quanto tempo quer pagar a casa?
+3. qual o valor inicial?
+
+- fazer uma viagem
+1. qual o valor aproximado dos custos da viagem?
+2. quando quer realizar a viagem?
+3. qual o valor inicial?
+
+- Outros
+1. quanto é o valor?
+2. em quanto tempo quer ter esse valor?
+3. qual o valor inicial?
+
+Informações de receita: Para te ajudar a "[objeto selecionado]", precisamos de algumas informações.
+1. Qual o valor liquido da sua receita atual?
+2. Este valor de receita é fixo?
+3. Tem alguma outra receita que deseja mensionar?
+
+Informações de receita(investimento): Muito bem, agora responda...
+1. Você tem algum investimento já em andamento?
+2. qual o tipo? (renda fixa, variavel..)
+2. se sim, qual o valor liquido total do(s) seu(s) investimentos?
+
+Informações de receita(investimento): Perfeito, estamos quase terminando.
+1. Li e concordo com as politicas do aplicativo.
+
+
+
+
+Adicionar  Cadastrar contas
+Adicionar Transferencia de saldo de contas
+
+tela principal 
+
+1. Objetivos (o objetivo tem que estar na cara da pessoa, para que ela sempre se lembre do real motivo de guardar dinheiro)
+2. Vencidos, esta semana, este mes
+3. cartões de credito,
+4. proximos vencimentos
+
+Cadastro
+
+- usuario
+usuarioId int
+nome string
+telefone string
+dataCreate dateTime
+
+
+- CadObjetivo
+ObjetivoId int
+UsuarioId int
+codigoTipoObjetivo int
+titulo  string
+valorFinal decimal
+valorInicial decimal
+valorAtual decimal
+dataFinal dateTime
+dataInicial dateTime
+ativo bool
+
+- TabTipoObjetivo (carro, divida, casa, viagem, outros)
+codigoTipoObjetivo int
+descricao string
+
+- TabTipoReceita (receita fixa, investimento, renda variavel, outros )
+codigoTipoReceita int
+descricao string
+
+- TabTipoConta (receita fixa, investimento, renda variavel, outros )
+codigoTipoConta int
+descricao string
+
+-CadConta
+cadContaId int
+UsuarioId int
+codigoTabBanco int
+valorInicial decimal
+sladoAtual decimal
+titulo  string
+ativo bool
+dataInicial dateTime
+
+- CadReceita
+cadContaId int
+ReceitaId int
+UsuarioId int
+codigoTipoReceita int
+categoriaDespesaId int
+dataRecebimento dateTime
+dataCriacao dateTime
+isFixa bool
+dataFixaRecebimento int
+valorInicial decimal
+valor decimal
+recebido bool
+ativo bool
+saldo decimal
+
+- CadDespesa
+cadContaId int
+DespesaId int
+UsuarioId int
+codigoTipoDespesa int
+CartaoCreditoId int is null
+descricao string
+dataPagamento dateTime
+dataCriacao dateTime
+dataVencimento dateTime
+isFixa bool
+dataFixaPagamento int
+valorInicial decimal
+valor decimal
+pago bool
+ativo bool
+
+- CadCategoriaDespesa 
+CadCategoriaDespesaId int
+descricao string
+
+- TabTipoDespesa (cartao de credito, investimento, outras despesas)
+codigoTipoDespesa int
+descricao string
+
+- TabBanco (consultar bancos)
+codigoTabBanco int
+descricao string
+
+- CadCartaoCredito
+CartaoCreditoId int
+UsuarioId int
+codigoTabBanco int
+descricao string
+dataPagamento dateTime
+dataCriacao dateTime
+dataVencimentoFatura dateTime
+dataFechamentoFatura dateTime
+valorLimiteTotal decimal
+valorLimiteAtual decimal
+valorFaturaAtual decimal
+valorFaturaParcial decimal
+saldo decimal
+pago bool
+ativo bool
+
+
+TabPagamentoConta
+cadContaId int
+DespesaId int
+UsuarioId int
+CartaoCreditoId int is null
+dataPagamento dateTime
+valorPago decimal
+
+
+CadGrupoFamiliar
+grupoFamiliarId int
+administradorGrupoFamiliar int (usuario)
+
+
+
+
+
+
+-ATENÇÃO: quando gerar um investimento, deve gerar uma despesa e uma receita com o valor do investimento, ou seja para cada invetimento há (uma receita e uma despesa a mais)
+
+
+-ATENÇÃO: Aplicativo pode pode pagar uma despesa com cartão de crédito e já alterar status como pago, porém lançado como despesa de cartão de crédito.
+Adicionar campo para calculo de taxa de juros/multas
+
+
+-ATENÇÃO: Poder criar conta conjunta, ou conta de grupo familiar
+
+
+

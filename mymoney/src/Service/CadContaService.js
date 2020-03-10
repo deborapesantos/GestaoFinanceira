@@ -6,9 +6,11 @@ export  default class CadContaService extends BaseService {
   
   api_url = this.servicesUrl + "CadConta/";
   
-  async getSumValor() {
-    return await this.get(this.api_url + 'GetSumValor/')
-                 .then((data) => data.TotalCount)
+ 
+  
+  async getDashboard(listRequest) {
+    console.log(this.api_url);
+    return await this.post(this.api_url + 'GetDashboard/',listRequest)
     
   };
 
