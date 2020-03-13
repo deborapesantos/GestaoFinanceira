@@ -7482,3 +7482,15 @@ section.content > .s-DataGrid {
 .s-Default-TabTipoReceitaDialog .caption {
   width: 150px;
 }
+.s-Default-CadFaturaCartaoCreditoDialog > .size {
+  width: 650px;
+}
+.s-Default-CadFaturaCartaoCreditoDialog .caption {
+  width: 150px;
+}
+.s-Default-CadParticipanteDialog > .size {
+  width: 650px;
+}
+.s-Default-CadParticipanteDialog .caption {
+  width: 150px;
+}

@@ -299,8 +299,8 @@ CREATE TABLE CadConta (
   ValorInicial DECIMAL NULL,
   SaldoAtual DECIMAL NULL,
   Titulo VARCHAR(255) NOT NULL,
-  Ativo BIT NULL,
   DataInicial DATETIME NOT NULL,
+  Ativo BIT NULL,
   INDEX CodigoTabTipoConta(CodigoTabTipoConta),
   INDEX CadUsuarioId(CadUsuarioId),
   INDEX CadGrupoFamiliarId(CadGrupoFamiliarId),
@@ -318,44 +318,20 @@ CREATE TABLE CadConta (
       ON UPDATE NO ACTION
 );
 
-CREATE TABLE CadDespesa (
-  CadDespesaId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
-  CadContaId INTEGER NOT NULL,
+CREATE TABLE CadParticipante (
+  CadParticipanteId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
   CadGrupoFamiliarId INTEGER NOT NULL,
-  CadUsuarioId INTEGER NOT NULL,
-  CodigoTabTipoDespesa INTEGER NOT NULL,
-  Titulo VARCHAR(255) NOT NULL,
-  DataPagamento DATETIME NULL,
-  DataCriacao DATETIME NOT NULL,
-  isFixo BIT NULL,
-  DataVencimento DATETIME NOT NULL,
-  ValorTotal DECIMAL NOT NULL,
-  MultasJuros DECIMAL NULL,
-  DataFixaVencimento INTEGER NULL,
-  Pago BIT NOT NULL,
+  NomeRazaoSocial VARCHAR(255) NOT NULL,
+  CpfCnpj VARCHAR(15),
   Ativo BIT NULL,
-  Descontos DECIMAL NULL,
-  INDEX CodigoTabTipoDespesa(CodigoTabTipoDespesa),
-  INDEX CadUsuarioId(CadUsuarioId),
-  INDEX CadGrupoUsuarioId(CadGrupoFamiliarId),
-  INDEX CadContaId(CadContaId),
-  FOREIGN KEY(CodigoTabTipoDespesa)
-    REFERENCES TabTipoDespesa(CodigoTabTipoDespesa)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
-  FOREIGN KEY(CadUsuarioId)
-    REFERENCES CadUsuario(CadUsuarioId)
-      ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
+ 
+  INDEX CadGrupoFamiliarId(CadGrupoFamiliarId),
   FOREIGN KEY(CadGrupoFamiliarId)
     REFERENCES CadGrupoFamiliar(CadGrupoFamiliarId)
       ON DELETE NO ACTION
-      ON UPDATE NO ACTION,
-  FOREIGN KEY(CadContaId)
-    REFERENCES CadConta(CadContaId)
-      ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );
+
 
 CREATE TABLE CadCartaoCredito (
   CadCartaoCreditoId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -365,13 +341,11 @@ CREATE TABLE CadCartaoCredito (
   CodigoTabTipoCartaoCredito INTEGER NOT NULL,
   Titulo VARCHAR(255) NOT NULL,
   Descricao VARCHAR(255) NULL,
-  DataPagamentoFatura DATETIME NOT NULL,
+  DiaVencimentoFatura DATETIME NOT NULL,
   DiaPagarFatura INTEGER NOT NULL,
-  DataFechamentoFatura DATETIME NOT NULL,
   DiaFecharFatura INTEGER NOT NULL,
   ValorLimiteTotal DECIMAL NOT NULL,
   ValorLimiteAtual DECIMAL NOT NULL,
-  ValorParcialFaturaAtual DECIMAL NULL,
   Saldo DECIMAL NULL,
   Ativo BIT NULL,
   INDEX CodigoTabTipoCartaoCredito(CodigoTabTipoCartaoCredito),
@@ -396,20 +370,98 @@ CREATE TABLE CadCartaoCredito (
       ON UPDATE NO ACTION
 );
 
+CREATE TABLE CadFaturaCartaoCredito (
+  CadFaturaCartaoCreditoId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  CadCartaoCreditoId INTEGER NOT NULL,
+  MesFaturaVigente integer not null,
+  DiaVencimentoFatura DATETIME NULL,
+  DataPagamentoFatura DATETIME NULL,
+  DataFechamentoFatura DATETIME NULL,
+  DiaFecharFatura INTEGER NULL,
+  ValorParcialFaturaAtual DECIMAL NULL,
+  IsParcelarFatura bit null,
+  NumParcelasFatura integer null,
+  SaldoAnterior DECIMAL NULL,
+  Ativo BIT NULL,
+  Pago Bit null,
+  INDEX CadCartaoCreditoId(CadCartaoCreditoId),
+  FOREIGN KEY(CadCartaoCreditoId)
+    REFERENCES CadCartaoCredito(CadCartaoCreditoId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+);
+
+CREATE TABLE CadDespesa (
+  CadDespesaId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  CadContaId INTEGER NOT NULL,
+  CadGrupoFamiliarId INTEGER NOT NULL,
+  CadUsuarioId INTEGER NOT NULL,
+  CadFaturaCartaoCreditoId INTEGER,
+  CodigoTabTipoDespesa INTEGER NOT NULL,
+  CadParticipanteId Integer,
+  Titulo VARCHAR(255) NOT NULL,
+  DataPagamento DATETIME NULL,
+  DataCriacao DATETIME NOT NULL,
+  isFixo BIT NULL,
+  isParcelado BIT null,
+  numParcela integer,
+  DataVencimento DATETIME NOT NULL,
+  ValorTotal DECIMAL NOT NULL,
+  MultasJuros DECIMAL NULL,
+  DataFixaVencimento INTEGER NULL,
+  Pago BIT NOT NULL,
+  Ativo BIT NULL,
+  Imposto DECIMAL,
+  Descontos DECIMAL NULL,
+  INDEX CodigoTabTipoDespesa(CodigoTabTipoDespesa),
+  INDEX CadUsuarioId(CadUsuarioId),
+  INDEX CadGrupoUsuarioId(CadGrupoFamiliarId),
+  INDEX CadContaId(CadContaId),
+  FOREIGN KEY(CodigoTabTipoDespesa)
+    REFERENCES TabTipoDespesa(CodigoTabTipoDespesa)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadUsuarioId)
+    REFERENCES CadUsuario(CadUsuarioId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadGrupoFamiliarId)
+    REFERENCES CadGrupoFamiliar(CadGrupoFamiliarId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadContaId)
+    REFERENCES CadConta(CadContaId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadFaturaCartaoCreditoId)
+    REFERENCES CadFaturaCartaoCredito(CadFaturaCartaoCreditoId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadParticipanteId)
+    REFERENCES CadParticipante(CadParticipanteId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+);
+
 CREATE TABLE CadReceita (
   CadReceitaId INTEGER NOT NULL IDENTITY(1,1) PRIMARY KEY,
   CadGrupoFamiliarId INTEGER NOT NULL,
   CadContaId INTEGER NOT NULL,
   CadUsuarioId INTEGER NOT NULL,
   CodigoTabTipoReceita INTEGER NOT NULL,
+  CadParticipanteId Integer,
   Titulo VARCHAR(255) NOT NULL,
   Descricao VARCHAR(255) NULL,
+  Participante VARCHAR(255) NULL,
   DataRecebimento DATETIME NULL,
   DataCriacao DATETIME NOT NULL,
   isFixo BIT NOT NULL,
   DataFixaRecebimento INTEGER NULL,
   Valor DECIMAL NOT NULL,
   Recebido BIT NOT NULL,
+  Juros DECIMAL,
+  Rendimento DECIMAL,
+  Imposto DECIMAL,
   Ativo BIT NULL,
   INDEX CodigoTabTipoReceita(CodigoTabTipoReceita),
   INDEX CadUsuarioId(CadUsuarioId),
@@ -429,6 +481,10 @@ CREATE TABLE CadReceita (
       ON UPDATE NO ACTION,
   FOREIGN KEY(CadGrupoFamiliarId)
     REFERENCES CadGrupoFamiliar(CadGrupoFamiliarId)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION,
+  FOREIGN KEY(CadParticipanteId)
+    REFERENCES CadParticipante(CadParticipanteId)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
 );

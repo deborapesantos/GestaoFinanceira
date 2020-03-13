@@ -1,20 +1,26 @@
-﻿
-namespace WebMyMoney.Default {
-    export class TabTipoContaForm extends Serenity.PrefixedContext {
-        static formKey = 'Default.TabTipoConta';
-    }
-
+﻿namespace WebMyMoney.Default {
     export interface TabTipoContaForm {
         Descricao: Serenity.StringEditor;
     }
 
-    [,
-        ['Descricao', () => Serenity.StringEditor]
-    ].forEach(x => Object.defineProperty(TabTipoContaForm.prototype, <string>x[0], {
-        get: function () {
-            return this.w(x[0], (x[1] as any)());
-        },
-        enumerable: true,
-        configurable: true
-    }));
+    export class TabTipoContaForm extends Serenity.PrefixedContext {
+        static formKey = 'Default.TabTipoConta';
+        private static init: boolean;
+
+        constructor(prefix: string) {
+            super(prefix);
+
+            if (!TabTipoContaForm.init)  {
+                TabTipoContaForm.init = true;
+
+                var s = Serenity;
+                var w0 = s.StringEditor;
+
+                Q.initFormType(TabTipoContaForm, [
+                    'Descricao', w0
+                ]);
+            }
+        }
+    }
 }
+

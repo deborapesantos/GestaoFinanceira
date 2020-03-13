@@ -1,0 +1,96 @@
+﻿
+namespace WebMyMoney.Default.Repositories
+{
+    using Serenity;
+    using Serenity.Data;
+    using Serenity.Services;
+    using System;
+    using System.Data;
+    using System.Linq;
+    using WebMyMoney.Default.Entities;
+    using MyRow = Entities.CadFaturaCartaoCreditoRow;
+
+    public class CadFaturaCartaoCreditoRepository
+    {
+        private static MyRow.RowFields fld { get { return MyRow.Fields; } }
+
+        public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
+        {
+            return new MySaveHandler().Process(uow, request, SaveRequestType.Create);
+        }
+
+        public SaveResponse Update(IUnitOfWork uow, SaveRequest<MyRow> request)
+        {
+            return new MySaveHandler().Process(uow, request, SaveRequestType.Update);
+        }
+
+        public DeleteResponse Delete(IUnitOfWork uow, DeleteRequest request)
+        {
+            return new MyDeleteHandler().Process(uow, request);
+        }
+
+        public RetrieveResponse<MyRow> Retrieve(IDbConnection connection, RetrieveRequest request)
+        {
+            return new MyRetrieveHandler().Process(connection, request);
+        }
+
+        public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
+        {
+            return new MyListHandler().Process(connection, request);
+        }
+
+        private class MySaveHandler : SaveRequestHandler<MyRow> {
+
+
+            protected override void BeforeSave()
+            {
+                base.BeforeSave();
+
+                if (Row.Pago == true)
+                {
+                    if(Row.DataPagamentoFatura == null)
+                    {
+                        Row.DataPagamentoFatura = DateTime.Now;
+                    }
+
+
+                    
+                }
+            }
+
+
+            protected override void AfterSave()
+            {
+                base.AfterSave();
+
+
+                if(Row.Pago == true)
+                {
+                      var listaDespesas = this.Connection.List<CadDespesaRow>(CadDespesaRow.Fields.CadFaturaCartaoCreditoId == (int)Row.CadFaturaCartaoCreditoId).ToList();
+                          
+                        foreach(var item in listaDespesas)
+                        {
+                            item.Pago = true;
+                            item.DataPagamento = Row.DataPagamentoFatura;
+                            this.Connection.UpdateById<CadDespesaRow>(item);
+                        }
+
+                    var conta = this.Connection.First<CadContaRow>(CadContaRow.Fields.CadContaId ==  (int)Row.CadCartaoCreditoCadContaId);
+
+                    conta.SaldoAtual = conta.SaldoAtual - listaDespesas.Sum(x => x.ValorTotal);
+
+                    this.Connection.UpdateById<CadContaRow>(conta);
+
+                }
+
+                BatchGenerationUpdater.OnCommit(this.UnitOfWork, fld.GenerationKey);
+            }
+
+
+
+        }
+        private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
+        private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
+        private class MyListHandler : ListRequestHandler<MyRow> { }
+    }
+}

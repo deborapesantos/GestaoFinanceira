@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace TabTipoCartaoCreditoService {
         export const baseUrl = 'Default/TabTipoCartaoCredito';
 
@@ -9,12 +8,12 @@ namespace WebMyMoney.Default {
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<TabTipoCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<TabTipoCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/TabTipoCartaoCredito/Create",
+            Update = "Default/TabTipoCartaoCredito/Update",
+            Delete = "Default/TabTipoCartaoCredito/Delete",
+            Retrieve = "Default/TabTipoCartaoCredito/Retrieve",
+            List = "Default/TabTipoCartaoCredito/List"
         }
 
         [
@@ -24,10 +23,10 @@ namespace WebMyMoney.Default {
             'Retrieve', 
             'List'
         ].forEach(x => {
-            (<any>TabTipoCartaoCreditoService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>TabTipoCartaoCreditoService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

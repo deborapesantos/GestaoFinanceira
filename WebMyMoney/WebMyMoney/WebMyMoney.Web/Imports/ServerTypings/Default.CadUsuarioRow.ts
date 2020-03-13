@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface CadUsuarioRow {
         CadUsuarioId?: number;
         CadGrupoFamiliarId?: number;
@@ -34,69 +33,45 @@ namespace WebMyMoney.Default {
         export const idProperty = 'CadUsuarioId';
         export const nameProperty = 'Nome';
         export const localTextPrefix = 'Default.CadUsuario';
-        export const deletePermission = 'Administration:General';
-        export const insertPermission = 'Administration:General';
-        export const readPermission = 'Administration:General';
-        export const updatePermission = 'Administration:General';
+        export const lookupKey = 'Default.CadUsuario';
 
-        export namespace Fields {
-            export declare const CadUsuarioId;
-            export declare const CadGrupoFamiliarId;
-            export declare const UserId;
-            export declare const Nome;
-            export declare const Telefone;
-            export declare const DataCriacao;
-            export declare const Email;
-            export declare const Ativo;
-            export declare const CadGrupoFamiliarCadAssinanteId;
-            export declare const CadGrupoFamiliarAtivo;
-            export declare const CadGrupoFamiliarDataCriacao;
-            export declare const CadGrupoFamiliarCodigoAcesso;
-            export declare const CadGrupoFamiliarQdteUsuarios;
-            export declare const UserUsername;
-            export declare const UserDisplayName;
-            export declare const UserEmail;
-            export declare const UserSource;
-            export declare const UserPasswordHash;
-            export declare const UserPasswordSalt;
-            export declare const UserLastDirectoryUpdate;
-            export declare const UserUserImage;
-            export declare const UserInsertDate;
-            export declare const UserInsertUserId;
-            export declare const UserUpdateDate;
-            export declare const UserUpdateUserId;
-            export declare const UserIsActive;
-            export declare const UserUsuarioId;
+        export function getLookup(): Q.Lookup<CadUsuarioRow> {
+            return Q.getLookup<CadUsuarioRow>('Default.CadUsuario');
         }
+        export const deletePermission = 'Usuario:Editar';
+        export const insertPermission = 'Usuario:Editar';
+        export const readPermission = 'Usuario:Visualizar';
+        export const updatePermission = 'Usuario:Editar';
 
-        [
-            'CadUsuarioId',
-            'CadGrupoFamiliarId',
-            'UserId',
-            'Nome',
-            'Telefone',
-            'DataCriacao',
-            'Email',
-            'Ativo',
-            'CadGrupoFamiliarCadAssinanteId',
-            'CadGrupoFamiliarAtivo',
-            'CadGrupoFamiliarDataCriacao',
-            'CadGrupoFamiliarCodigoAcesso',
-            'CadGrupoFamiliarQdteUsuarios',
-            'UserUsername',
-            'UserDisplayName',
-            'UserEmail',
-            'UserSource',
-            'UserPasswordHash',
-            'UserPasswordSalt',
-            'UserLastDirectoryUpdate',
-            'UserUserImage',
-            'UserInsertDate',
-            'UserInsertUserId',
-            'UserUpdateDate',
-            'UserUpdateUserId',
-            'UserIsActive',
-            'UserUsuarioId'
-        ].forEach(x => (<any>Fields)[x] = x);
+        export declare const enum Fields {
+            CadUsuarioId = "CadUsuarioId",
+            CadGrupoFamiliarId = "CadGrupoFamiliarId",
+            UserId = "UserId",
+            Nome = "Nome",
+            Telefone = "Telefone",
+            DataCriacao = "DataCriacao",
+            Email = "Email",
+            Ativo = "Ativo",
+            CadGrupoFamiliarCadAssinanteId = "CadGrupoFamiliarCadAssinanteId",
+            CadGrupoFamiliarAtivo = "CadGrupoFamiliarAtivo",
+            CadGrupoFamiliarDataCriacao = "CadGrupoFamiliarDataCriacao",
+            CadGrupoFamiliarCodigoAcesso = "CadGrupoFamiliarCodigoAcesso",
+            CadGrupoFamiliarQdteUsuarios = "CadGrupoFamiliarQdteUsuarios",
+            UserUsername = "UserUsername",
+            UserDisplayName = "UserDisplayName",
+            UserEmail = "UserEmail",
+            UserSource = "UserSource",
+            UserPasswordHash = "UserPasswordHash",
+            UserPasswordSalt = "UserPasswordSalt",
+            UserLastDirectoryUpdate = "UserLastDirectoryUpdate",
+            UserUserImage = "UserUserImage",
+            UserInsertDate = "UserInsertDate",
+            UserInsertUserId = "UserInsertUserId",
+            UserUpdateDate = "UserUpdateDate",
+            UserUpdateUserId = "UserUpdateUserId",
+            UserIsActive = "UserIsActive",
+            UserUsuarioId = "UserUsuarioId"
+        }
     }
 }
+

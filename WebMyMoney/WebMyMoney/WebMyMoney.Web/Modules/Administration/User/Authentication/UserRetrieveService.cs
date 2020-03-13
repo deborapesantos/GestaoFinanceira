@@ -28,7 +28,8 @@
                     PasswordSalt = user.PasswordSalt,
                     UpdateDate = user.UpdateDate,
                     LastDirectoryUpdate = user.LastDirectoryUpdate,
-                    UsuarioId = user.UsuarioId ?? 0
+                    UsuarioId = user.UsuarioId ?? 0,
+                    
                 };
 
             return null;

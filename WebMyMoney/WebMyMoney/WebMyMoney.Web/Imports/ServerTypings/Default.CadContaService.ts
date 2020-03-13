@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace CadContaService {
         export const baseUrl = 'Default/CadConta';
 
@@ -8,13 +7,15 @@ namespace WebMyMoney.Default {
         export declare function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<CadContaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<CadContaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function GetDashboard(request: Modules.Default.DefaultListRequest, onSuccess?: (response: Modules.Utils.ListDashboardRequest<CadContaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/CadConta/Create",
+            Update = "Default/CadConta/Update",
+            Delete = "Default/CadConta/Delete",
+            Retrieve = "Default/CadConta/Retrieve",
+            List = "Default/CadConta/List",
+            GetDashboard = "Default/CadConta/GetDashboard"
         }
 
         [
@@ -22,12 +23,13 @@ namespace WebMyMoney.Default {
             'Update', 
             'Delete', 
             'Retrieve', 
-            'List'
+            'List', 
+            'GetDashboard'
         ].forEach(x => {
-            (<any>CadContaService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>CadContaService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

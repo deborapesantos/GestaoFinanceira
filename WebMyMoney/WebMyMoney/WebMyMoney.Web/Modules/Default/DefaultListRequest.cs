@@ -9,5 +9,7 @@ namespace WebMyMoney.Modules.Default
     public class DefaultListRequest : ListRequest
     {
         public int mes { get; set; }
+
+        public int Id { get; set; }
     }
 }

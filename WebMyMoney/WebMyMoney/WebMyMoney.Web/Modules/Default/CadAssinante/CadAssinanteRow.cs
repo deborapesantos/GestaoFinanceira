@@ -11,8 +11,8 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadAssinante]")]
     [DisplayName("Cad Assinante"), InstanceName("Cad Assinante")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:General")]
+    [ModifyPermission("Usuario:General")]
     public sealed class CadAssinanteRow : Row, IIdRow, INameRow
     {
         [DisplayName("Cad Assinante Id"), Identity]

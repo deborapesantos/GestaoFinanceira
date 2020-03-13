@@ -8,11 +8,12 @@ namespace WebMyMoney.Default.Entities
     using System;
     using System.ComponentModel;
     using System.IO;
+    using WebMyMoney.Administration;
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadUsuario]")]
     [DisplayName("Cad Usuario"), InstanceName("Cad Usuario")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission(PermissionKeys.Visualizar)]
+    [ModifyPermission(PermissionKeys.Editar)]
     [LookupScript(Permission = "*")]
     public sealed class CadUsuarioRow : Row, IIdRow, INameRow
     {

@@ -511,6 +511,24 @@ boxInfoflatList: {
     width: 250,
     height: 150,
 },
+itemsInfoflatList: {
+    
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    elevation: 5,
+    shadowOffset: {
+        width: 5,
+        height: 5
+    },
+    shadowColor: '#999',
+    shadowOpacity: 0.1,
+    shadowRadius: 0,
+    margin: 10,
+    marginBottom: 20,
+    padding:10,
+    width: '94%',
+    height: 90,
+},
 boxInfoflatListTitle:{
     color:"#000000",
     

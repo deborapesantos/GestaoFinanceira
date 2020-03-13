@@ -6,6 +6,8 @@ namespace WebMyMoney.Default.Endpoints
     using Serenity.Services;
     using System.Data;
     using System.Web.Mvc;
+    using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadCartaoCreditoRepository;
     using MyRow = Entities.CadCartaoCreditoRow;
 
@@ -41,6 +43,13 @@ namespace WebMyMoney.Default.Endpoints
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyRepository().List(connection, request);
+        }
+
+
+        [HttpPost]
+        public CartaoCreditoModel ListarCartaoCreditoDepesas(IDbConnection connection, DefaultListRequest request)
+        {
+            return new MyRepository().ListarCartaoCreditoDepesas(connection, request);
         }
     }
 }

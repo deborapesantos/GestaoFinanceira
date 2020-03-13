@@ -41,6 +41,11 @@ export  default class CadReceitaService extends BaseService {
     
   };
 
+  async listar(listRequest) {
+    return await this.post(this.api_url + 'ListCadReceita/',listRequest)
+  };
+
+
   async getSumValor() {
     return await this.get(this.api_url + 'GetSumValor/')
                  .then((data) => data.TotalCount)

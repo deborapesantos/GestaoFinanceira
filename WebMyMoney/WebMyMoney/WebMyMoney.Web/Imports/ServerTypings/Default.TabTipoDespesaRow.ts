@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface TabTipoDespesaRow {
         CodigoTabTipoDespesa?: number;
         Descricao?: string;
@@ -10,21 +9,21 @@ namespace WebMyMoney.Default {
         export const idProperty = 'CodigoTabTipoDespesa';
         export const nameProperty = 'Descricao';
         export const localTextPrefix = 'Default.TabTipoDespesa';
+        export const lookupKey = 'Default.TabTipoDespesa';
+
+        export function getLookup(): Q.Lookup<TabTipoDespesaRow> {
+            return Q.getLookup<TabTipoDespesaRow>('Default.TabTipoDespesa');
+        }
         export const deletePermission = 'Administration:General';
         export const insertPermission = 'Administration:General';
         export const readPermission = 'Administration:General';
         export const updatePermission = 'Administration:General';
 
-        export namespace Fields {
-            export declare const CodigoTabTipoDespesa;
-            export declare const Descricao;
-            export declare const Icone;
+        export declare const enum Fields {
+            CodigoTabTipoDespesa = "CodigoTabTipoDespesa",
+            Descricao = "Descricao",
+            Icone = "Icone"
         }
-
-        [
-            'CodigoTabTipoDespesa',
-            'Descricao',
-            'Icone'
-        ].forEach(x => (<any>Fields)[x] = x);
     }
 }
+

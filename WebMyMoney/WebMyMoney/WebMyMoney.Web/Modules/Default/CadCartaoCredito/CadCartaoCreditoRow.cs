@@ -11,39 +11,44 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadCartaoCredito]")]
     [DisplayName("Cad Cartao Credito"), InstanceName("Cad Cartao Credito")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:Visualizar")]
+    [ModifyPermission("Usuario:Editar")]
+    [LookupScript(Permission = "*")]
     public sealed class CadCartaoCreditoRow : Row, IIdRow, INameRow
     {
-        [DisplayName("Cad Cartao Credito Id"), Identity]
+        [DisplayName("Cartao Credito Id"), Identity]
         public Int32? CadCartaoCreditoId
         {
             get { return Fields.CadCartaoCreditoId[this]; }
             set { Fields.CadCartaoCreditoId[this] = value; }
         }
 
-        [DisplayName("Cad Conta"), NotNull, ForeignKey("[dbo].[CadConta]", "CadContaId"), LeftJoin("jCadConta"), TextualField("CadContaTitulo")]
+        [DisplayName("Conta"), NotNull, ForeignKey("[dbo].[CadConta]", "CadContaId"), LeftJoin("jCadConta"), TextualField("CadContaTitulo")]
+        [LookupEditor(typeof(CadContaRow)), QuickFilter]
         public Int32? CadContaId
         {
             get { return Fields.CadContaId[this]; }
             set { Fields.CadContaId[this] = value; }
         }
 
-        [DisplayName("Cad Grupo Familiar"), NotNull, ForeignKey("[dbo].[CadGrupoFamiliar]", "CadGrupoFamiliarId"), LeftJoin("jCadGrupoFamiliar"), TextualField("CadGrupoFamiliarCodigoAcesso")]
+        [DisplayName("Grupo Familiar"), NotNull, ForeignKey("[dbo].[CadGrupoFamiliar]", "CadGrupoFamiliarId"), LeftJoin("jCadGrupoFamiliar"), TextualField("CadGrupoFamiliarCodigoAcesso")]
+        [LookupEditor(typeof(CadGrupoFamiliarRow)), QuickFilter]
         public Int32? CadGrupoFamiliarId
         {
             get { return Fields.CadGrupoFamiliarId[this]; }
             set { Fields.CadGrupoFamiliarId[this] = value; }
         }
 
-        [DisplayName("Cad Usuario"), NotNull, ForeignKey("[dbo].[CadUsuario]", "CadUsuarioId"), LeftJoin("jCadUsuario"), TextualField("CadUsuarioNome")]
+        [DisplayName("Usuário"), NotNull, ForeignKey("[dbo].[CadUsuario]", "CadUsuarioId"), LeftJoin("jCadUsuario"), TextualField("CadUsuarioNome")]
+        [LookupEditor(typeof(CadUsuarioRow)), QuickFilter]
         public Int32? CadUsuarioId
         {
             get { return Fields.CadUsuarioId[this]; }
             set { Fields.CadUsuarioId[this] = value; }
         }
 
-        [DisplayName("Codigo Tab Tipo Cartao Credito"), NotNull, ForeignKey("[dbo].[TabTipoCartaoCredito]", "CodigoTabTipoCartaoCredito"), LeftJoin("jCodigoTabTipoCartaoCredito"), TextualField("CodigoTabTipoCartaoCreditoDescricao")]
+        [DisplayName("Tipo Cartao Credito"), NotNull, ForeignKey("[dbo].[TabTipoCartaoCredito]", "CodigoTabTipoCartaoCredito"), LeftJoin("jCodigoTabTipoCartaoCredito"), TextualField("CodigoTabTipoCartaoCreditoDescricao")]
+        [LookupEditor(typeof(TabTipoCartaoCreditoRow)), QuickFilter]
         public Int32? CodigoTabTipoCartaoCredito
         {
             get { return Fields.CodigoTabTipoCartaoCredito[this]; }
@@ -64,25 +69,25 @@ namespace WebMyMoney.Default.Entities
             set { Fields.Descricao[this] = value; }
         }
 
-        [DisplayName("Data Pagamento Fatura"), NotNull]
-        public DateTime? DataPagamentoFatura
-        {
-            get { return Fields.DataPagamentoFatura[this]; }
-            set { Fields.DataPagamentoFatura[this] = value; }
-        }
+        //[DisplayName("Data Pagamento Fatura"), NotNull]
+        //public DateTime? DataPagamentoFatura
+        //{
+        //    get { return Fields.DataPagamentoFatura[this]; }
+        //    set { Fields.DataPagamentoFatura[this] = value; }
+        //}
 
-        [DisplayName("Dia Pagar Fatura"), NotNull]
+        [DisplayName("Dia Vencimento Fatura"), NotNull]
         public Int32? DiaPagarFatura
         {
             get { return Fields.DiaPagarFatura[this]; }
             set { Fields.DiaPagarFatura[this] = value; }
         }
 
-        [DisplayName("Data Fechamento Fatura"), NotNull]
-        public DateTime? DataFechamentoFatura
+        [DisplayName("Data Vencimento fatura"), NotNull]
+        public DateTime? DiaVencimentofatura
         {
-            get { return Fields.DataFechamentoFatura[this]; }
-            set { Fields.DataFechamentoFatura[this] = value; }
+            get { return Fields.DiaVencimentofatura[this]; }
+            set { Fields.DiaVencimentofatura[this] = value; }
         }
 
         [DisplayName("Dia Fechar Fatura"), NotNull]
@@ -106,12 +111,12 @@ namespace WebMyMoney.Default.Entities
             set { Fields.ValorLimiteAtual[this] = value; }
         }
 
-        [DisplayName("Valor Parcial Fatura Atual"), Size(18)]
-        public Decimal? ValorParcialFaturaAtual
-        {
-            get { return Fields.ValorParcialFaturaAtual[this]; }
-            set { Fields.ValorParcialFaturaAtual[this] = value; }
-        }
+        //[DisplayName("Valor Parcial Fatura Atual"), Size(18)]
+        //public Decimal? ValorParcialFaturaAtual
+        //{
+        //    get { return Fields.ValorParcialFaturaAtual[this]; }
+        //    set { Fields.ValorParcialFaturaAtual[this] = value; }
+        //}
 
         [DisplayName("Saldo"), Size(18)]
         public Decimal? Saldo
@@ -291,6 +296,8 @@ namespace WebMyMoney.Default.Entities
             get { return Fields.Titulo; }
         }
 
+       
+
         public static readonly RowFields Fields = new RowFields().Init();
 
         public CadCartaoCreditoRow()
@@ -307,15 +314,16 @@ namespace WebMyMoney.Default.Entities
             public Int32Field CodigoTabTipoCartaoCredito;
             public StringField Titulo;
             public StringField Descricao;
-            public DateTimeField DataPagamentoFatura;
+            //public DateTimeField DataPagamentoFatura;
             public Int32Field DiaPagarFatura;
-            public DateTimeField DataFechamentoFatura;
+            //public DateTimeField DataFechamentoFatura;
             public Int32Field DiaFecharFatura;
             public DecimalField ValorLimiteTotal;
             public DecimalField ValorLimiteAtual;
-            public DecimalField ValorParcialFaturaAtual;
+            //public DecimalField ValorParcialFaturaAtual;
             public DecimalField Saldo;
             public BooleanField Ativo;
+            public DateTimeField DiaVencimentofatura;
 
             public Int32Field CadContaCadGrupoFamiliarId;
             public Int32Field CadContaCadUsuarioId;

@@ -11,8 +11,8 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadGrupoFamiliar]")]
     [DisplayName("Cad Grupo Familiar"), InstanceName("Cad Grupo Familiar")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:Visualizar")]
+    [ModifyPermission("Usuario:Editar")]
     [LookupScript(Permission = "*")]
     public sealed class CadGrupoFamiliarRow : Row, IIdRow, INameRow
     {

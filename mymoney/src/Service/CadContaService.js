@@ -9,9 +9,7 @@ export  default class CadContaService extends BaseService {
  
   
   async getDashboard(listRequest) {
-    console.log(this.api_url);
     return await this.post(this.api_url + 'GetDashboard/',listRequest)
-    
   };
 
 

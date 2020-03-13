@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface CadGrupoFamiliarRow {
         CadGrupoFamiliarId?: number;
         CadAssinanteId?: number;
@@ -17,41 +16,32 @@ namespace WebMyMoney.Default {
 
     export namespace CadGrupoFamiliarRow {
         export const idProperty = 'CadGrupoFamiliarId';
-        export const nameProperty = 'CodigoAcesso';
+        export const nameProperty = 'CadAssinanteUsarioAdminNome';
         export const localTextPrefix = 'Default.CadGrupoFamiliar';
-        export const deletePermission = 'Administration:General';
-        export const insertPermission = 'Administration:General';
-        export const readPermission = 'Administration:General';
-        export const updatePermission = 'Administration:General';
+        export const lookupKey = 'Default.CadGrupoFamiliar';
 
-        export namespace Fields {
-            export declare const CadGrupoFamiliarId;
-            export declare const CadAssinanteId;
-            export declare const Ativo;
-            export declare const DataCriacao;
-            export declare const CodigoAcesso;
-            export declare const QdteUsuarios;
-            export declare const CadAssinanteDataCriacao;
-            export declare const CadAssinanteUsuarioAdminId;
-            export declare const CadAssinanteUsarioAdminNome;
-            export declare const CadAssinanteUsuarioAdminEmail;
-            export declare const CadAssinanteQdteGrupoFamiliar;
-            export declare const CadAssinanteAtivo;
+        export function getLookup(): Q.Lookup<CadGrupoFamiliarRow> {
+            return Q.getLookup<CadGrupoFamiliarRow>('Default.CadGrupoFamiliar');
         }
+        export const deletePermission = 'Usuario:Editar';
+        export const insertPermission = 'Usuario:Editar';
+        export const readPermission = 'Usuario:Visualizar';
+        export const updatePermission = 'Usuario:Editar';
 
-        [
-            'CadGrupoFamiliarId',
-            'CadAssinanteId',
-            'Ativo',
-            'DataCriacao',
-            'CodigoAcesso',
-            'QdteUsuarios',
-            'CadAssinanteDataCriacao',
-            'CadAssinanteUsuarioAdminId',
-            'CadAssinanteUsarioAdminNome',
-            'CadAssinanteUsuarioAdminEmail',
-            'CadAssinanteQdteGrupoFamiliar',
-            'CadAssinanteAtivo'
-        ].forEach(x => (<any>Fields)[x] = x);
+        export declare const enum Fields {
+            CadGrupoFamiliarId = "CadGrupoFamiliarId",
+            CadAssinanteId = "CadAssinanteId",
+            Ativo = "Ativo",
+            DataCriacao = "DataCriacao",
+            CodigoAcesso = "CodigoAcesso",
+            QdteUsuarios = "QdteUsuarios",
+            CadAssinanteDataCriacao = "CadAssinanteDataCriacao",
+            CadAssinanteUsuarioAdminId = "CadAssinanteUsuarioAdminId",
+            CadAssinanteUsarioAdminNome = "CadAssinanteUsarioAdminNome",
+            CadAssinanteUsuarioAdminEmail = "CadAssinanteUsuarioAdminEmail",
+            CadAssinanteQdteGrupoFamiliar = "CadAssinanteQdteGrupoFamiliar",
+            CadAssinanteAtivo = "CadAssinanteAtivo"
+        }
     }
 }
+

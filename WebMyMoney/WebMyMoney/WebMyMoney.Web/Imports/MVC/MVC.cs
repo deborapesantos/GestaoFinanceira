@@ -4,6 +4,36 @@ namespace MVC
 {
     public static class Views
     {
+        public static class _Ext
+        {
+            public static class AuditLog
+            {
+                public const string AuditLogIndex = "~/Modules/_Ext/AuditLog/AuditLogIndex.cshtml";
+            }
+
+            public static class DevTools
+            {
+                public static class CompareEntityToDB
+                {
+                    public const string CompareEntityToDBIndex = "~/Modules/_Ext/DevTools/CompareEntityToDB/CompareEntityToDBIndex.cshtml";
+                }
+
+                public static class GenerateMigrationFromEntity
+                {
+                    public const string GenerateMigrationFromEntityIndex = "~/Modules/_Ext/DevTools/GenerateMigrationFromEntity/GenerateMigrationFromEntityIndex.cshtml";
+                    public const string GenerateMigrationFromEntityMigrationViewer = "~/Modules/_Ext/DevTools/GenerateMigrationFromEntity/GenerateMigrationFromEntityMigrationViewer.cshtml";
+                    public const string GenerateMigrationFromEntitySuccessMsg = "~/Modules/_Ext/DevTools/GenerateMigrationFromEntity/GenerateMigrationFromEntitySuccessMsg.cshtml";
+                }
+
+                public static class Sergen
+                {
+                    public const string SergenError = "~/Modules/_Ext/DevTools/Sergen/SergenError.cshtml";
+                    public const string SergenIndex = "~/Modules/_Ext/DevTools/Sergen/SergenIndex.cshtml";
+                }
+            }
+
+        }
+
         public static class Administration
         {
             public static class Language
@@ -83,201 +113,6 @@ namespace MVC
             public const string Widgets = "~/Modules/AdminLTE/Widgets.cshtml";
         }
 
-        public static class BasicSamples
-        {
-            public static class Dialogs
-            {
-                public static class ChartInDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/ChartInDialog/Index.cshtml";
-                }
-
-                public static class CloneableEntityDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/CloneableEntityDialog/Index.cshtml";
-                }
-
-                public static class DefaultValuesInNewDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/DefaultValuesInNewDialog/Index.cshtml";
-                }
-
-                public static class DialogBoxes
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/DialogBoxes/Index.cshtml";
-                }
-
-                public static class EntityDialogAsPanel
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/EntityDialogAsPanel/Index.cshtml";
-                }
-
-                public static class GetInsertedRecordId
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/GetInsertedRecordId/Index.cshtml";
-                }
-
-                public static class MultiColumnResponsiveDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/MultiColumnResponsiveDialog/Index.cshtml";
-                }
-
-                public static class OtherFormInTab
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/OtherFormInTab/Index.cshtml";
-                }
-
-                public static class OtherFormInTabOneBar
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/OtherFormInTabOneBar/Index.cshtml";
-                }
-
-                public static class PopulateLinkedData
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/PopulateLinkedData/Index.cshtml";
-                }
-
-                public static class ReadOnlyDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/ReadOnlyDialog/Index.cshtml";
-                }
-
-                public static class ResponsiveDialog
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/ResponsiveDialog/Index.cshtml";
-                }
-
-                public static class SerialAutoNumber
-                {
-                    public const string Index = "~/Modules/BasicSamples/Dialogs/SerialAutoNumber/Index.cshtml";
-                }
-
-            }
-
-            public static class Editors
-            {
-                public static class ChangingLookupText
-                {
-                    public const string Index = "~/Modules/BasicSamples/Editors/ChangingLookupText/Index.cshtml";
-                }
-
-                public static class FilteredLookupInDetail
-                {
-                    public const string Index = "~/Modules/BasicSamples/Editors/FilteredLookupInDetail/Index.cshtml";
-                }
-
-                public static class LookupFilterByMultipleValues
-                {
-                    public const string Index = "~/Modules/BasicSamples/Editors/LookupFilterByMultipleValues/Index.cshtml";
-                }
-
-                public static class SelectWithHardcodedValues
-                {
-                    public const string Index = "~/Modules/BasicSamples/Editors/SelectWithHardcodedValues/Index.cshtml";
-                }
-
-                public static class StaticTextBlock
-                {
-                    public const string Index = "~/Modules/BasicSamples/Editors/StaticTextBlock/Index.cshtml";
-                }
-
-            }
-
-            public static class Grids
-            {
-                public static class CancellableBulkAction
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/CancellableBulkAction/Index.cshtml";
-                }
-
-                public static class ConditionalFormatting
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/ConditionalFormatting/Index.cshtml";
-                }
-
-                public static class CustomLinksInGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/CustomLinksInGrid/Index.cshtml";
-                }
-
-                public static class DragDropInTreeGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/DragDropInTreeGrid/Index.cshtml";
-                }
-
-                public static class EnablingRowSelection
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/EnablingRowSelection/Index.cshtml";
-                }
-
-                public static class GridFilteredByCriteria
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/GridFilteredByCriteria/Index.cshtml";
-                }
-
-                public static class GroupingAndSummariesInGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/GroupingAndSummariesInGrid/Index.cshtml";
-                }
-
-                public static class InitialValuesForQuickFilters
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/InitialValuesForQuickFilters/Index.cshtml";
-                }
-
-                public static class InlineActionButtons
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/InlineActionButtons/Index.cshtml";
-                }
-
-                public static class InlineImageInGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/InlineImageInGrid/Index.cshtml";
-                }
-
-                public static class ProductExcelImport
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/ProductExcelImport/Index.cshtml";
-                }
-
-                public static class QuickFilterCustomization
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/QuickFilterCustomization/Index.cshtml";
-                }
-
-                public static class RemovingAddButton
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/RemovingAddButton/Index.cshtml";
-                }
-
-                public static class StoredProcedureGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/StoredProcedureGrid/Index.cshtml";
-                }
-
-                public static class TreeGrid
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/TreeGrid/Index.cshtml";
-                }
-
-                public static class ViewWithoutID
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/ViewWithoutID/Index.cshtml";
-                }
-
-                public static class VSGalleryQA
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/VSGalleryQA/Index.cshtml";
-                }
-
-                public static class WrappedHeaders
-                {
-                    public const string Index = "~/Modules/BasicSamples/Grids/WrappedHeaders/Index.cshtml";
-                }
-            }
-
-        }
-
         public static class Common
         {
             public static class Dashboard
@@ -288,6 +123,85 @@ namespace MVC
             public static class Reporting
             {
                 public const string ReportPage = "~/Modules/Common/Reporting/ReportPage.cshtml";
+            }
+
+        }
+
+        public static class Default
+        {
+            public static class CadAssinante
+            {
+                public const string CadAssinanteIndex = "~/Modules/Default/CadAssinante/CadAssinanteIndex.cshtml";
+            }
+
+            public static class CadCartaoCredito
+            {
+                public const string CadCartaoCreditoIndex = "~/Modules/Default/CadCartaoCredito/CadCartaoCreditoIndex.cshtml";
+            }
+
+            public static class CadConta
+            {
+                public const string CadContaIndex = "~/Modules/Default/CadConta/CadContaIndex.cshtml";
+            }
+
+            public static class CadDespesa
+            {
+                public const string CadDespesaIndex = "~/Modules/Default/CadDespesa/CadDespesaIndex.cshtml";
+            }
+
+            public static class CadFaturaCartaoCredito
+            {
+                public const string CadFaturaCartaoCreditoIndex = "~/Modules/Default/CadFaturaCartaoCredito/CadFaturaCartaoCreditoIndex.cshtml";
+            }
+
+            public static class CadGrupoFamiliar
+            {
+                public const string CadGrupoFamiliarIndex = "~/Modules/Default/CadGrupoFamiliar/CadGrupoFamiliarIndex.cshtml";
+            }
+
+            public static class CadObjetivo
+            {
+                public const string CadObjetivoIndex = "~/Modules/Default/CadObjetivo/CadObjetivoIndex.cshtml";
+            }
+
+            public static class CadParticipante
+            {
+                public const string CadParticipanteIndex = "~/Modules/Default/CadParticipante/CadParticipanteIndex.cshtml";
+            }
+
+            public static class CadReceita
+            {
+                public const string CadReceitaIndex = "~/Modules/Default/CadReceita/CadReceitaIndex.cshtml";
+            }
+
+            public static class CadUsuario
+            {
+                public const string CadUsuarioIndex = "~/Modules/Default/CadUsuario/CadUsuarioIndex.cshtml";
+            }
+
+            public static class TabTipoCartaoCredito
+            {
+                public const string TabTipoCartaoCreditoIndex = "~/Modules/Default/TabTipoCartaoCredito/TabTipoCartaoCreditoIndex.cshtml";
+            }
+
+            public static class TabTipoConta
+            {
+                public const string TabTipoContaIndex = "~/Modules/Default/TabTipoConta/TabTipoContaIndex.cshtml";
+            }
+
+            public static class TabTipoDespesa
+            {
+                public const string TabTipoDespesaIndex = "~/Modules/Default/TabTipoDespesa/TabTipoDespesaIndex.cshtml";
+            }
+
+            public static class TabTipoObjetivo
+            {
+                public const string TabTipoObjetivoIndex = "~/Modules/Default/TabTipoObjetivo/TabTipoObjetivoIndex.cshtml";
+            }
+
+            public static class TabTipoReceita
+            {
+                public const string TabTipoReceitaIndex = "~/Modules/Default/TabTipoReceita/TabTipoReceitaIndex.cshtml";
             }
         }
 
@@ -328,56 +242,6 @@ namespace MVC
                     public const string AccountSignUp_AdminLTE = "~/Modules/Membership/Account/SignUp/AccountSignUp.AdminLTE.cshtml";
                 }
             }
-
-        }
-
-        public static class Northwind
-        {
-            public static class Category
-            {
-                public const string CategoryIndex = "~/Modules/Northwind/Category/CategoryIndex.cshtml";
-            }
-
-            public static class Customer
-            {
-                public const string CustomerIndex = "~/Modules/Northwind/Customer/CustomerIndex.cshtml";
-            }
-
-            public static class Order
-            {
-                public const string OrderDetailReport = "~/Modules/Northwind/Order/OrderDetailReport.cshtml";
-                public const string OrderIndex = "~/Modules/Northwind/Order/OrderIndex.cshtml";
-            }
-
-            public static class OrderDetail
-            {
-                public const string OrderDetailIndex = "~/Modules/Northwind/OrderDetail/OrderDetailIndex.cshtml";
-            }
-
-            public static class Product
-            {
-                public const string ProductIndex = "~/Modules/Northwind/Product/ProductIndex.cshtml";
-            }
-
-            public static class Region
-            {
-                public const string RegionIndex = "~/Modules/Northwind/Region/RegionIndex.cshtml";
-            }
-
-            public static class Shipper
-            {
-                public const string ShipperIndex = "~/Modules/Northwind/Shipper/ShipperIndex.cshtml";
-            }
-
-            public static class Supplier
-            {
-                public const string SupplierIndex = "~/Modules/Northwind/Supplier/SupplierIndex.cshtml";
-            }
-
-            public static class Territory
-            {
-                public const string TerritoryIndex = "~/Modules/Northwind/Territory/TerritoryIndex.cshtml";
-            }
         }
 
         public static class Shared
@@ -389,6 +253,11 @@ namespace MVC
             public const string _LayoutSlimHead = "~/Views/Shared/_LayoutSlimHead.cshtml";
             public const string Error = "~/Views/Shared/Error.cshtml";
             public const string LeftNavigation = "~/Views/Shared/LeftNavigation.cshtml";
+        }
+
+        public static class Utils
+        {
+            public const string Contato = "~/Modules/Utils/Contato.cshtml";
         }
     }
 }

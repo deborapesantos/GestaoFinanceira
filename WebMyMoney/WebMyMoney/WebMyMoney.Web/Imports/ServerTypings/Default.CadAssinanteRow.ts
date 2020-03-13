@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface CadAssinanteRow {
         CadAssinanteId?: number;
         DataCriacao?: string;
@@ -8,35 +7,32 @@ namespace WebMyMoney.Default {
         UsuarioAdminEmail?: string;
         QdteGrupoFamiliar?: number;
         Ativo?: boolean;
+        Telefone?: string;
+        Username?: string;
+        Senha?: string;
     }
 
     export namespace CadAssinanteRow {
         export const idProperty = 'CadAssinanteId';
         export const nameProperty = 'UsarioAdminNome';
         export const localTextPrefix = 'Default.CadAssinante';
-        export const deletePermission = 'Administration:General';
-        export const insertPermission = 'Administration:General';
-        export const readPermission = 'Administration:General';
-        export const updatePermission = 'Administration:General';
+        export const deletePermission = 'Usuario:General';
+        export const insertPermission = 'Usuario:General';
+        export const readPermission = 'Usuario:General';
+        export const updatePermission = 'Usuario:General';
 
-        export namespace Fields {
-            export declare const CadAssinanteId;
-            export declare const DataCriacao;
-            export declare const UsuarioAdminId;
-            export declare const UsarioAdminNome;
-            export declare const UsuarioAdminEmail;
-            export declare const QdteGrupoFamiliar;
-            export declare const Ativo;
+        export declare const enum Fields {
+            CadAssinanteId = "CadAssinanteId",
+            DataCriacao = "DataCriacao",
+            UsuarioAdminId = "UsuarioAdminId",
+            UsarioAdminNome = "UsarioAdminNome",
+            UsuarioAdminEmail = "UsuarioAdminEmail",
+            QdteGrupoFamiliar = "QdteGrupoFamiliar",
+            Ativo = "Ativo",
+            Telefone = "Telefone",
+            Username = "Username",
+            Senha = "Senha"
         }
-
-        [
-            'CadAssinanteId',
-            'DataCriacao',
-            'UsuarioAdminId',
-            'UsarioAdminNome',
-            'UsuarioAdminEmail',
-            'QdteGrupoFamiliar',
-            'Ativo'
-        ].forEach(x => (<any>Fields)[x] = x);
     }
 }
+

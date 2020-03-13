@@ -11,8 +11,8 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadConta]")]
     [DisplayName("Cad Conta"), InstanceName("Cad Conta")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:Visualizar")]
+    [ModifyPermission("Usuario:Editar")]
     [LookupScript(Permission = "*")]
     public sealed class CadContaRow : Row, IIdRow, INameRow
     {
@@ -47,14 +47,14 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CodigoTabTipoConta[this] = value; }
         }
 
-        [DisplayName("Valor Inicial"), Size(18)]
+        [DisplayName("Valor Inicial"), DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
         public Decimal? ValorInicial
         {
             get { return Fields.ValorInicial[this]; }
             set { Fields.ValorInicial[this] = value; }
         }
 
-        [DisplayName("Saldo Atual"), Size(18)]
+        [DisplayName("Saldo Atual"), DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
         public Decimal? SaldoAtual
         {
             get { return Fields.SaldoAtual[this]; }
@@ -68,6 +68,13 @@ namespace WebMyMoney.Default.Entities
             set { Fields.Titulo[this] = value; }
         }
 
+        [DisplayName("Data Inicial"), NotNull]
+        public DateTime? DataInicial
+        {
+            get { return Fields.DataInicial[this]; }
+            set { Fields.DataInicial[this] = value; }
+        }
+
         [DisplayName("Ativo")]
         public Boolean? Ativo
         {
@@ -75,12 +82,7 @@ namespace WebMyMoney.Default.Entities
             set { Fields.Ativo[this] = value; }
         }
 
-        [DisplayName("Data Inicial"), NotNull]
-        public DateTime? DataInicial
-        {
-            get { return Fields.DataInicial[this]; }
-            set { Fields.DataInicial[this] = value; }
-        }
+      
 
         [DisplayName("Cad Grupo Familiar Cad Assinante Id"), Expression("jCadGrupoFamiliar.[CadAssinanteId]")]
         public Int32? CadGrupoFamiliarCadAssinanteId

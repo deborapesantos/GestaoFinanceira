@@ -22,8 +22,14 @@ let formatDateAsString = (date)=>{
   return  moment(date).format('DD/MM')+" - " + moment(date).format('HH')+ "h" + moment(date).format('mm') + 'min'
 }
 
+
+let currencyFormat = (num) =>{
+  return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
 export default {
   getThumbUrl,
   getImageUrl,
-  formatDateAsString
+  formatDateAsString,
+  currencyFormat
 }

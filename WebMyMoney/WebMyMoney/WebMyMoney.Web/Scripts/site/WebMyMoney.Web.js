@@ -37,6 +37,10 @@ var WebMyMoney;
                 return Q.getLookup('Administration.Language');
             }
             LanguageRow.getLookup = getLookup;
+            LanguageRow.deletePermission = 'Administration:Translation';
+            LanguageRow.insertPermission = 'Administration:Translation';
+            LanguageRow.readPermission = 'Administration:Translation';
+            LanguageRow.updatePermission = 'Administration:Translation';
         })(LanguageRow = Administration.LanguageRow || (Administration.LanguageRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -59,6 +63,12 @@ var WebMyMoney;
                 };
             });
         })(LanguageService = Administration.LanguageService || (Administration.LanguageService = {}));
+    })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Administration;
+    (function (Administration) {
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -94,6 +104,10 @@ var WebMyMoney;
             RolePermissionRow.idProperty = 'RolePermissionId';
             RolePermissionRow.nameProperty = 'PermissionKey';
             RolePermissionRow.localTextPrefix = 'Administration.RolePermission';
+            RolePermissionRow.deletePermission = 'Administration:Security';
+            RolePermissionRow.insertPermission = 'Administration:Security';
+            RolePermissionRow.readPermission = 'Administration:Security';
+            RolePermissionRow.updatePermission = 'Administration:Security';
         })(RolePermissionRow = Administration.RolePermissionRow || (Administration.RolePermissionRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -129,6 +143,10 @@ var WebMyMoney;
                 return Q.getLookup('Administration.Role');
             }
             RoleRow.getLookup = getLookup;
+            RoleRow.deletePermission = 'Administration:Security';
+            RoleRow.insertPermission = 'Administration:Security';
+            RoleRow.readPermission = 'Administration:Security';
+            RoleRow.updatePermission = 'Administration:Security';
         })(RoleRow = Administration.RoleRow || (Administration.RoleRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -213,6 +231,10 @@ var WebMyMoney;
             UserPermissionRow.idProperty = 'UserPermissionId';
             UserPermissionRow.nameProperty = 'PermissionKey';
             UserPermissionRow.localTextPrefix = 'Administration.UserPermission';
+            UserPermissionRow.deletePermission = 'Administration:Security';
+            UserPermissionRow.insertPermission = 'Administration:Security';
+            UserPermissionRow.readPermission = 'Administration:Security';
+            UserPermissionRow.updatePermission = 'Administration:Security';
         })(UserPermissionRow = Administration.UserPermissionRow || (Administration.UserPermissionRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -244,6 +266,10 @@ var WebMyMoney;
         (function (UserRoleRow) {
             UserRoleRow.idProperty = 'UserRoleId';
             UserRoleRow.localTextPrefix = 'Administration.UserRole';
+            UserRoleRow.deletePermission = 'Administration:Security';
+            UserRoleRow.insertPermission = 'Administration:Security';
+            UserRoleRow.readPermission = 'Administration:Security';
+            UserRoleRow.updatePermission = 'Administration:Security';
         })(UserRoleRow = Administration.UserRoleRow || (Administration.UserRoleRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -272,7 +298,6 @@ var WebMyMoney;
         var UserRow;
         (function (UserRow) {
             UserRow.idProperty = 'UserId';
-            UserRow.isActiveProperty = 'IsActive';
             UserRow.nameProperty = 'Username';
             UserRow.localTextPrefix = 'Administration.User';
             UserRow.lookupKey = 'Administration.User';
@@ -280,6 +305,10 @@ var WebMyMoney;
                 return Q.getLookup('Administration.User');
             }
             UserRow.getLookup = getLookup;
+            UserRow.deletePermission = 'Administration:Security';
+            UserRow.insertPermission = 'Administration:Security';
+            UserRow.readPermission = 'Administration:Security';
+            UserRow.updatePermission = 'Administration:Security';
         })(UserRow = Administration.UserRow || (Administration.UserRow = {}));
     })(Administration = WebMyMoney.Administration || (WebMyMoney.Administration = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -314,6 +343,10 @@ var WebMyMoney;
             UserPreferenceRow.idProperty = 'UserPreferenceId';
             UserPreferenceRow.nameProperty = 'Name';
             UserPreferenceRow.localTextPrefix = 'Common.UserPreference';
+            UserPreferenceRow.deletePermission = '';
+            UserPreferenceRow.insertPermission = '';
+            UserPreferenceRow.readPermission = '';
+            UserPreferenceRow.updatePermission = '';
         })(UserPreferenceRow = Common.UserPreferenceRow || (Common.UserPreferenceRow = {}));
     })(Common = WebMyMoney.Common || (WebMyMoney.Common = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -341,27 +374,34 @@ var WebMyMoney;
     (function (Default) {
         var CadAssinanteForm = /** @class */ (function (_super) {
             __extends(CadAssinanteForm, _super);
-            function CadAssinanteForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadAssinanteForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadAssinanteForm.init) {
+                    CadAssinanteForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.DateEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.PasswordEditor;
+                    var w3 = s.IntegerEditor;
+                    var w4 = s.BooleanEditor;
+                    Q.initFormType(CadAssinanteForm, [
+                        'DataCriacao', w0,
+                        'Telefone', w1,
+                        'UsarioAdminNome', w1,
+                        'UsuarioAdminEmail', w1,
+                        'Username', w1,
+                        'Senha', w2,
+                        'QdteGrupoFamiliar', w3,
+                        'Ativo', w4,
+                        'UsuarioAdminId', w3
+                    ]);
+                }
+                return _this;
             }
             CadAssinanteForm.formKey = 'Default.CadAssinante';
             return CadAssinanteForm;
         }(Serenity.PrefixedContext));
         Default.CadAssinanteForm = CadAssinanteForm;
-        [,
-            ['DataCriacao', function () { return Serenity.DateEditor; }],
-            ['UsuarioAdminId', function () { return Serenity.IntegerEditor; }],
-            ['UsarioAdminNome', function () { return Serenity.StringEditor; }],
-            ['UsuarioAdminEmail', function () { return Serenity.StringEditor; }],
-            ['QdteGrupoFamiliar', function () { return Serenity.IntegerEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadAssinanteForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -373,22 +413,10 @@ var WebMyMoney;
             CadAssinanteRow.idProperty = 'CadAssinanteId';
             CadAssinanteRow.nameProperty = 'UsarioAdminNome';
             CadAssinanteRow.localTextPrefix = 'Default.CadAssinante';
-            CadAssinanteRow.deletePermission = 'Administration:General';
-            CadAssinanteRow.insertPermission = 'Administration:General';
-            CadAssinanteRow.readPermission = 'Administration:General';
-            CadAssinanteRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadAssinanteRow.Fields || (CadAssinanteRow.Fields = {}));
-            [
-                'CadAssinanteId',
-                'DataCriacao',
-                'UsuarioAdminId',
-                'UsarioAdminNome',
-                'UsuarioAdminEmail',
-                'QdteGrupoFamiliar',
-                'Ativo'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadAssinanteRow.deletePermission = 'Usuario:General';
+            CadAssinanteRow.insertPermission = 'Usuario:General';
+            CadAssinanteRow.readPermission = 'Usuario:General';
+            CadAssinanteRow.updatePermission = 'Usuario:General';
         })(CadAssinanteRow = Default.CadAssinanteRow || (Default.CadAssinanteRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -399,9 +427,6 @@ var WebMyMoney;
         var CadAssinanteService;
         (function (CadAssinanteService) {
             CadAssinanteService.baseUrl = 'Default/CadAssinante';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadAssinanteService.Methods || (CadAssinanteService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -412,7 +437,6 @@ var WebMyMoney;
                 CadAssinanteService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadAssinanteService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadAssinanteService.baseUrl + '/' + x;
             });
         })(CadAssinanteService = Default.CadAssinanteService || (Default.CadAssinanteService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -423,36 +447,39 @@ var WebMyMoney;
     (function (Default) {
         var CadCartaoCreditoForm = /** @class */ (function (_super) {
             __extends(CadCartaoCreditoForm, _super);
-            function CadCartaoCreditoForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadCartaoCreditoForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadCartaoCreditoForm.init) {
+                    CadCartaoCreditoForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.IntegerEditor;
+                    var w4 = s.DecimalEditor;
+                    var w5 = s.BooleanEditor;
+                    Q.initFormType(CadCartaoCreditoForm, [
+                        'CadContaId', w0,
+                        'CadGrupoFamiliarId', w0,
+                        'CadUsuarioId', w0,
+                        'CodigoTabTipoCartaoCredito', w0,
+                        'Titulo', w1,
+                        'Descricao', w1,
+                        'DiaVencimentofatura', w2,
+                        'DiaPagarFatura', w3,
+                        'DiaFecharFatura', w3,
+                        'ValorLimiteTotal', w4,
+                        'ValorLimiteAtual', w4,
+                        'Saldo', w4,
+                        'Ativo', w5
+                    ]);
+                }
+                return _this;
             }
             CadCartaoCreditoForm.formKey = 'Default.CadCartaoCredito';
             return CadCartaoCreditoForm;
         }(Serenity.PrefixedContext));
         Default.CadCartaoCreditoForm = CadCartaoCreditoForm;
-        [,
-            ['CadContaId', function () { return Serenity.IntegerEditor; }],
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['CadUsuarioId', function () { return Serenity.IntegerEditor; }],
-            ['CodigoTabTipoCartaoCredito', function () { return Serenity.IntegerEditor; }],
-            ['Titulo', function () { return Serenity.StringEditor; }],
-            ['Descricao', function () { return Serenity.StringEditor; }],
-            ['DataPagamentoFatura', function () { return Serenity.DateEditor; }],
-            ['DiaPagarFatura', function () { return Serenity.IntegerEditor; }],
-            ['DataFechamentoFatura', function () { return Serenity.DateEditor; }],
-            ['DiaFecharFatura', function () { return Serenity.IntegerEditor; }],
-            ['ValorLimiteTotal', function () { return Serenity.DecimalEditor; }],
-            ['ValorLimiteAtual', function () { return Serenity.DecimalEditor; }],
-            ['ValorParcialFaturaAtual', function () { return Serenity.DecimalEditor; }],
-            ['Saldo', function () { return Serenity.DecimalEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadCartaoCreditoForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -464,53 +491,15 @@ var WebMyMoney;
             CadCartaoCreditoRow.idProperty = 'CadCartaoCreditoId';
             CadCartaoCreditoRow.nameProperty = 'Titulo';
             CadCartaoCreditoRow.localTextPrefix = 'Default.CadCartaoCredito';
-            CadCartaoCreditoRow.deletePermission = 'Administration:General';
-            CadCartaoCreditoRow.insertPermission = 'Administration:General';
-            CadCartaoCreditoRow.readPermission = 'Administration:General';
-            CadCartaoCreditoRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadCartaoCreditoRow.Fields || (CadCartaoCreditoRow.Fields = {}));
-            [
-                'CadCartaoCreditoId',
-                'CadContaId',
-                'CadGrupoFamiliarId',
-                'CadUsuarioId',
-                'CodigoTabTipoCartaoCredito',
-                'Titulo',
-                'Descricao',
-                'DataPagamentoFatura',
-                'DiaPagarFatura',
-                'DataFechamentoFatura',
-                'DiaFecharFatura',
-                'ValorLimiteTotal',
-                'ValorLimiteAtual',
-                'ValorParcialFaturaAtual',
-                'Saldo',
-                'Ativo',
-                'CadContaCadGrupoFamiliarId',
-                'CadContaCadUsuarioId',
-                'CadContaCodigoTabTipoConta',
-                'CadContaValorInicial',
-                'CadContaSaldoAtual',
-                'CadContaTitulo',
-                'CadContaAtivo',
-                'CadContaDataInicial',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'CadUsuarioCadGrupoFamiliarId',
-                'CadUsuarioUserId',
-                'CadUsuarioNome',
-                'CadUsuarioTelefone',
-                'CadUsuarioDataCriacao',
-                'CadUsuarioEmail',
-                'CadUsuarioAtivo',
-                'CodigoTabTipoCartaoCreditoDescricao',
-                'CodigoTabTipoCartaoCreditoIcone'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadCartaoCreditoRow.lookupKey = 'Default.CadCartaoCredito';
+            function getLookup() {
+                return Q.getLookup('Default.CadCartaoCredito');
+            }
+            CadCartaoCreditoRow.getLookup = getLookup;
+            CadCartaoCreditoRow.deletePermission = 'Usuario:Editar';
+            CadCartaoCreditoRow.insertPermission = 'Usuario:Editar';
+            CadCartaoCreditoRow.readPermission = 'Usuario:Visualizar';
+            CadCartaoCreditoRow.updatePermission = 'Usuario:Editar';
         })(CadCartaoCreditoRow = Default.CadCartaoCreditoRow || (Default.CadCartaoCreditoRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -521,20 +510,17 @@ var WebMyMoney;
         var CadCartaoCreditoService;
         (function (CadCartaoCreditoService) {
             CadCartaoCreditoService.baseUrl = 'Default/CadCartaoCredito';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadCartaoCreditoService.Methods || (CadCartaoCreditoService.Methods = {}));
             [
                 'Create',
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'ListarCartaoCreditoDepesas'
             ].forEach(function (x) {
                 CadCartaoCreditoService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadCartaoCreditoService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadCartaoCreditoService.baseUrl + '/' + x;
             });
         })(CadCartaoCreditoService = Default.CadCartaoCreditoService || (Default.CadCartaoCreditoService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -545,29 +531,33 @@ var WebMyMoney;
     (function (Default) {
         var CadContaForm = /** @class */ (function (_super) {
             __extends(CadContaForm, _super);
-            function CadContaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadContaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadContaForm.init) {
+                    CadContaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    var w1 = s.DecimalEditor;
+                    var w2 = s.StringEditor;
+                    var w3 = s.BooleanEditor;
+                    var w4 = s.DateEditor;
+                    Q.initFormType(CadContaForm, [
+                        'CadGrupoFamiliarId', w0,
+                        'CadUsuarioId', w0,
+                        'CodigoTabTipoConta', w0,
+                        'ValorInicial', w1,
+                        'SaldoAtual', w1,
+                        'Titulo', w2,
+                        'Ativo', w3,
+                        'DataInicial', w4
+                    ]);
+                }
+                return _this;
             }
             CadContaForm.formKey = 'Default.CadConta';
             return CadContaForm;
         }(Serenity.PrefixedContext));
         Default.CadContaForm = CadContaForm;
-        [,
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['CadUsuarioId', function () { return Serenity.IntegerEditor; }],
-            ['CodigoTabTipoConta', function () { return Serenity.IntegerEditor; }],
-            ['ValorInicial', function () { return Serenity.DecimalEditor; }],
-            ['SaldoAtual', function () { return Serenity.DecimalEditor; }],
-            ['Titulo', function () { return Serenity.StringEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }],
-            ['DataInicial', function () { return Serenity.DateEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadContaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -579,37 +569,15 @@ var WebMyMoney;
             CadContaRow.idProperty = 'CadContaId';
             CadContaRow.nameProperty = 'Titulo';
             CadContaRow.localTextPrefix = 'Default.CadConta';
-            CadContaRow.deletePermission = 'Administration:General';
-            CadContaRow.insertPermission = 'Administration:General';
-            CadContaRow.readPermission = 'Administration:General';
-            CadContaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadContaRow.Fields || (CadContaRow.Fields = {}));
-            [
-                'CadContaId',
-                'CadGrupoFamiliarId',
-                'CadUsuarioId',
-                'CodigoTabTipoConta',
-                'ValorInicial',
-                'SaldoAtual',
-                'Titulo',
-                'Ativo',
-                'DataInicial',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'CadUsuarioCadGrupoFamiliarId',
-                'CadUsuarioUserId',
-                'CadUsuarioNome',
-                'CadUsuarioTelefone',
-                'CadUsuarioDataCriacao',
-                'CadUsuarioEmail',
-                'CadUsuarioAtivo',
-                'CodigoTabTipoContaDescricao'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadContaRow.lookupKey = 'Default.CadConta';
+            function getLookup() {
+                return Q.getLookup('Default.CadConta');
+            }
+            CadContaRow.getLookup = getLookup;
+            CadContaRow.deletePermission = 'Usuario:Editar';
+            CadContaRow.insertPermission = 'Usuario:Editar';
+            CadContaRow.readPermission = 'Usuario:Visualizar';
+            CadContaRow.updatePermission = 'Usuario:Editar';
         })(CadContaRow = Default.CadContaRow || (Default.CadContaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -620,20 +588,17 @@ var WebMyMoney;
         var CadContaService;
         (function (CadContaService) {
             CadContaService.baseUrl = 'Default/CadConta';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadContaService.Methods || (CadContaService.Methods = {}));
             [
                 'Create',
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'GetDashboard'
             ].forEach(function (x) {
                 CadContaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadContaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadContaService.baseUrl + '/' + x;
             });
         })(CadContaService = Default.CadContaService || (Default.CadContaService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -644,36 +609,46 @@ var WebMyMoney;
     (function (Default) {
         var CadDespesaForm = /** @class */ (function (_super) {
             __extends(CadDespesaForm, _super);
-            function CadDespesaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadDespesaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadDespesaForm.init) {
+                    CadDespesaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.BooleanEditor;
+                    var w4 = s.IntegerEditor;
+                    var w5 = s.DecimalEditor;
+                    Q.initFormType(CadDespesaForm, [
+                        'CadContaId', w0,
+                        'CadGrupoFamiliarId', w0,
+                        'CadUsuarioId', w0,
+                        'CadFaturaCartaoCreditoId', w0,
+                        'CodigoTabTipoDespesa', w0,
+                        'CadParticipanteId', w0,
+                        'Titulo', w1,
+                        'DataPagamento', w2,
+                        'DataCriacao', w2,
+                        'IsFixo', w3,
+                        'DataFixaVencimento', w4,
+                        'IsParcelado', w3,
+                        'QdteParcelas', w4,
+                        'DataVencimento', w2,
+                        'ValorTotal', w5,
+                        'MultasJuros', w5,
+                        'Pago', w3,
+                        'Ativo', w3,
+                        'Imposto', w5,
+                        'Descontos', w5
+                    ]);
+                }
+                return _this;
             }
             CadDespesaForm.formKey = 'Default.CadDespesa';
             return CadDespesaForm;
         }(Serenity.PrefixedContext));
         Default.CadDespesaForm = CadDespesaForm;
-        [,
-            ['CadContaId', function () { return Serenity.IntegerEditor; }],
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['CadUsuarioId', function () { return Serenity.IntegerEditor; }],
-            ['CodigoTabTipoDespesa', function () { return Serenity.IntegerEditor; }],
-            ['Titulo', function () { return Serenity.StringEditor; }],
-            ['DataPagamento', function () { return Serenity.DateEditor; }],
-            ['DataCriacao', function () { return Serenity.DateEditor; }],
-            ['IsFixo', function () { return Serenity.BooleanEditor; }],
-            ['DataVencimento', function () { return Serenity.DateEditor; }],
-            ['ValorTotal', function () { return Serenity.DecimalEditor; }],
-            ['MultasJuros', function () { return Serenity.DecimalEditor; }],
-            ['DataFixaVencimento', function () { return Serenity.IntegerEditor; }],
-            ['Pago', function () { return Serenity.BooleanEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }],
-            ['Descontos', function () { return Serenity.DecimalEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadDespesaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -685,53 +660,10 @@ var WebMyMoney;
             CadDespesaRow.idProperty = 'CadDespesaId';
             CadDespesaRow.nameProperty = 'Titulo';
             CadDespesaRow.localTextPrefix = 'Default.CadDespesa';
-            CadDespesaRow.deletePermission = 'Administration:General';
-            CadDespesaRow.insertPermission = 'Administration:General';
-            CadDespesaRow.readPermission = 'Administration:General';
-            CadDespesaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadDespesaRow.Fields || (CadDespesaRow.Fields = {}));
-            [
-                'CadDespesaId',
-                'CadContaId',
-                'CadGrupoFamiliarId',
-                'CadUsuarioId',
-                'CodigoTabTipoDespesa',
-                'Titulo',
-                'DataPagamento',
-                'DataCriacao',
-                'IsFixo',
-                'DataVencimento',
-                'ValorTotal',
-                'MultasJuros',
-                'DataFixaVencimento',
-                'Pago',
-                'Ativo',
-                'Descontos',
-                'CadContaCadGrupoFamiliarId',
-                'CadContaCadUsuarioId',
-                'CadContaCodigoTabTipoConta',
-                'CadContaValorInicial',
-                'CadContaSaldoAtual',
-                'CadContaTitulo',
-                'CadContaAtivo',
-                'CadContaDataInicial',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'CadUsuarioCadGrupoFamiliarId',
-                'CadUsuarioUserId',
-                'CadUsuarioNome',
-                'CadUsuarioTelefone',
-                'CadUsuarioDataCriacao',
-                'CadUsuarioEmail',
-                'CadUsuarioAtivo',
-                'CodigoTabTipoDespesaDescricao',
-                'CodigoTabTipoDespesaIcone'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadDespesaRow.deletePermission = 'Usuario:Editar';
+            CadDespesaRow.insertPermission = 'Usuario:Editar';
+            CadDespesaRow.readPermission = 'Usuario:Visualizar';
+            CadDespesaRow.updatePermission = 'Usuario:Editar';
         })(CadDespesaRow = Default.CadDespesaRow || (Default.CadDespesaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -742,20 +674,17 @@ var WebMyMoney;
         var CadDespesaService;
         (function (CadDespesaService) {
             CadDespesaService.baseUrl = 'Default/CadDespesa';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadDespesaService.Methods || (CadDespesaService.Methods = {}));
             [
                 'Create',
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'ListCadDespesa'
             ].forEach(function (x) {
                 CadDespesaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadDespesaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadDespesaService.baseUrl + '/' + x;
             });
         })(CadDespesaService = Default.CadDespesaService || (Default.CadDespesaService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -764,28 +693,111 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Default;
     (function (Default) {
+        var CadFaturaCartaoCreditoForm = /** @class */ (function (_super) {
+            __extends(CadFaturaCartaoCreditoForm, _super);
+            function CadFaturaCartaoCreditoForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadFaturaCartaoCreditoForm.init) {
+                    CadFaturaCartaoCreditoForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    var w1 = s.IntegerEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.DecimalEditor;
+                    var w4 = s.BooleanEditor;
+                    Q.initFormType(CadFaturaCartaoCreditoForm, [
+                        'CadCartaoCreditoId', w0,
+                        'MesFaturaVigente', w1,
+                        'DiaVencimentoFatura', w2,
+                        'DataPagamentoFatura', w2,
+                        'DataFechamentoFatura', w2,
+                        'DiaFecharFatura', w1,
+                        'ValorParcialFaturaAtual', w3,
+                        'IsParcelarFatura', w4,
+                        'NumParcelasFatura', w1,
+                        'SaldoAnterior', w3,
+                        'Ativo', w4
+                    ]);
+                }
+                return _this;
+            }
+            CadFaturaCartaoCreditoForm.formKey = 'Default.CadFaturaCartaoCredito';
+            return CadFaturaCartaoCreditoForm;
+        }(Serenity.PrefixedContext));
+        Default.CadFaturaCartaoCreditoForm = CadFaturaCartaoCreditoForm;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadFaturaCartaoCreditoRow;
+        (function (CadFaturaCartaoCreditoRow) {
+            CadFaturaCartaoCreditoRow.idProperty = 'CadFaturaCartaoCreditoId';
+            CadFaturaCartaoCreditoRow.nameProperty = 'MesVigente';
+            CadFaturaCartaoCreditoRow.localTextPrefix = 'Default.CadFaturaCartaoCredito';
+            CadFaturaCartaoCreditoRow.lookupKey = 'Default.CadFaturaCartaoCredito';
+            function getLookup() {
+                return Q.getLookup('Default.CadFaturaCartaoCredito');
+            }
+            CadFaturaCartaoCreditoRow.getLookup = getLookup;
+            CadFaturaCartaoCreditoRow.deletePermission = 'Usuario:Editar';
+            CadFaturaCartaoCreditoRow.insertPermission = 'Usuario:Editar';
+            CadFaturaCartaoCreditoRow.readPermission = 'Usuario:Visualizar';
+            CadFaturaCartaoCreditoRow.updatePermission = 'Usuario:Editar';
+        })(CadFaturaCartaoCreditoRow = Default.CadFaturaCartaoCreditoRow || (Default.CadFaturaCartaoCreditoRow = {}));
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadFaturaCartaoCreditoService;
+        (function (CadFaturaCartaoCreditoService) {
+            CadFaturaCartaoCreditoService.baseUrl = 'Default/CadFaturaCartaoCredito';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                CadFaturaCartaoCreditoService[x] = function (r, s, o) {
+                    return Q.serviceRequest(CadFaturaCartaoCreditoService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(CadFaturaCartaoCreditoService = Default.CadFaturaCartaoCreditoService || (Default.CadFaturaCartaoCreditoService = {}));
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
         var CadGrupoFamiliarForm = /** @class */ (function (_super) {
             __extends(CadGrupoFamiliarForm, _super);
-            function CadGrupoFamiliarForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadGrupoFamiliarForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadGrupoFamiliarForm.init) {
+                    CadGrupoFamiliarForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.IntegerEditor;
+                    var w1 = s.BooleanEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.StringEditor;
+                    Q.initFormType(CadGrupoFamiliarForm, [
+                        'CadAssinanteId', w0,
+                        'Ativo', w1,
+                        'DataCriacao', w2,
+                        'CodigoAcesso', w3,
+                        'QdteUsuarios', w0
+                    ]);
+                }
+                return _this;
             }
             CadGrupoFamiliarForm.formKey = 'Default.CadGrupoFamiliar';
             return CadGrupoFamiliarForm;
         }(Serenity.PrefixedContext));
         Default.CadGrupoFamiliarForm = CadGrupoFamiliarForm;
-        [,
-            ['CadAssinanteId', function () { return Serenity.IntegerEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }],
-            ['DataCriacao', function () { return Serenity.DateEditor; }],
-            ['CodigoAcesso', function () { return Serenity.StringEditor; }],
-            ['QdteUsuarios', function () { return Serenity.IntegerEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadGrupoFamiliarForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -795,29 +807,17 @@ var WebMyMoney;
         var CadGrupoFamiliarRow;
         (function (CadGrupoFamiliarRow) {
             CadGrupoFamiliarRow.idProperty = 'CadGrupoFamiliarId';
-            CadGrupoFamiliarRow.nameProperty = 'CodigoAcesso';
+            CadGrupoFamiliarRow.nameProperty = 'CadAssinanteUsarioAdminNome';
             CadGrupoFamiliarRow.localTextPrefix = 'Default.CadGrupoFamiliar';
-            CadGrupoFamiliarRow.deletePermission = 'Administration:General';
-            CadGrupoFamiliarRow.insertPermission = 'Administration:General';
-            CadGrupoFamiliarRow.readPermission = 'Administration:General';
-            CadGrupoFamiliarRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadGrupoFamiliarRow.Fields || (CadGrupoFamiliarRow.Fields = {}));
-            [
-                'CadGrupoFamiliarId',
-                'CadAssinanteId',
-                'Ativo',
-                'DataCriacao',
-                'CodigoAcesso',
-                'QdteUsuarios',
-                'CadAssinanteDataCriacao',
-                'CadAssinanteUsuarioAdminId',
-                'CadAssinanteUsarioAdminNome',
-                'CadAssinanteUsuarioAdminEmail',
-                'CadAssinanteQdteGrupoFamiliar',
-                'CadAssinanteAtivo'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadGrupoFamiliarRow.lookupKey = 'Default.CadGrupoFamiliar';
+            function getLookup() {
+                return Q.getLookup('Default.CadGrupoFamiliar');
+            }
+            CadGrupoFamiliarRow.getLookup = getLookup;
+            CadGrupoFamiliarRow.deletePermission = 'Usuario:Editar';
+            CadGrupoFamiliarRow.insertPermission = 'Usuario:Editar';
+            CadGrupoFamiliarRow.readPermission = 'Usuario:Visualizar';
+            CadGrupoFamiliarRow.updatePermission = 'Usuario:Editar';
         })(CadGrupoFamiliarRow = Default.CadGrupoFamiliarRow || (Default.CadGrupoFamiliarRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -828,9 +828,6 @@ var WebMyMoney;
         var CadGrupoFamiliarService;
         (function (CadGrupoFamiliarService) {
             CadGrupoFamiliarService.baseUrl = 'Default/CadGrupoFamiliar';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadGrupoFamiliarService.Methods || (CadGrupoFamiliarService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -841,7 +838,6 @@ var WebMyMoney;
                 CadGrupoFamiliarService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadGrupoFamiliarService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadGrupoFamiliarService.baseUrl + '/' + x;
             });
         })(CadGrupoFamiliarService = Default.CadGrupoFamiliarService || (Default.CadGrupoFamiliarService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -852,33 +848,37 @@ var WebMyMoney;
     (function (Default) {
         var CadObjetivoForm = /** @class */ (function (_super) {
             __extends(CadObjetivoForm, _super);
-            function CadObjetivoForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadObjetivoForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadObjetivoForm.init) {
+                    CadObjetivoForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.IntegerEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.DecimalEditor;
+                    var w3 = s.DateEditor;
+                    var w4 = s.BooleanEditor;
+                    Q.initFormType(CadObjetivoForm, [
+                        'CadContaId', w0,
+                        'CadGrupoFamiliarId', w0,
+                        'CadUsuarioId', w0,
+                        'CodigoTabTipoObjetivo', w0,
+                        'Titulo', w1,
+                        'Descricao', w1,
+                        'ValorFinal', w2,
+                        'ValorInicial', w2,
+                        'ValorAtual', w2,
+                        'DataFinal', w3,
+                        'DataInicial', w3,
+                        'Ativo', w4
+                    ]);
+                }
+                return _this;
             }
             CadObjetivoForm.formKey = 'Default.CadObjetivo';
             return CadObjetivoForm;
         }(Serenity.PrefixedContext));
         Default.CadObjetivoForm = CadObjetivoForm;
-        [,
-            ['CadContaId', function () { return Serenity.IntegerEditor; }],
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['CadUsuarioId', function () { return Serenity.IntegerEditor; }],
-            ['CodigoTabTipoObjetivo', function () { return Serenity.IntegerEditor; }],
-            ['Titulo', function () { return Serenity.StringEditor; }],
-            ['Descricao', function () { return Serenity.StringEditor; }],
-            ['ValorFinal', function () { return Serenity.DecimalEditor; }],
-            ['ValorInicial', function () { return Serenity.DecimalEditor; }],
-            ['ValorAtual', function () { return Serenity.DecimalEditor; }],
-            ['DataFinal', function () { return Serenity.DateEditor; }],
-            ['DataInicial', function () { return Serenity.DateEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadObjetivoForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -890,49 +890,10 @@ var WebMyMoney;
             CadObjetivoRow.idProperty = 'CadObjetivoId';
             CadObjetivoRow.nameProperty = 'Titulo';
             CadObjetivoRow.localTextPrefix = 'Default.CadObjetivo';
-            CadObjetivoRow.deletePermission = 'Administration:General';
-            CadObjetivoRow.insertPermission = 'Administration:General';
-            CadObjetivoRow.readPermission = 'Administration:General';
-            CadObjetivoRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadObjetivoRow.Fields || (CadObjetivoRow.Fields = {}));
-            [
-                'CadObjetivoId',
-                'CadContaId',
-                'CadGrupoFamiliarId',
-                'CadUsuarioId',
-                'CodigoTabTipoObjetivo',
-                'Titulo',
-                'Descricao',
-                'ValorFinal',
-                'ValorInicial',
-                'ValorAtual',
-                'DataFinal',
-                'DataInicial',
-                'Ativo',
-                'CadContaCadGrupoFamiliarId',
-                'CadContaCadUsuarioId',
-                'CadContaCodigoTabTipoConta',
-                'CadContaValorInicial',
-                'CadContaSaldoAtual',
-                'CadContaTitulo',
-                'CadContaAtivo',
-                'CadContaDataInicial',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'CadUsuarioCadGrupoFamiliarId',
-                'CadUsuarioUserId',
-                'CadUsuarioNome',
-                'CadUsuarioTelefone',
-                'CadUsuarioDataCriacao',
-                'CadUsuarioEmail',
-                'CadUsuarioAtivo',
-                'CodigoTabTipoObjetivoDescricao'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadObjetivoRow.deletePermission = 'Usuario:Editar';
+            CadObjetivoRow.insertPermission = 'Usuario:Editar';
+            CadObjetivoRow.readPermission = 'Usuario:Visualizar';
+            CadObjetivoRow.updatePermission = 'Usuario:Editar';
         })(CadObjetivoRow = Default.CadObjetivoRow || (Default.CadObjetivoRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -943,9 +904,6 @@ var WebMyMoney;
         var CadObjetivoService;
         (function (CadObjetivoService) {
             CadObjetivoService.baseUrl = 'Default/CadObjetivo';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadObjetivoService.Methods || (CadObjetivoService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -956,7 +914,6 @@ var WebMyMoney;
                 CadObjetivoService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadObjetivoService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadObjetivoService.baseUrl + '/' + x;
             });
         })(CadObjetivoService = Default.CadObjetivoService || (Default.CadObjetivoService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -965,36 +922,112 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Default;
     (function (Default) {
+        var CadParticipanteForm = /** @class */ (function (_super) {
+            __extends(CadParticipanteForm, _super);
+            function CadParticipanteForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadParticipanteForm.init) {
+                    CadParticipanteForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.IntegerEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.BooleanEditor;
+                    Q.initFormType(CadParticipanteForm, [
+                        'CadGrupoFamiliarId', w0,
+                        'NomeRazaoSocial', w1,
+                        'CpfCnpj', w1,
+                        'Ativo', w2
+                    ]);
+                }
+                return _this;
+            }
+            CadParticipanteForm.formKey = 'Default.CadParticipante';
+            return CadParticipanteForm;
+        }(Serenity.PrefixedContext));
+        Default.CadParticipanteForm = CadParticipanteForm;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadParticipanteRow;
+        (function (CadParticipanteRow) {
+            CadParticipanteRow.idProperty = 'CadParticipanteId';
+            CadParticipanteRow.nameProperty = 'NomeRazaoSocial';
+            CadParticipanteRow.localTextPrefix = 'Default.CadParticipante';
+            CadParticipanteRow.lookupKey = 'Default.CadParticipante';
+            function getLookup() {
+                return Q.getLookup('Default.CadParticipante');
+            }
+            CadParticipanteRow.getLookup = getLookup;
+            CadParticipanteRow.deletePermission = 'Usuario:Editar';
+            CadParticipanteRow.insertPermission = 'Usuario:Editar';
+            CadParticipanteRow.readPermission = 'Usuario:Visualizar';
+            CadParticipanteRow.updatePermission = 'Usuario:Editar';
+        })(CadParticipanteRow = Default.CadParticipanteRow || (Default.CadParticipanteRow = {}));
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadParticipanteService;
+        (function (CadParticipanteService) {
+            CadParticipanteService.baseUrl = 'Default/CadParticipante';
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                CadParticipanteService[x] = function (r, s, o) {
+                    return Q.serviceRequest(CadParticipanteService.baseUrl + '/' + x, r, s, o);
+                };
+            });
+        })(CadParticipanteService = Default.CadParticipanteService || (Default.CadParticipanteService = {}));
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
         var CadReceitaForm = /** @class */ (function (_super) {
             __extends(CadReceitaForm, _super);
-            function CadReceitaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadReceitaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadReceitaForm.init) {
+                    CadReceitaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.LookupEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.BooleanEditor;
+                    var w4 = s.IntegerEditor;
+                    var w5 = s.DecimalEditor;
+                    Q.initFormType(CadReceitaForm, [
+                        'CadGrupoFamiliarId', w0,
+                        'CadContaId', w0,
+                        'CadUsuarioId', w0,
+                        'CodigoTabTipoReceita', w0,
+                        'Titulo', w1,
+                        'Descricao', w1,
+                        'DataRecebimento', w2,
+                        'DataCriacao', w2,
+                        'IsFixo', w3,
+                        'DataFixaRecebimento', w4,
+                        'Valor', w5,
+                        'Recebido', w3,
+                        'Ativo', w3
+                    ]);
+                }
+                return _this;
             }
             CadReceitaForm.formKey = 'Default.CadReceita';
             return CadReceitaForm;
         }(Serenity.PrefixedContext));
         Default.CadReceitaForm = CadReceitaForm;
-        [,
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['CadContaId', function () { return Serenity.IntegerEditor; }],
-            ['CadUsuarioId', function () { return Serenity.IntegerEditor; }],
-            ['CodigoTabTipoReceita', function () { return Serenity.IntegerEditor; }],
-            ['Titulo', function () { return Serenity.StringEditor; }],
-            ['Descricao', function () { return Serenity.StringEditor; }],
-            ['DataRecebimento', function () { return Serenity.DateEditor; }],
-            ['DataCriacao', function () { return Serenity.DateEditor; }],
-            ['IsFixo', function () { return Serenity.BooleanEditor; }],
-            ['DataFixaRecebimento', function () { return Serenity.IntegerEditor; }],
-            ['Valor', function () { return Serenity.DecimalEditor; }],
-            ['Recebido', function () { return Serenity.BooleanEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadReceitaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1006,50 +1039,10 @@ var WebMyMoney;
             CadReceitaRow.idProperty = 'CadReceitaId';
             CadReceitaRow.nameProperty = 'Titulo';
             CadReceitaRow.localTextPrefix = 'Default.CadReceita';
-            CadReceitaRow.deletePermission = 'Administration:General';
-            CadReceitaRow.insertPermission = 'Administration:General';
-            CadReceitaRow.readPermission = 'Administration:General';
-            CadReceitaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadReceitaRow.Fields || (CadReceitaRow.Fields = {}));
-            [
-                'CadReceitaId',
-                'CadGrupoFamiliarId',
-                'CadContaId',
-                'CadUsuarioId',
-                'CodigoTabTipoReceita',
-                'Titulo',
-                'Descricao',
-                'DataRecebimento',
-                'DataCriacao',
-                'IsFixo',
-                'DataFixaRecebimento',
-                'Valor',
-                'Recebido',
-                'Ativo',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'CadContaCadGrupoFamiliarId',
-                'CadContaCadUsuarioId',
-                'CadContaCodigoTabTipoConta',
-                'CadContaValorInicial',
-                'CadContaSaldoAtual',
-                'CadContaTitulo',
-                'CadContaAtivo',
-                'CadContaDataInicial',
-                'CadUsuarioCadGrupoFamiliarId',
-                'CadUsuarioUserId',
-                'CadUsuarioNome',
-                'CadUsuarioTelefone',
-                'CadUsuarioDataCriacao',
-                'CadUsuarioEmail',
-                'CadUsuarioAtivo',
-                'CodigoTabTipoReceitaDescricao'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadReceitaRow.deletePermission = 'Usuario:Editar';
+            CadReceitaRow.insertPermission = 'Usuario:Editar';
+            CadReceitaRow.readPermission = 'Usuario: Visualizar';
+            CadReceitaRow.updatePermission = 'Usuario:Editar';
         })(CadReceitaRow = Default.CadReceitaRow || (Default.CadReceitaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1060,20 +1053,17 @@ var WebMyMoney;
         var CadReceitaService;
         (function (CadReceitaService) {
             CadReceitaService.baseUrl = 'Default/CadReceita';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadReceitaService.Methods || (CadReceitaService.Methods = {}));
             [
                 'Create',
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'ListCadReceita'
             ].forEach(function (x) {
                 CadReceitaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadReceitaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadReceitaService.baseUrl + '/' + x;
             });
         })(CadReceitaService = Default.CadReceitaService || (Default.CadReceitaService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1084,28 +1074,31 @@ var WebMyMoney;
     (function (Default) {
         var CadUsuarioForm = /** @class */ (function (_super) {
             __extends(CadUsuarioForm, _super);
-            function CadUsuarioForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function CadUsuarioForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!CadUsuarioForm.init) {
+                    CadUsuarioForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.IntegerEditor;
+                    var w1 = s.StringEditor;
+                    var w2 = s.DateEditor;
+                    var w3 = s.BooleanEditor;
+                    Q.initFormType(CadUsuarioForm, [
+                        'CadGrupoFamiliarId', w0,
+                        'UserId', w0,
+                        'Nome', w1,
+                        'Telefone', w1,
+                        'DataCriacao', w2,
+                        'Email', w1,
+                        'Ativo', w3
+                    ]);
+                }
+                return _this;
             }
             CadUsuarioForm.formKey = 'Default.CadUsuario';
             return CadUsuarioForm;
         }(Serenity.PrefixedContext));
         Default.CadUsuarioForm = CadUsuarioForm;
-        [,
-            ['CadGrupoFamiliarId', function () { return Serenity.IntegerEditor; }],
-            ['UserId', function () { return Serenity.IntegerEditor; }],
-            ['Nome', function () { return Serenity.StringEditor; }],
-            ['Telefone', function () { return Serenity.StringEditor; }],
-            ['DataCriacao', function () { return Serenity.DateEditor; }],
-            ['Email', function () { return Serenity.StringEditor; }],
-            ['Ativo', function () { return Serenity.BooleanEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(CadUsuarioForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1117,42 +1110,15 @@ var WebMyMoney;
             CadUsuarioRow.idProperty = 'CadUsuarioId';
             CadUsuarioRow.nameProperty = 'Nome';
             CadUsuarioRow.localTextPrefix = 'Default.CadUsuario';
-            CadUsuarioRow.deletePermission = 'Administration:General';
-            CadUsuarioRow.insertPermission = 'Administration:General';
-            CadUsuarioRow.readPermission = 'Administration:General';
-            CadUsuarioRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = CadUsuarioRow.Fields || (CadUsuarioRow.Fields = {}));
-            [
-                'CadUsuarioId',
-                'CadGrupoFamiliarId',
-                'UserId',
-                'Nome',
-                'Telefone',
-                'DataCriacao',
-                'Email',
-                'Ativo',
-                'CadGrupoFamiliarCadAssinanteId',
-                'CadGrupoFamiliarAtivo',
-                'CadGrupoFamiliarDataCriacao',
-                'CadGrupoFamiliarCodigoAcesso',
-                'CadGrupoFamiliarQdteUsuarios',
-                'UserUsername',
-                'UserDisplayName',
-                'UserEmail',
-                'UserSource',
-                'UserPasswordHash',
-                'UserPasswordSalt',
-                'UserLastDirectoryUpdate',
-                'UserUserImage',
-                'UserInsertDate',
-                'UserInsertUserId',
-                'UserUpdateDate',
-                'UserUpdateUserId',
-                'UserIsActive',
-                'UserUsuarioId'
-            ].forEach(function (x) { return Fields[x] = x; });
+            CadUsuarioRow.lookupKey = 'Default.CadUsuario';
+            function getLookup() {
+                return Q.getLookup('Default.CadUsuario');
+            }
+            CadUsuarioRow.getLookup = getLookup;
+            CadUsuarioRow.deletePermission = 'Usuario:Editar';
+            CadUsuarioRow.insertPermission = 'Usuario:Editar';
+            CadUsuarioRow.readPermission = 'Usuario:Visualizar';
+            CadUsuarioRow.updatePermission = 'Usuario:Editar';
         })(CadUsuarioRow = Default.CadUsuarioRow || (Default.CadUsuarioRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1163,9 +1129,6 @@ var WebMyMoney;
         var CadUsuarioService;
         (function (CadUsuarioService) {
             CadUsuarioService.baseUrl = 'Default/CadUsuario';
-            var Methods;
-            (function (Methods) {
-            })(Methods = CadUsuarioService.Methods || (CadUsuarioService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1176,7 +1139,6 @@ var WebMyMoney;
                 CadUsuarioService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadUsuarioService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = CadUsuarioService.baseUrl + '/' + x;
             });
         })(CadUsuarioService = Default.CadUsuarioService || (Default.CadUsuarioService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1185,72 +1147,25 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Default;
     (function (Default) {
-        var RolePermissionsRow;
-        (function (RolePermissionsRow) {
-            RolePermissionsRow.idProperty = 'RolePermissionId';
-            RolePermissionsRow.nameProperty = 'PermissionKey';
-            RolePermissionsRow.localTextPrefix = 'Default.RolePermissions';
-            RolePermissionsRow.deletePermission = 'Administration:General';
-            RolePermissionsRow.insertPermission = 'Administration:General';
-            RolePermissionsRow.readPermission = 'Administration:General';
-            RolePermissionsRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = RolePermissionsRow.Fields || (RolePermissionsRow.Fields = {}));
-            [
-                'RolePermissionId',
-                'RoleId',
-                'PermissionKey'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(RolePermissionsRow = Default.RolePermissionsRow || (Default.RolePermissionsRow = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
-        var RolesRow;
-        (function (RolesRow) {
-            RolesRow.idProperty = 'RoleId';
-            RolesRow.nameProperty = 'RoleName';
-            RolesRow.localTextPrefix = 'Default.Roles';
-            RolesRow.deletePermission = 'Administration:General';
-            RolesRow.insertPermission = 'Administration:General';
-            RolesRow.readPermission = 'Administration:General';
-            RolesRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = RolesRow.Fields || (RolesRow.Fields = {}));
-            [
-                'RoleId',
-                'RoleName'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(RolesRow = Default.RolesRow || (Default.RolesRow = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
         var TabTipoCartaoCreditoForm = /** @class */ (function (_super) {
             __extends(TabTipoCartaoCreditoForm, _super);
-            function TabTipoCartaoCreditoForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function TabTipoCartaoCreditoForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TabTipoCartaoCreditoForm.init) {
+                    TabTipoCartaoCreditoForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(TabTipoCartaoCreditoForm, [
+                        'Descricao', w0,
+                        'Icone', w0
+                    ]);
+                }
+                return _this;
             }
             TabTipoCartaoCreditoForm.formKey = 'Default.TabTipoCartaoCredito';
             return TabTipoCartaoCreditoForm;
         }(Serenity.PrefixedContext));
         Default.TabTipoCartaoCreditoForm = TabTipoCartaoCreditoForm;
-        [,
-            ['Descricao', function () { return Serenity.StringEditor; }],
-            ['Icone', function () { return Serenity.StringEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(TabTipoCartaoCreditoForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1262,18 +1177,15 @@ var WebMyMoney;
             TabTipoCartaoCreditoRow.idProperty = 'CodigoTabTipoCartaoCredito';
             TabTipoCartaoCreditoRow.nameProperty = 'Descricao';
             TabTipoCartaoCreditoRow.localTextPrefix = 'Default.TabTipoCartaoCredito';
+            TabTipoCartaoCreditoRow.lookupKey = 'Default.TabTipoCartaoCredito';
+            function getLookup() {
+                return Q.getLookup('Default.TabTipoCartaoCredito');
+            }
+            TabTipoCartaoCreditoRow.getLookup = getLookup;
             TabTipoCartaoCreditoRow.deletePermission = 'Administration:General';
             TabTipoCartaoCreditoRow.insertPermission = 'Administration:General';
             TabTipoCartaoCreditoRow.readPermission = 'Administration:General';
             TabTipoCartaoCreditoRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = TabTipoCartaoCreditoRow.Fields || (TabTipoCartaoCreditoRow.Fields = {}));
-            [
-                'CodigoTabTipoCartaoCredito',
-                'Descricao',
-                'Icone'
-            ].forEach(function (x) { return Fields[x] = x; });
         })(TabTipoCartaoCreditoRow = Default.TabTipoCartaoCreditoRow || (Default.TabTipoCartaoCreditoRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1284,9 +1196,6 @@ var WebMyMoney;
         var TabTipoCartaoCreditoService;
         (function (TabTipoCartaoCreditoService) {
             TabTipoCartaoCreditoService.baseUrl = 'Default/TabTipoCartaoCredito';
-            var Methods;
-            (function (Methods) {
-            })(Methods = TabTipoCartaoCreditoService.Methods || (TabTipoCartaoCreditoService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1297,7 +1206,6 @@ var WebMyMoney;
                 TabTipoCartaoCreditoService[x] = function (r, s, o) {
                     return Q.serviceRequest(TabTipoCartaoCreditoService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = TabTipoCartaoCreditoService.baseUrl + '/' + x;
             });
         })(TabTipoCartaoCreditoService = Default.TabTipoCartaoCreditoService || (Default.TabTipoCartaoCreditoService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1308,22 +1216,22 @@ var WebMyMoney;
     (function (Default) {
         var TabTipoContaForm = /** @class */ (function (_super) {
             __extends(TabTipoContaForm, _super);
-            function TabTipoContaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function TabTipoContaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TabTipoContaForm.init) {
+                    TabTipoContaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(TabTipoContaForm, [
+                        'Descricao', w0
+                    ]);
+                }
+                return _this;
             }
             TabTipoContaForm.formKey = 'Default.TabTipoConta';
             return TabTipoContaForm;
         }(Serenity.PrefixedContext));
         Default.TabTipoContaForm = TabTipoContaForm;
-        [,
-            ['Descricao', function () { return Serenity.StringEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(TabTipoContaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1335,17 +1243,15 @@ var WebMyMoney;
             TabTipoContaRow.idProperty = 'CodigoTabTipoConta';
             TabTipoContaRow.nameProperty = 'Descricao';
             TabTipoContaRow.localTextPrefix = 'Default.TabTipoConta';
+            TabTipoContaRow.lookupKey = 'Default.TabTipoConta';
+            function getLookup() {
+                return Q.getLookup('Default.TabTipoConta');
+            }
+            TabTipoContaRow.getLookup = getLookup;
             TabTipoContaRow.deletePermission = 'Administration:General';
             TabTipoContaRow.insertPermission = 'Administration:General';
             TabTipoContaRow.readPermission = 'Administration:General';
             TabTipoContaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = TabTipoContaRow.Fields || (TabTipoContaRow.Fields = {}));
-            [
-                'CodigoTabTipoConta',
-                'Descricao'
-            ].forEach(function (x) { return Fields[x] = x; });
         })(TabTipoContaRow = Default.TabTipoContaRow || (Default.TabTipoContaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1356,9 +1262,6 @@ var WebMyMoney;
         var TabTipoContaService;
         (function (TabTipoContaService) {
             TabTipoContaService.baseUrl = 'Default/TabTipoConta';
-            var Methods;
-            (function (Methods) {
-            })(Methods = TabTipoContaService.Methods || (TabTipoContaService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1369,7 +1272,6 @@ var WebMyMoney;
                 TabTipoContaService[x] = function (r, s, o) {
                     return Q.serviceRequest(TabTipoContaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = TabTipoContaService.baseUrl + '/' + x;
             });
         })(TabTipoContaService = Default.TabTipoContaService || (Default.TabTipoContaService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1380,23 +1282,23 @@ var WebMyMoney;
     (function (Default) {
         var TabTipoDespesaForm = /** @class */ (function (_super) {
             __extends(TabTipoDespesaForm, _super);
-            function TabTipoDespesaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function TabTipoDespesaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TabTipoDespesaForm.init) {
+                    TabTipoDespesaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(TabTipoDespesaForm, [
+                        'Descricao', w0,
+                        'Icone', w0
+                    ]);
+                }
+                return _this;
             }
             TabTipoDespesaForm.formKey = 'Default.TabTipoDespesa';
             return TabTipoDespesaForm;
         }(Serenity.PrefixedContext));
         Default.TabTipoDespesaForm = TabTipoDespesaForm;
-        [,
-            ['Descricao', function () { return Serenity.StringEditor; }],
-            ['Icone', function () { return Serenity.StringEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(TabTipoDespesaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1408,18 +1310,15 @@ var WebMyMoney;
             TabTipoDespesaRow.idProperty = 'CodigoTabTipoDespesa';
             TabTipoDespesaRow.nameProperty = 'Descricao';
             TabTipoDespesaRow.localTextPrefix = 'Default.TabTipoDespesa';
+            TabTipoDespesaRow.lookupKey = 'Default.TabTipoDespesa';
+            function getLookup() {
+                return Q.getLookup('Default.TabTipoDespesa');
+            }
+            TabTipoDespesaRow.getLookup = getLookup;
             TabTipoDespesaRow.deletePermission = 'Administration:General';
             TabTipoDespesaRow.insertPermission = 'Administration:General';
             TabTipoDespesaRow.readPermission = 'Administration:General';
             TabTipoDespesaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = TabTipoDespesaRow.Fields || (TabTipoDespesaRow.Fields = {}));
-            [
-                'CodigoTabTipoDespesa',
-                'Descricao',
-                'Icone'
-            ].forEach(function (x) { return Fields[x] = x; });
         })(TabTipoDespesaRow = Default.TabTipoDespesaRow || (Default.TabTipoDespesaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1430,9 +1329,6 @@ var WebMyMoney;
         var TabTipoDespesaService;
         (function (TabTipoDespesaService) {
             TabTipoDespesaService.baseUrl = 'Default/TabTipoDespesa';
-            var Methods;
-            (function (Methods) {
-            })(Methods = TabTipoDespesaService.Methods || (TabTipoDespesaService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1443,7 +1339,6 @@ var WebMyMoney;
                 TabTipoDespesaService[x] = function (r, s, o) {
                     return Q.serviceRequest(TabTipoDespesaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = TabTipoDespesaService.baseUrl + '/' + x;
             });
         })(TabTipoDespesaService = Default.TabTipoDespesaService || (Default.TabTipoDespesaService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1454,22 +1349,22 @@ var WebMyMoney;
     (function (Default) {
         var TabTipoObjetivoForm = /** @class */ (function (_super) {
             __extends(TabTipoObjetivoForm, _super);
-            function TabTipoObjetivoForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function TabTipoObjetivoForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TabTipoObjetivoForm.init) {
+                    TabTipoObjetivoForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(TabTipoObjetivoForm, [
+                        'Descricao', w0
+                    ]);
+                }
+                return _this;
             }
             TabTipoObjetivoForm.formKey = 'Default.TabTipoObjetivo';
             return TabTipoObjetivoForm;
         }(Serenity.PrefixedContext));
         Default.TabTipoObjetivoForm = TabTipoObjetivoForm;
-        [,
-            ['Descricao', function () { return Serenity.StringEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(TabTipoObjetivoForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1481,17 +1376,15 @@ var WebMyMoney;
             TabTipoObjetivoRow.idProperty = 'CodigoTabTipoObjetivo';
             TabTipoObjetivoRow.nameProperty = 'Descricao';
             TabTipoObjetivoRow.localTextPrefix = 'Default.TabTipoObjetivo';
+            TabTipoObjetivoRow.lookupKey = 'Default.TabTipoObjetivo';
+            function getLookup() {
+                return Q.getLookup('Default.TabTipoObjetivo');
+            }
+            TabTipoObjetivoRow.getLookup = getLookup;
             TabTipoObjetivoRow.deletePermission = 'Administration:General';
             TabTipoObjetivoRow.insertPermission = 'Administration:General';
             TabTipoObjetivoRow.readPermission = 'Administration:General';
             TabTipoObjetivoRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = TabTipoObjetivoRow.Fields || (TabTipoObjetivoRow.Fields = {}));
-            [
-                'CodigoTabTipoObjetivo',
-                'Descricao'
-            ].forEach(function (x) { return Fields[x] = x; });
         })(TabTipoObjetivoRow = Default.TabTipoObjetivoRow || (Default.TabTipoObjetivoRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1502,9 +1395,6 @@ var WebMyMoney;
         var TabTipoObjetivoService;
         (function (TabTipoObjetivoService) {
             TabTipoObjetivoService.baseUrl = 'Default/TabTipoObjetivo';
-            var Methods;
-            (function (Methods) {
-            })(Methods = TabTipoObjetivoService.Methods || (TabTipoObjetivoService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1515,7 +1405,6 @@ var WebMyMoney;
                 TabTipoObjetivoService[x] = function (r, s, o) {
                     return Q.serviceRequest(TabTipoObjetivoService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = TabTipoObjetivoService.baseUrl + '/' + x;
             });
         })(TabTipoObjetivoService = Default.TabTipoObjetivoService || (Default.TabTipoObjetivoService = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
@@ -1526,22 +1415,22 @@ var WebMyMoney;
     (function (Default) {
         var TabTipoReceitaForm = /** @class */ (function (_super) {
             __extends(TabTipoReceitaForm, _super);
-            function TabTipoReceitaForm() {
-                return _super !== null && _super.apply(this, arguments) || this;
+            function TabTipoReceitaForm(prefix) {
+                var _this = _super.call(this, prefix) || this;
+                if (!TabTipoReceitaForm.init) {
+                    TabTipoReceitaForm.init = true;
+                    var s = Serenity;
+                    var w0 = s.StringEditor;
+                    Q.initFormType(TabTipoReceitaForm, [
+                        'Descricao', w0
+                    ]);
+                }
+                return _this;
             }
             TabTipoReceitaForm.formKey = 'Default.TabTipoReceita';
             return TabTipoReceitaForm;
         }(Serenity.PrefixedContext));
         Default.TabTipoReceitaForm = TabTipoReceitaForm;
-        [,
-            ['Descricao', function () { return Serenity.StringEditor; }]
-        ].forEach(function (x) { return Object.defineProperty(TabTipoReceitaForm.prototype, x[0], {
-            get: function () {
-                return this.w(x[0], x[1]());
-            },
-            enumerable: true,
-            configurable: true
-        }); });
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1553,17 +1442,15 @@ var WebMyMoney;
             TabTipoReceitaRow.idProperty = 'CodigoTabTipoReceita';
             TabTipoReceitaRow.nameProperty = 'Descricao';
             TabTipoReceitaRow.localTextPrefix = 'Default.TabTipoReceita';
+            TabTipoReceitaRow.lookupKey = 'Default.TabTipoReceita';
+            function getLookup() {
+                return Q.getLookup('Default.TabTipoReceita');
+            }
+            TabTipoReceitaRow.getLookup = getLookup;
             TabTipoReceitaRow.deletePermission = 'Administration:General';
             TabTipoReceitaRow.insertPermission = 'Administration:General';
             TabTipoReceitaRow.readPermission = 'Administration:General';
             TabTipoReceitaRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = TabTipoReceitaRow.Fields || (TabTipoReceitaRow.Fields = {}));
-            [
-                'CodigoTabTipoReceita',
-                'Descricao'
-            ].forEach(function (x) { return Fields[x] = x; });
         })(TabTipoReceitaRow = Default.TabTipoReceitaRow || (Default.TabTipoReceitaRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
@@ -1574,9 +1461,6 @@ var WebMyMoney;
         var TabTipoReceitaService;
         (function (TabTipoReceitaService) {
             TabTipoReceitaService.baseUrl = 'Default/TabTipoReceita';
-            var Methods;
-            (function (Methods) {
-            })(Methods = TabTipoReceitaService.Methods || (TabTipoReceitaService.Methods = {}));
             [
                 'Create',
                 'Update',
@@ -1587,119 +1471,8 @@ var WebMyMoney;
                 TabTipoReceitaService[x] = function (r, s, o) {
                     return Q.serviceRequest(TabTipoReceitaService.baseUrl + '/' + x, r, s, o);
                 };
-                Methods[x] = TabTipoReceitaService.baseUrl + '/' + x;
             });
         })(TabTipoReceitaService = Default.TabTipoReceitaService || (Default.TabTipoReceitaService = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
-        var UserPermissionsRow;
-        (function (UserPermissionsRow) {
-            UserPermissionsRow.idProperty = 'UserPermissionId';
-            UserPermissionsRow.nameProperty = 'PermissionKey';
-            UserPermissionsRow.localTextPrefix = 'Default.UserPermissions';
-            UserPermissionsRow.deletePermission = 'Administration:General';
-            UserPermissionsRow.insertPermission = 'Administration:General';
-            UserPermissionsRow.readPermission = 'Administration:General';
-            UserPermissionsRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = UserPermissionsRow.Fields || (UserPermissionsRow.Fields = {}));
-            [
-                'UserPermissionId',
-                'UserId',
-                'PermissionKey',
-                'Granted'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(UserPermissionsRow = Default.UserPermissionsRow || (Default.UserPermissionsRow = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
-        var UserPreferencesRow;
-        (function (UserPreferencesRow) {
-            UserPreferencesRow.idProperty = 'UserPreferenceId';
-            UserPreferencesRow.nameProperty = 'PreferenceType';
-            UserPreferencesRow.localTextPrefix = 'Default.UserPreferences';
-            UserPreferencesRow.deletePermission = 'Administration:General';
-            UserPreferencesRow.insertPermission = 'Administration:General';
-            UserPreferencesRow.readPermission = 'Administration:General';
-            UserPreferencesRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = UserPreferencesRow.Fields || (UserPreferencesRow.Fields = {}));
-            [
-                'UserPreferenceId',
-                'UserId',
-                'PreferenceType',
-                'Name',
-                'Value'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(UserPreferencesRow = Default.UserPreferencesRow || (Default.UserPreferencesRow = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
-        var UserRolesRow;
-        (function (UserRolesRow) {
-            UserRolesRow.idProperty = 'UserRoleId';
-            UserRolesRow.localTextPrefix = 'Default.UserRoles';
-            UserRolesRow.deletePermission = 'Administration:General';
-            UserRolesRow.insertPermission = 'Administration:General';
-            UserRolesRow.readPermission = 'Administration:General';
-            UserRolesRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = UserRolesRow.Fields || (UserRolesRow.Fields = {}));
-            [
-                'UserRoleId',
-                'UserId',
-                'RoleId'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(UserRolesRow = Default.UserRolesRow || (Default.UserRolesRow = {}));
-    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
-})(WebMyMoney || (WebMyMoney = {}));
-var WebMyMoney;
-(function (WebMyMoney) {
-    var Default;
-    (function (Default) {
-        var UsersRow;
-        (function (UsersRow) {
-            UsersRow.idProperty = 'UserId';
-            UsersRow.nameProperty = 'Username';
-            UsersRow.localTextPrefix = 'Default.Users';
-            UsersRow.deletePermission = 'Administration:General';
-            UsersRow.insertPermission = 'Administration:General';
-            UsersRow.readPermission = 'Administration:General';
-            UsersRow.updatePermission = 'Administration:General';
-            var Fields;
-            (function (Fields) {
-            })(Fields = UsersRow.Fields || (UsersRow.Fields = {}));
-            [
-                'UserId',
-                'Username',
-                'DisplayName',
-                'Email',
-                'Source',
-                'PasswordHash',
-                'PasswordSalt',
-                'LastDirectoryUpdate',
-                'UserImage',
-                'InsertDate',
-                'InsertUserId',
-                'UpdateDate',
-                'UpdateUserId',
-                'IsActive',
-                'UsuarioId'
-            ].forEach(function (x) { return Fields[x] = x; });
-        })(UsersRow = Default.UsersRow || (Default.UsersRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1837,7 +1610,7 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Texts;
     (function (Texts) {
-        WebMyMoney['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Northwind: { Category: { CategoryID: 1, CategoryName: 1, Description: 1, Picture: 1 }, CategoryLang: { CategoryId: 1, CategoryName: 1, Description: 1, Id: 1, LanguageId: 1 }, Customer: { Address: 1, City: 1, CompanyName: 1, ContactName: 1, ContactTitle: 1, Country: 1, CustomerID: 1, Email: 1, Fax: 1, ID: 1, LastContactDate: 1, LastContactedBy: 1, NoteList: 1, Phone: 1, PostalCode: 1, Region: 1, Representatives: 1, SendBulletin: 1 }, CustomerCustomerDemo: { CustomerAddress: 1, CustomerCity: 1, CustomerCompanyName: 1, CustomerContactName: 1, CustomerContactTitle: 1, CustomerCountry: 1, CustomerFax: 1, CustomerID: 1, CustomerPhone: 1, CustomerPostalCode: 1, CustomerRegion: 1, CustomerTypeCustomerDesc: 1, CustomerTypeID: 1, ID: 1 }, CustomerDemographic: { CustomerDesc: 1, CustomerTypeID: 1, ID: 1 }, CustomerDetails: { Email: 1, Id: 1, LastContactDate: 1, LastContactedBy: 1, LastContactedByAddress: 1, LastContactedByBirthDate: 1, LastContactedByCity: 1, LastContactedByCountry: 1, LastContactedByExtension: 1, LastContactedByFirstName: 1, LastContactedByHireDate: 1, LastContactedByHomePhone: 1, LastContactedByLastName: 1, LastContactedByNotes: 1, LastContactedByPhoto: 1, LastContactedByPhotoPath: 1, LastContactedByPostalCode: 1, LastContactedByRegion: 1, LastContactedByReportsTo: 1, LastContactedByTitle: 1, LastContactedByTitleOfCourtesy: 1, SendBulletin: 1 }, CustomerGrossSales: { ContactName: 1, CustomerId: 1, GrossAmount: 1, ProductId: 1, ProductName: 1 }, CustomerRepresentatives: { CustomerId: 1, EmployeeId: 1, RepresentativeId: 1 }, DragDropSample: { Id: 1, ParentId: 1, Title: 1 }, Employee: { Address: 1, BirthDate: 1, City: 1, Country: 1, EmployeeID: 1, Extension: 1, FirstName: 1, FullName: 1, Gender: 1, HireDate: 1, HomePhone: 1, LastName: 1, Notes: 1, Photo: 1, PhotoPath: 1, PostalCode: 1, Region: 1, ReportsTo: 1, ReportsToAddress: 1, ReportsToBirthDate: 1, ReportsToCity: 1, ReportsToCountry: 1, ReportsToExtension: 1, ReportsToFirstName: 1, ReportsToFullName: 1, ReportsToHireDate: 1, ReportsToHomePhone: 1, ReportsToLastName: 1, ReportsToNotes: 1, ReportsToPhoto: 1, ReportsToPhotoPath: 1, ReportsToPostalCode: 1, ReportsToRegion: 1, ReportsToReportsTo: 1, ReportsToTitle: 1, ReportsToTitleOfCourtesy: 1, Title: 1, TitleOfCourtesy: 1 }, EmployeeTerritory: { EmployeeAddress: 1, EmployeeBirthDate: 1, EmployeeCity: 1, EmployeeCountry: 1, EmployeeExtension: 1, EmployeeFirstName: 1, EmployeeHireDate: 1, EmployeeHomePhone: 1, EmployeeID: 1, EmployeeLastName: 1, EmployeeNotes: 1, EmployeePhoto: 1, EmployeePhotoPath: 1, EmployeePostalCode: 1, EmployeeRegion: 1, EmployeeReportsTo: 1, EmployeeTitle: 1, EmployeeTitleOfCourtesy: 1, TerritoryID: 1, TerritoryRegionID: 1, TerritoryTerritoryDescription: 1 }, Note: { EntityId: 1, EntityType: 1, InsertDate: 1, InsertUserDisplayName: 1, InsertUserId: 1, NoteId: 1, Text: 1 }, Order: { CustomerCity: 1, CustomerCompanyName: 1, CustomerContactName: 1, CustomerContactTitle: 1, CustomerCountry: 1, CustomerFax: 1, CustomerID: 1, CustomerPhone: 1, CustomerRegion: 1, DetailList: 1, EmployeeFullName: 1, EmployeeGender: 1, EmployeeID: 1, EmployeeReportsToFullName: 1, Freight: 1, OrderDate: 1, OrderID: 1, RequiredDate: 1, ShipAddress: 1, ShipCity: 1, ShipCountry: 1, ShipName: 1, ShipPostalCode: 1, ShipRegion: 1, ShipVia: 1, ShipViaCompanyName: 1, ShipViaPhone: 1, ShippedDate: 1, ShippingState: 1 }, OrderDetail: { DetailID: 1, Discount: 1, LineTotal: 1, OrderCustomerID: 1, OrderDate: 1, OrderEmployeeID: 1, OrderID: 1, OrderShipCity: 1, OrderShipCountry: 1, OrderShipVia: 1, OrderShippedDate: 1, ProductDiscontinued: 1, ProductID: 1, ProductName: 1, ProductQuantityPerUnit: 1, ProductSupplierID: 1, ProductUnitPrice: 1, Quantity: 1, UnitPrice: 1 }, Product: { CategoryDescription: 1, CategoryID: 1, CategoryName: 1, CategoryPicture: 1, Discontinued: 1, ProductID: 1, ProductImage: 1, ProductName: 1, QuantityPerUnit: 1, ReorderLevel: 1, SupplierAddress: 1, SupplierCity: 1, SupplierCompanyName: 1, SupplierContactName: 1, SupplierContactTitle: 1, SupplierCountry: 1, SupplierFax: 1, SupplierHomePage: 1, SupplierID: 1, SupplierPhone: 1, SupplierPostalCode: 1, SupplierRegion: 1, UnitPrice: 1, UnitsInStock: 1, UnitsOnOrder: 1 }, ProductLang: { Id: 1, LanguageId: 1, ProductId: 1, ProductName: 1 }, ProductLog: { CategoryID: 1, ChangingUserId: 1, Discontinued: 1, OperationType: 1, ProductID: 1, ProductImage: 1, ProductLogID: 1, ProductName: 1, QuantityPerUnit: 1, ReorderLevel: 1, SupplierID: 1, UnitPrice: 1, UnitsInStock: 1, UnitsOnOrder: 1, ValidFrom: 1, ValidUntil: 1 }, Region: { RegionDescription: 1, RegionID: 1 }, SalesByCategory: { CategoryId: 1, CategoryName: 1, ProductName: 1, ProductSales: 1 }, Shipper: { CompanyName: 1, Phone: 1, ShipperID: 1 }, Supplier: { Address: 1, City: 1, CompanyName: 1, ContactName: 1, ContactTitle: 1, Country: 1, Fax: 1, HomePage: 1, Phone: 1, PostalCode: 1, Region: 1, SupplierID: 1 }, Territory: { ID: 1, RegionDescription: 1, RegionID: 1, TerritoryDescription: 1, TerritoryID: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, NorthwindPhone: 1, NorthwindPhoneMultiple: 1, SavePrimaryKeyError: 1 } });
+        WebMyMoney['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1, UsuarioId: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Default: { CadAssinante: { Ativo: 1, CadAssinanteId: 1, DataCriacao: 1, QdteGrupoFamiliar: 1, Senha: 1, Telefone: 1, UsarioAdminNome: 1, Username: 1, UsuarioAdminEmail: 1, UsuarioAdminId: 1 }, CadCartaoCredito: { Ativo: 1, CadCartaoCreditoId: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoCartaoCredito: 1, CodigoTabTipoCartaoCreditoDescricao: 1, CodigoTabTipoCartaoCreditoIcone: 1, Descricao: 1, DiaFecharFatura: 1, DiaPagarFatura: 1, DiaVencimentofatura: 1, Saldo: 1, Titulo: 1, ValorLimiteAtual: 1, ValorLimiteTotal: 1 }, CadConta: { Ativo: 1, CadContaId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoConta: 1, CodigoTabTipoContaDescricao: 1, DataInicial: 1, SaldoAtual: 1, Titulo: 1, ValorInicial: 1 }, CadDespesa: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadDespesaId: 1, CadFaturaCartaoCreditoId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoDespesa: 1, CodigoTabTipoDespesaDescricao: 1, CodigoTabTipoDespesaIcone: 1, CpfCnpjParticipante: 1, DataCriacao: 1, DataFixaVencimento: 1, DataPagamento: 1, DataVencimento: 1, Descontos: 1, Imposto: 1, IsFixo: 1, IsParcelado: 1, MultasJuros: 1, NomeParticipante: 1, NumParcela: 1, Pago: 1, QdteParcelas: 1, Titulo: 1, ValorTotal: 1 }, CadFaturaCartaoCredito: { Ativo: 1, CadCartaoCreditoAtivo: 1, CadCartaoCreditoCadContaId: 1, CadCartaoCreditoCadGrupoFamiliarId: 1, CadCartaoCreditoCadUsuarioId: 1, CadCartaoCreditoCodigoTabTipoCartaoCredito: 1, CadCartaoCreditoDescricao: 1, CadCartaoCreditoDiaFecharFatura: 1, CadCartaoCreditoDiaPagarFatura: 1, CadCartaoCreditoDiaVencimentoFatura: 1, CadCartaoCreditoId: 1, CadCartaoCreditoSaldo: 1, CadCartaoCreditoTitulo: 1, CadCartaoCreditoValorLimiteAtual: 1, CadCartaoCreditoValorLimiteTotal: 1, CadFaturaCartaoCreditoId: 1, DataFechamentoFatura: 1, DataPagamentoFatura: 1, DiaFecharFatura: 1, DiaVencimentoFatura: 1, IsParcelarFatura: 1, MesFaturaVigente: 1, MesVigente: 1, NumParcelasFatura: 1, Pago: 1, SaldoAnterior: 1, ValorParcialFaturaAtual: 1 }, CadGrupoFamiliar: { Ativo: 1, CadAssinanteAtivo: 1, CadAssinanteDataCriacao: 1, CadAssinanteId: 1, CadAssinanteQdteGrupoFamiliar: 1, CadAssinanteUsarioAdminNome: 1, CadAssinanteUsuarioAdminEmail: 1, CadAssinanteUsuarioAdminId: 1, CadGrupoFamiliarId: 1, CodigoAcesso: 1, DataCriacao: 1, QdteUsuarios: 1 }, CadObjetivo: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadObjetivoId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoObjetivo: 1, CodigoTabTipoObjetivoDescricao: 1, DataFinal: 1, DataInicial: 1, Descricao: 1, Titulo: 1, ValorAtual: 1, ValorFinal: 1, ValorInicial: 1 }, CadParticipante: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CpfCnpj: 1, NomeRazaoSocial: 1 }, CadReceita: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadReceitaId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoReceita: 1, CodigoTabTipoReceitaDescricao: 1, DataCriacao: 1, DataFixaRecebimento: 1, DataRecebimento: 1, Descricao: 1, Imposto: 1, IsFixo: 1, Juros: 1, Recebido: 1, Rendimento: 1, Titulo: 1, Valor: 1 }, CadUsuario: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioId: 1, DataCriacao: 1, Email: 1, Nome: 1, Telefone: 1, UserDisplayName: 1, UserEmail: 1, UserId: 1, UserInsertDate: 1, UserInsertUserId: 1, UserIsActive: 1, UserLastDirectoryUpdate: 1, UserPasswordHash: 1, UserPasswordSalt: 1, UserSource: 1, UserUpdateDate: 1, UserUpdateUserId: 1, UserUserImage: 1, UserUsername: 1, UserUsuarioId: 1 }, TabTipoCartaoCredito: { CodigoTabTipoCartaoCredito: 1, Descricao: 1, Icone: 1 }, TabTipoConta: { CodigoTabTipoConta: 1, Descricao: 1 }, TabTipoDespesa: { CodigoTabTipoDespesa: 1, Descricao: 1, Icone: 1 }, TabTipoObjetivo: { CodigoTabTipoObjetivo: 1, Descricao: 1 }, TabTipoReceita: { CodigoTabTipoReceita: 1, Descricao: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = WebMyMoney.Texts || (WebMyMoney.Texts = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -4176,6 +3949,55 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Default;
     (function (Default) {
+        var CadFaturaCartaoCreditoDialog = /** @class */ (function (_super) {
+            __extends(CadFaturaCartaoCreditoDialog, _super);
+            function CadFaturaCartaoCreditoDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Default.CadFaturaCartaoCreditoForm(_this.idPrefix);
+                return _this;
+            }
+            CadFaturaCartaoCreditoDialog.prototype.getFormKey = function () { return Default.CadFaturaCartaoCreditoForm.formKey; };
+            CadFaturaCartaoCreditoDialog.prototype.getIdProperty = function () { return Default.CadFaturaCartaoCreditoRow.idProperty; };
+            CadFaturaCartaoCreditoDialog.prototype.getLocalTextPrefix = function () { return Default.CadFaturaCartaoCreditoRow.localTextPrefix; };
+            CadFaturaCartaoCreditoDialog.prototype.getService = function () { return Default.CadFaturaCartaoCreditoService.baseUrl; };
+            CadFaturaCartaoCreditoDialog.prototype.getDeletePermission = function () { return Default.CadFaturaCartaoCreditoRow.deletePermission; };
+            CadFaturaCartaoCreditoDialog.prototype.getInsertPermission = function () { return Default.CadFaturaCartaoCreditoRow.insertPermission; };
+            CadFaturaCartaoCreditoDialog.prototype.getUpdatePermission = function () { return Default.CadFaturaCartaoCreditoRow.updatePermission; };
+            CadFaturaCartaoCreditoDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], CadFaturaCartaoCreditoDialog);
+            return CadFaturaCartaoCreditoDialog;
+        }(Serenity.EntityDialog));
+        Default.CadFaturaCartaoCreditoDialog = CadFaturaCartaoCreditoDialog;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadFaturaCartaoCreditoGrid = /** @class */ (function (_super) {
+            __extends(CadFaturaCartaoCreditoGrid, _super);
+            function CadFaturaCartaoCreditoGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            CadFaturaCartaoCreditoGrid.prototype.getColumnsKey = function () { return 'Default.CadFaturaCartaoCredito'; };
+            CadFaturaCartaoCreditoGrid.prototype.getDialogType = function () { return Default.CadFaturaCartaoCreditoDialog; };
+            CadFaturaCartaoCreditoGrid.prototype.getIdProperty = function () { return Default.CadFaturaCartaoCreditoRow.idProperty; };
+            CadFaturaCartaoCreditoGrid.prototype.getInsertPermission = function () { return Default.CadFaturaCartaoCreditoRow.insertPermission; };
+            CadFaturaCartaoCreditoGrid.prototype.getLocalTextPrefix = function () { return Default.CadFaturaCartaoCreditoRow.localTextPrefix; };
+            CadFaturaCartaoCreditoGrid.prototype.getService = function () { return Default.CadFaturaCartaoCreditoService.baseUrl; };
+            CadFaturaCartaoCreditoGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], CadFaturaCartaoCreditoGrid);
+            return CadFaturaCartaoCreditoGrid;
+        }(Serenity.EntityGrid));
+        Default.CadFaturaCartaoCreditoGrid = CadFaturaCartaoCreditoGrid;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
         var CadGrupoFamiliarDialog = /** @class */ (function (_super) {
             __extends(CadGrupoFamiliarDialog, _super);
             function CadGrupoFamiliarDialog() {
@@ -4270,6 +4092,56 @@ var WebMyMoney;
             return CadObjetivoGrid;
         }(Serenity.EntityGrid));
         Default.CadObjetivoGrid = CadObjetivoGrid;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadParticipanteDialog = /** @class */ (function (_super) {
+            __extends(CadParticipanteDialog, _super);
+            function CadParticipanteDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Default.CadParticipanteForm(_this.idPrefix);
+                return _this;
+            }
+            CadParticipanteDialog.prototype.getFormKey = function () { return Default.CadParticipanteForm.formKey; };
+            CadParticipanteDialog.prototype.getIdProperty = function () { return Default.CadParticipanteRow.idProperty; };
+            CadParticipanteDialog.prototype.getLocalTextPrefix = function () { return Default.CadParticipanteRow.localTextPrefix; };
+            CadParticipanteDialog.prototype.getNameProperty = function () { return Default.CadParticipanteRow.nameProperty; };
+            CadParticipanteDialog.prototype.getService = function () { return Default.CadParticipanteService.baseUrl; };
+            CadParticipanteDialog.prototype.getDeletePermission = function () { return Default.CadParticipanteRow.deletePermission; };
+            CadParticipanteDialog.prototype.getInsertPermission = function () { return Default.CadParticipanteRow.insertPermission; };
+            CadParticipanteDialog.prototype.getUpdatePermission = function () { return Default.CadParticipanteRow.updatePermission; };
+            CadParticipanteDialog = __decorate([
+                Serenity.Decorators.registerClass()
+            ], CadParticipanteDialog);
+            return CadParticipanteDialog;
+        }(Serenity.EntityDialog));
+        Default.CadParticipanteDialog = CadParticipanteDialog;
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var CadParticipanteGrid = /** @class */ (function (_super) {
+            __extends(CadParticipanteGrid, _super);
+            function CadParticipanteGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            CadParticipanteGrid.prototype.getColumnsKey = function () { return 'Default.CadParticipante'; };
+            CadParticipanteGrid.prototype.getDialogType = function () { return Default.CadParticipanteDialog; };
+            CadParticipanteGrid.prototype.getIdProperty = function () { return Default.CadParticipanteRow.idProperty; };
+            CadParticipanteGrid.prototype.getInsertPermission = function () { return Default.CadParticipanteRow.insertPermission; };
+            CadParticipanteGrid.prototype.getLocalTextPrefix = function () { return Default.CadParticipanteRow.localTextPrefix; };
+            CadParticipanteGrid.prototype.getService = function () { return Default.CadParticipanteService.baseUrl; };
+            CadParticipanteGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], CadParticipanteGrid);
+            return CadParticipanteGrid;
+        }(Serenity.EntityGrid));
+        Default.CadParticipanteGrid = CadParticipanteGrid;
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -4800,4 +4672,3433 @@ var WebMyMoney;
         Membership.SignUpPanel = SignUpPanel;
     })(Membership = WebMyMoney.Membership || (WebMyMoney.Membership = {}));
 })(WebMyMoney || (WebMyMoney = {}));
+var _Ext;
+(function (_Ext) {
+    var AuditLogActionTypeFormatter = /** @class */ (function () {
+        function AuditLogActionTypeFormatter() {
+        }
+        AuditLogActionTypeFormatter_1 = AuditLogActionTypeFormatter;
+        AuditLogActionTypeFormatter.format = function (ctx) {
+            var item = ctx.item;
+            var klass = '';
+            if (item.ActionType == AuditActionType.Update) {
+                klass = 'warning';
+            }
+            else if (item.ActionType == AuditActionType.Delete) {
+                klass = 'danger';
+            }
+            else {
+                klass = 'default';
+            }
+            return "<span class=\"label label-" + klass + "\">" + AuditActionType[item.ActionType] + "</span>";
+        };
+        AuditLogActionTypeFormatter.prototype.format = function (ctx) {
+            return AuditLogActionTypeFormatter_1.format(ctx);
+        };
+        var AuditLogActionTypeFormatter_1;
+        AuditLogActionTypeFormatter = AuditLogActionTypeFormatter_1 = __decorate([
+            Serenity.Decorators.registerFormatter([Serenity.ISlickFormatter])
+        ], AuditLogActionTypeFormatter);
+        return AuditLogActionTypeFormatter;
+    }());
+    _Ext.AuditLogActionTypeFormatter = AuditLogActionTypeFormatter;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var DialogBase = /** @class */ (function (_super) {
+        __extends(DialogBase, _super);
+        function DialogBase(opt) {
+            var _this = _super.call(this, opt) || this;
+            _this.isReadOnly = false;
+            _this.element.fadeTo(0, 0);
+            if (_this.get_ExtDialogOptions().PendingChangesConfirmation == true) {
+                _Ext.DialogUtils.pendingChangesConfirmation(_this.element, function () { return _this.getSaveState() != _this.loadedState; });
+            }
+            return _this;
+        }
+        DialogBase.prototype.get_ExtDialogOptions = function () { return q.DefaultEntityDialogOptions; };
+        DialogBase.prototype.updateInterface = function () {
+            _super.prototype.updateInterface.call(this);
+            this.setReadOnly(this.isReadOnly);
+            if (this.get_ExtDialogOptions().HideCategoyLinksBar == true) {
+                this.element.find('.category-links').hide();
+            }
+        };
+        DialogBase.prototype.onDialogOpen = function () {
+            var _this = this;
+            _super.prototype.onDialogOpen.call(this);
+            if (this.get_ExtDialogOptions().AutoFitContentArea == true) {
+                this.fullContentArea();
+            }
+            //temporary fix for set grid editor height
+            setTimeout(function () { _this.onAfterSetDialogSize(); }, 200);
+            this.element.fadeTo(100, 1);
+        };
+        DialogBase.prototype.onDialogClose = function () {
+            _super.prototype.onDialogClose.call(this);
+            this.onAfterDialogClose(this.entity);
+        };
+        DialogBase.prototype.setReadOnly = function (value) {
+            this.isReadOnly = value;
+            if (this.isReadOnly == true) {
+                this.saveAndCloseButton.toggleClass('disabled', this.isReadOnly);
+                this.applyChangesButton.toggleClass('disabled', this.isReadOnly);
+                this.deleteButton.toggleClass('disabled', this.isReadOnly);
+                this.cloneButton.toggleClass('disabled', this.isReadOnly);
+                this.undeleteButton.toggleClass('disabled', this.isReadOnly);
+                this.toolbar.findButton('btn-save-and-close').addClass('disabled');
+                this.toolbar.findButton('btn-replace-row').addClass('disabled');
+                // remove required asterisk (*)
+                this.element.find('sup').toggle(this.isReadOnly);
+                for (var editor in this.form) {
+                    if (this.form[editor].widgetName) {
+                        Serenity.EditorUtils.setReadOnly(this.form[editor], this.isReadOnly);
+                    }
+                }
+            }
+        };
+        DialogBase.prototype.getToolbarButtons = function () {
+            var _this = this;
+            var buttons = _super.prototype.getToolbarButtons.call(this);
+            var extOptions = this.get_ExtDialogOptions();
+            if (extOptions.ShowSaveAndNewButtonInToolbar == true)
+                buttons.push({
+                    title: 'Save & New',
+                    icon: 'fa fa-save',
+                    cssClass: 'btn-save-and-close',
+                    onClick: function () {
+                        _this.save(function (response) {
+                            _this.loadEntity({});
+                        });
+                    }
+                });
+            if (extOptions.ShowCloseButtonInToolbar == true)
+                buttons.push({
+                    title: 'Close',
+                    icon: 'fa fa-close',
+                    cssClass: 'btn-close',
+                    onClick: function () {
+                        _this.dialogClose();
+                    }
+                });
+            if (extOptions.ShowRefreshButtonInToolbar == true)
+                buttons.push({
+                    title: 'Refresh',
+                    icon: 'fa fa-refresh',
+                    onClick: function () {
+                        _this.onRefreshClick();
+                    }
+                });
+            try {
+                if (extOptions.ShowReplaceRowButtonInToolbar == true && Q.Authorization.hasPermission('Administration:ReplaceRow')) {
+                    if (Q.isEmptyOrNull(this.getService()) == false) {
+                        buttons.push({
+                            title: 'Replace',
+                            icon: 'fa fa-trash-o',
+                            cssClass: 'btn-replace-row',
+                            onClick: function () {
+                                var idProperty = _this.getIdProperty();
+                                var nameProperty = _this.getNameProperty();
+                                var entityId = _this.entity[idProperty];
+                                var entityName = _this.entity[nameProperty];
+                                if (entityId) {
+                                    Q.serviceRequest(_this.getService() + '/List', {}, function (response) {
+                                        var entityList = response.Entities;
+                                        var dlg = new _Ext.ReplaceRowDialog({
+                                            FormKey: _this.getFormKey(),
+                                            IdProperty: idProperty,
+                                            NameProperty: nameProperty,
+                                            EntityTypeTitle: _this.getEntitySingular(),
+                                            DeletedEntityName: entityName,
+                                            DeletedEntityId: entityId,
+                                        }, entityList);
+                                        dlg.dialogOpen();
+                                        _this.dialogClose();
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+                if (extOptions.ShowChangeLogButtonInToolbar == true && Q.Authorization.hasPermission('Administration:AuditLog')) {
+                    buttons.push({
+                        title: 'Change Log',
+                        icon: 'fa fa-history',
+                        onClick: function () {
+                            var entityId = _this.entity[_this.getIdProperty()];
+                            if (entityId) {
+                                var dlg = new _Ext.AuditLogViewerDialog({ FormKey: _this.getFormKey(), EntityId: entityId });
+                                dlg.dialogOpen();
+                            }
+                            else {
+                                Q.alert('No change log found for this entity.');
+                            }
+                        }
+                    });
+                }
+                //clone button click event customization
+                var cloneButton = Q.tryFirst(buttons, function (x) { return x.cssClass == 'clone-button'; });
+                cloneButton.onClick = function () {
+                    if (!_this.isEditMode()) {
+                        return;
+                    }
+                    var cloneEntity = _this.getCloningEntity();
+                    Serenity.Widget.create({
+                        type: ss.getInstanceType(_this),
+                        init: function (dlg) {
+                            _this.parentGrid.initDialog(dlg);
+                            dlg.loadEntityAndOpenDialog(cloneEntity, null);
+                        }
+                    });
+                    _this.dialogClose();
+                };
+            }
+            catch (e) { }
+            return buttons;
+        };
+        DialogBase.prototype.onRefreshClick = function () {
+            this.reloadById();
+        };
+        DialogBase.prototype.getSaveState = function () {
+            try {
+                return $.toJSON(this.getSaveEntity());
+            }
+            catch (e) {
+                return null;
+            }
+        };
+        DialogBase.prototype.onSaveSuccess = function (response) {
+            _super.prototype.onSaveSuccess.call(this, response);
+            isPageRefreshRequired = true;
+            //Q.reloadLookup(this.getLookupKey());
+        };
+        DialogBase.prototype.loadResponse = function (data) {
+            _super.prototype.loadResponse.call(this, data);
+            if (this.get_ExtDialogOptions().PendingChangesConfirmation == true) {
+                this.loadedState = this.getSaveState();
+            }
+        };
+        DialogBase.prototype.maximize = function () {
+            var _this = this;
+            this.element.closest(".ui-dialog").find(".ui-dialog-titlebar-maximize").click();
+            setTimeout(function () {
+                var dialogElement = _this.element ? _this.element.closest(".ui-dialog") : $(".ui-dialog");
+                var dialogHeight = dialogElement.height();
+                var titleBarHeight = dialogElement.find('.ui-dialog-title').height() || 20;
+                var toolBarHeight = dialogElement.find('.s-DialogToolbar.s-Toolbar').height() || 0;
+                var tabBarHeight = dialogElement.find('.nav.nav-tabs.property-tabs').height() || 0;
+                var categoryLinkHeight = dialogElement.find('.category-links').height() || 0;
+                _this.element.find('.categories').height(dialogHeight - titleBarHeight - toolBarHeight - tabBarHeight - categoryLinkHeight - 40);
+            }, 100);
+        };
+        DialogBase.prototype.fullContentArea = function () {
+            this.setDialogSize();
+        };
+        // set the dialog size relative to content area (to shrink use negative value)
+        DialogBase.prototype.setDialogSize = function (width, height, top, left, $content) {
+            var _this = this;
+            if (!$content) {
+                $content = $('section.content');
+            }
+            if ($content.length == 0) {
+                $content = $('.content-wrapper');
+            }
+            var dialogElement = this.element ? this.element.closest(".ui-dialog") : $(".ui-dialog");
+            if ($content.length > 0 && dialogElement.length > 0) {
+                var dialogWidth = $content.width() + 30 + (width || 0);
+                var dialogHeight = $content.height() + (height || 30);
+                this.element.dialog("option", "width", dialogWidth);
+                this.element.dialog("option", "height", dialogHeight);
+                var titleBarHeight = dialogElement.find('.ui-dialog-title').height() || 20;
+                var toolBarHeight = dialogElement.find('.s-DialogToolbar.s-Toolbar').height() || 0;
+                var tabBarHeight = dialogElement.find('.nav.nav-tabs.property-tabs').height() || 0;
+                var categoryLinkHeight = dialogElement.find('.category-links').height() || 0;
+                this.element.find('.categories').height(dialogHeight - titleBarHeight - toolBarHeight - tabBarHeight - categoryLinkHeight - 40);
+                dialogElement.css({
+                    left: $content.position().left + (left || 0),
+                    top: (top || 50),
+                });
+            }
+            setTimeout(function () {
+                _this.onAfterSetDialogSize();
+            }, 200);
+        };
+        DialogBase.prototype.onAfterSetDialogSize = function () { };
+        DialogBase.prototype.onAfterDialogClose = function (entity) { };
+        DialogBase = __decorate([
+            Serenity.Decorators.responsive(),
+            Serenity.Decorators.maximizable()
+        ], DialogBase);
+        return DialogBase;
+    }(Serenity.EntityDialog));
+    _Ext.DialogBase = DialogBase;
+})(_Ext || (_Ext = {}));
+/// <reference path="../Bases/DialogBase.ts" />
+var _Ext;
+(function (_Ext) {
+    var AuditLogDialog = /** @class */ (function (_super) {
+        __extends(AuditLogDialog, _super);
+        function AuditLogDialog() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.form = new AuditLogForm(_this.idPrefix);
+            return _this;
+        }
+        AuditLogDialog.prototype.getFormKey = function () { return AuditLogForm.formKey; };
+        AuditLogDialog.prototype.getIdProperty = function () { return AuditLogRow.idProperty; };
+        AuditLogDialog.prototype.getLocalTextPrefix = function () { return AuditLogRow.localTextPrefix; };
+        AuditLogDialog.prototype.getNameProperty = function () { return AuditLogRow.nameProperty; };
+        AuditLogDialog.prototype.getService = function () { return AuditLogService.baseUrl; };
+        AuditLogDialog.prototype.afterLoadEntity = function () {
+            _super.prototype.afterLoadEntity.call(this);
+            usingJsonDiffPatch();
+            //showing diff visually
+            var left = JSON.parse(this.entity.OldEntity);
+            if (left) {
+                if (left.PlantJson) {
+                    left.PlantInfo = JSON.parse(left.PlantJson);
+                    delete (left.PlantJson);
+                }
+                delete (left.Id);
+                delete (left.IDate);
+                delete (left.IUser);
+                delete (left.EDate);
+                delete (left.EUser);
+            }
+            var right = JSON.parse(this.entity.NewEntity);
+            if (right) {
+                if (right.PlantJson) {
+                    right.PlantInfo = JSON.parse(right.PlantJson);
+                    delete (right.PlantJson);
+                }
+            }
+            var delta = jsondiffpatch.diff(left, right);
+            // beautiful html diff
+            this.form.Differences.value = jsondiffpatch.formatters.html.format(delta);
+        };
+        AuditLogDialog = __decorate([
+            Serenity.Decorators.registerClass(),
+            Serenity.Decorators.responsive()
+        ], AuditLogDialog);
+        return AuditLogDialog;
+    }(_Ext.DialogBase));
+    _Ext.AuditLogDialog = AuditLogDialog;
+})(_Ext || (_Ext = {}));
+/// <reference path="../_q/_q.d.ts" />
+var _Ext;
+(function (_Ext) {
+    var GridBase = /** @class */ (function (_super) {
+        __extends(GridBase, _super);
+        function GridBase(container, options) {
+            var _this = _super.call(this, container, options) || this;
+            _this.isAutosized = false;
+            _this.isChildGrid = false;
+            _this.nextRowNumber = 1;
+            _this.rowSelection = new Serenity.GridRowSelectionMixin(_this);
+            _this.slickContainer.fadeTo(0, 0);
+            return _this;
+        }
+        GridBase.prototype.get_ExtGridOptions = function () { return q.DefaultMainGridOptions; };
+        GridBase.prototype.markupReady = function () {
+            var _this = this;
+            _super.prototype.markupReady.call(this);
+            setTimeout(function () {
+                if (_this.isAutosized == false) {
+                    if (_this.get_ExtGridOptions().AutoColumnSize == true) {
+                        _this.resizeAllCulumn();
+                    }
+                    _this.slickContainer.fadeTo(100, 1);
+                }
+            }, 100);
+        };
+        GridBase.prototype.getButtons = function () {
+            var _this = this;
+            var buttons = _super.prototype.getButtons.call(this);
+            var reportRequest = this.getReportRequest();
+            if (reportRequest.ListExcelServiceMethodName) {
+                buttons.push(_Ext.ExcelExportHelper.createToolButton({
+                    grid: this,
+                    service: this.getService() + '/' + reportRequest.ListExcelServiceMethodName,
+                    onViewSubmit: function () { return _this.onViewSubmit(); },
+                    separator: true
+                }));
+            }
+            if (reportRequest.ReportKey) {
+                buttons.push({
+                    title: 'Export to PDF',
+                    icon: 'fa fa-file-pdf-o',
+                    onClick: function () {
+                        _Ext.ReportHelper.execute({ reportKey: reportRequest.ReportKey, params: { request: _this.getReportRequest() } });
+                    }
+                });
+                buttons.push({
+                    title: 'View as Report',
+                    icon: 'fa fa-html5',
+                    onClick: function () {
+                        _Ext.ReportHelper.execute({ reportKey: reportRequest.ReportKey, params: { request: _this.getReportRequest() }, extension: 'html' });
+                    }
+                });
+            }
+            else if (reportRequest.ReportServiceMethodName) {
+                buttons.push({
+                    title: 'View as Report',
+                    icon: 'fa fa-eye',
+                    onClick: function () {
+                        Q.postToService({ service: Q.resolveUrl(_this.getService() + '/' + reportRequest.ReportServiceMethodName), request: _this.getReportRequest(), target: '_blank' });
+                    }
+                });
+            }
+            else {
+                buttons.push(_Ext.PdfExportHelper.createToolButton({
+                    grid: this,
+                    tableOptions: { theme: 'grid' },
+                    onViewSubmit: function () { return _this.onViewSubmit(); }
+                }));
+            }
+            return buttons;
+        };
+        GridBase.prototype.getReportRequest = function () {
+            var view = this.getView();
+            var request = Q.deepClone(view ? view.params : {}); //as _Ext.ReportRequest;
+            request.ReportServiceMethodName = null; // if some value found in this property then "view as report" button will appear
+            request.ReportKey = null; // if some value found in this property then "export to pdf" button will appear
+            request.ListExcelServiceMethodName = null; // if some value found in this property then "export to xls" button will appear
+            request.EqualityFilterWithTextValue = {};
+            if (view) {
+                var quickFilters = this.getQuickFilters();
+                for (var _i = 0, quickFilters_1 = quickFilters; _i < quickFilters_1.length; _i++) {
+                    var quickFilter = quickFilters_1[_i];
+                    var filterValue = request.EqualityFilter[quickFilter.field];
+                    if (filterValue && filterValue.length > 0) {
+                        if (quickFilter.options.lookupKey) {
+                            var lookup = Q.getLookup(quickFilter.options.lookupKey);
+                            request.EqualityFilterWithTextValue[quickFilter.title] = lookup.itemById[filterValue][lookup.textField];
+                        }
+                        else if (quickFilter.options.enumKey) {
+                            var enumKey = quickFilter.options.enumKey;
+                            var enumValue = Q.toId(filterValue);
+                            request.EqualityFilterWithTextValue[quickFilter.title] = Serenity.EnumFormatter.format(Serenity.EnumTypeRegistry.get(enumKey), enumValue);
+                        }
+                        else {
+                            request.EqualityFilterWithTextValue[quickFilter.title] = filterValue;
+                        }
+                    }
+                    else if (quickFilter.type == Serenity.DateEditor) {
+                        var qf = this.findQuickFilter(Serenity.DateEditor, quickFilter.field);
+                        var dateFrom = qf.element.val();
+                        var dateTo = qf.element.siblings('input').val();
+                        var filterText = '';
+                        if (!Q.isEmptyOrNull(dateFrom))
+                            filterText = 'From ' + dateFrom;
+                        if (!Q.isEmptyOrNull(dateTo))
+                            filterText = filterText + ' To ' + dateTo;
+                        if (!Q.isEmptyOrNull(filterText)) {
+                            request.EqualityFilterWithTextValue[quickFilter.title] = filterText;
+                        }
+                        else if (this.get_ExtGridOptions().ShowAnyInEqualityFilterWithTextValue == true) {
+                            request.EqualityFilterWithTextValue[quickFilter.title] = 'all';
+                        }
+                    }
+                    else if (this.get_ExtGridOptions().ShowAnyInEqualityFilterWithTextValue == true) {
+                        request.EqualityFilterWithTextValue[quickFilter.title] = 'all';
+                    }
+                }
+            }
+            return request;
+        };
+        GridBase.prototype.getColumns = function () {
+            var _this = this;
+            var columns = _super.prototype.getColumns.call(this);
+            var isEditable = this.getSlickOptions().editable;
+            var extOptions = this.get_ExtGridOptions();
+            columns.forEach(function (c) {
+                if (extOptions.AutoColumnSize == true) {
+                    c.width = c.minWidth || c.width || 50;
+                    c.cssClass = c.cssClass || '';
+                    if (c.sourceItem) {
+                        if (c.sourceItem.filteringType == "Lookup") {
+                            c.cssClass += ' align-left';
+                            if (c.sourceItem.editorType == "Lookup" && !c.sourceItem.editorParams.autoComplete) {
+                                c.lookup = Q.getLookup(c.sourceItem.editorParams.lookupKey);
+                                c.formatter = function (row, cell, value, columnDef, dataContext) {
+                                    var item = columnDef.lookup.itemById[value];
+                                    if (item)
+                                        return item[columnDef.lookup.textField];
+                                    else
+                                        return '-';
+                                };
+                            }
+                            c.width = c.minWidth > 100 ? c.minWidth : 100;
+                        }
+                        else if (c.sourceItem.formatterType == "Enum") {
+                            //c.cssClass += ' align-center';
+                            c.formatter = function (row, cell, value, columnDef, dataContext) {
+                                var enumKey = columnDef.sourceItem.editorParams.enumKey;
+                                var text = Serenity.EnumFormatter.format(Serenity.EnumTypeRegistry.get(enumKey), Q.toId(value));
+                                if (text)
+                                    return text;
+                                else
+                                    return '-';
+                            };
+                        }
+                        else if (c.sourceItem.formatterType == "Date") {
+                            c.cssClass += ' align-center';
+                            c.width = c.minWidth > 99 ? c.minWidth : 99;
+                        }
+                        else if (c.sourceItem.formatterType == "DateTime") {
+                            c.cssClass += ' align-center';
+                            c.width = c.minWidth > 140 ? c.minWidth : 140;
+                        }
+                        else if (c.sourceItem.formatterType == "Number") {
+                            c.cssClass += ' align-right';
+                            if (c.sourceItem.editorType == "Decimal") {
+                                var formatSrt_1 = '#,##0.00';
+                                if (c.sourceItem.editorParams) {
+                                    var decimals = c.sourceItem.editorParams['decimals'];
+                                    if (decimals) {
+                                        formatSrt_1 = '#,##0.';
+                                        for (var i = 0; i < decimals; i++) {
+                                            formatSrt_1 += '0';
+                                        }
+                                    }
+                                    else if (c.sourceItem.editorParams['minValue']) {
+                                        var splitedMinValue = c.sourceItem.editorParams['minValue'].split('.');
+                                        if (splitedMinValue.length > 1) {
+                                            formatSrt_1 = '#,##0.' + splitedMinValue[1];
+                                        }
+                                        else {
+                                            formatSrt_1 = '#,##0';
+                                        }
+                                    }
+                                }
+                                c.format = function (ctx) { return Serenity.NumberFormatter.format(ctx.value, formatSrt_1); };
+                            }
+                        }
+                        else if (c.sourceItem.formatterType == "Checkbox") {
+                            c.cssClass += ' align-center';
+                        }
+                        else {
+                            c.cssClass += ' align-left';
+                            c.width = c.minWidth > 99 ? c.minWidth : 99;
+                        }
+                    }
+                    else {
+                        c.cssClass += ' align-left';
+                        c.width = c.minWidth > 99 ? c.minWidth : 99;
+                    }
+                }
+                //editor
+                if (isEditable == true && c.sourceItem && c.sourceItem.readOnly != true) {
+                    usingSlickGridEditors();
+                    if (q.useSerenityInlineEditors) {
+                        c.editor = SerenityInlineEditor;
+                    }
+                    else {
+                        if (c.sourceItem.editorType == "Lookup" || c.sourceItem.editorType == "Enum") {
+                            c.editor = Slick['Editors']['Select2'];
+                            c.width = c.minWidth > 160 ? c.minWidth : 160;
+                        }
+                        else if (c.sourceItem.editorType == "Date") {
+                            c.editor = Slick['Editors']['Date'];
+                        }
+                        else if (c.sourceItem.editorType == "Boolean") {
+                            c.editor = Slick['Editors']['Checkbox'];
+                        }
+                        else if (c.sourceItem.editorType == "Integer") {
+                            c.editor = Slick['Editors']['Integer'];
+                        }
+                        else if (c.sourceItem.editorType == "Decimal") {
+                            c.editor = Slick['Editors']['Float'];
+                        }
+                        else if (c.sourceItem.editorType == "YesNoSelect") {
+                            c.editor = Slick['Editors']['YesNoSelect'];
+                        }
+                        else if (c.sourceItem.editorType == "PercentComplete") {
+                            c.editor = Slick['Editors']['PercentComplete'];
+                        }
+                        else if (c.sourceItem.editorType == "LongText") {
+                            c.editor = Slick['Editors']['LongText'];
+                        }
+                        else {
+                            c.editor = Slick['Editors']['Text'];
+                        }
+                    }
+                }
+            });
+            columns.unshift({
+                field: 'RowNum',
+                name: '#',
+                cssClass: 'rownum-column',
+                headerCssClass: 'align-center',
+                width: 40,
+                minWidth: 40,
+                maxWidth: 40,
+                visible: extOptions.ShowRowNumberColumn,
+                format: function (ctx) {
+                    if (!ctx.item.RowNum) {
+                        ctx.item.RowNum = _this.nextRowNumber++;
+                    }
+                    return String(ctx.item.RowNum);
+                }
+            });
+            if (extOptions.ShowInlineActionsColumn == true) {
+                var inlineActionsColumnWidth = 0;
+                var inlineActionsColumnContent_1 = '';
+                if (extOptions.ShowEditInlineButtun == true) {
+                    inlineActionsColumnWidth += 25;
+                    inlineActionsColumnContent_1 += '<a class="inline-actions view-details" title="edit/view details" style="padding-right: 10px;"><i class="view-details fa fa-pencil-square-o"></i></a>';
+                }
+                if (extOptions.ShowDeleteInlineButtun == true) {
+                    inlineActionsColumnWidth += 25;
+                    inlineActionsColumnContent_1 += '<a class="inline-actions delete-row" title="delete"><i class="delete-row fa fa-trash-o text-red"></i></a>';
+                }
+                columns.unshift({
+                    field: 'inline-actions',
+                    name: '',
+                    cssClass: 'inline-actions-column',
+                    width: inlineActionsColumnWidth,
+                    minWidth: inlineActionsColumnWidth,
+                    maxWidth: inlineActionsColumnWidth,
+                    format: function (ctx) { return inlineActionsColumnContent_1; }
+                });
+            }
+            if (extOptions.ShowRowSelectionCheckboxColumn == true) {
+                var rowSelectionCol = Serenity.GridRowSelectionMixin.createSelectColumn(function () { return _this.rowSelection; });
+                rowSelectionCol.width = rowSelectionCol.minWidth = rowSelectionCol.maxWidth = 25;
+                columns.unshift(rowSelectionCol);
+            }
+            if (this.element.hasClass('RowSelectionCheckGrid')) { //show checkbox column in picker mode
+                var options = this.options;
+                if (!options.multiple && !options.gridType) {
+                    Q.notifyWarning("Could not determine multiple/single. Probably there is no 'options' parameter in grid's constructor.");
+                }
+                if (options.multiple == true) {
+                    var rowSelectionCol = Serenity.GridRowSelectionMixin.createSelectColumn(function () { return _this.rowSelection; });
+                    rowSelectionCol.width = rowSelectionCol.minWidth = rowSelectionCol.maxWidth = 25;
+                    columns.unshift(rowSelectionCol);
+                }
+                else {
+                    columns.unshift({
+                        field: 'row-selection',
+                        name: '',
+                        cssClass: 'inline-actions-column',
+                        width: 66,
+                        minWidth: 66,
+                        maxWidth: 66,
+                        format: function (ctx) { return '<a class="inline-actions select-row"><i class="select-row fa fa-check"></i> Select</a>'; }
+                    });
+                }
+            }
+            return columns;
+        };
+        GridBase.prototype.createSlickGrid = function () {
+            var grid = _super.prototype.createSlickGrid.call(this);
+            usingSlickAutoColumnSize();
+            if (Slick.AutoColumnSize) {
+                this.autoColumnSizePlugin = new Slick.AutoColumnSize();
+                grid.registerPlugin(this.autoColumnSizePlugin);
+            }
+            grid.registerPlugin(new Slick.Data.GroupItemMetadataProvider());
+            return grid;
+        };
+        GridBase.prototype.resetColumns = function (columns) {
+            var _this = this;
+            this.slickContainer.fadeTo(0, 0);
+            this.slickGrid.setColumns(columns);
+            setTimeout(function () {
+                if (_this.get_ExtGridOptions().AutoColumnSize == true) {
+                    _this.resizeAllCulumn();
+                }
+                _this.slickContainer.fadeTo(100, 1);
+            }, 100);
+        };
+        GridBase.prototype.resizeAllCulumn = function () {
+            this.isAutosized = true;
+            var gridContainerWidth = this.slickContainer.width();
+            if (gridContainerWidth > 0) { }
+            else {
+                gridContainerWidth = this.element.closest('.s-Dialog').width() - 55;
+            }
+            if (gridContainerWidth > 0) { }
+            else {
+                gridContainerWidth = this.element.closest('.s-Panel').width() - 55;
+            }
+            if (gridContainerWidth > 0) { }
+            else {
+                gridContainerWidth = $('section.content').width() - 75;
+            }
+            this.slickGrid.setOptions({ forceFitColumns: false });
+            var allVisibleColumns = this.autoColumnSizePlugin.resizeAllColumns().filter(function (f) { return f.visible != false; }); // this.allColumns;
+            var allVisibleColumnWidth = 0;
+            allVisibleColumns.map(function (m) { return m.width; }).forEach(function (e) { return allVisibleColumnWidth += e; });
+            if (allVisibleColumnWidth > gridContainerWidth) {
+                this.autoColumnSizePlugin.resizeAllColumns();
+            }
+            else if (allVisibleColumnWidth < gridContainerWidth) {
+                this.autoColumnSizePlugin.resizeAllColumns();
+                var fixedSizeColumns_1 = [];
+                var resizableColumns_1 = [];
+                allVisibleColumns.forEach(function (c) {
+                    if (c.minWidth == c.maxWidth) {
+                        fixedSizeColumns_1.push(c);
+                        c.width = c.maxWidth;
+                    }
+                    else if (c.sourceItem) {
+                        if (c.sourceItem.formatterType == String("Number")) {
+                            fixedSizeColumns_1.push(c);
+                        }
+                        else if (c.sourceItem.filteringType == String("Enum")) {
+                            fixedSizeColumns_1.push(c);
+                            if (c.width < 80)
+                                c.width = 80;
+                        }
+                        else if (c.sourceItem.formatterType == String("Date")) {
+                            fixedSizeColumns_1.push(c);
+                            if (c.width < 80)
+                                c.width = 80;
+                        }
+                        else if (c.sourceItem.formatterType == String("DateTime")) {
+                            fixedSizeColumns_1.push(c);
+                            if (c.width < 140)
+                                c.width = 140;
+                        }
+                        else if (c.sourceItem.formatterType == String("Checkbox")) {
+                            fixedSizeColumns_1.push(c);
+                        }
+                        else {
+                            resizableColumns_1.push(c);
+                        }
+                    }
+                    else {
+                        resizableColumns_1.push(c);
+                    }
+                });
+                if (resizableColumns_1.length == 0) {
+                    fixedSizeColumns_1 = [];
+                    resizableColumns_1 = [];
+                    allVisibleColumns.forEach(function (c) {
+                        if (c.minWidth == c.maxWidth) {
+                            fixedSizeColumns_1.push(c);
+                            c.width = c.maxWidth;
+                        }
+                        else {
+                            resizableColumns_1.push(c);
+                        }
+                    });
+                }
+                var fixedSizeColumnsWidth_1 = 0;
+                fixedSizeColumns_1.map(function (m) { return m.width; }).forEach(function (e) { return fixedSizeColumnsWidth_1 += e; });
+                var stretchableGridAreaWidth_1 = gridContainerWidth - fixedSizeColumnsWidth_1 - 18;
+                var resizableColumnsWidth_1 = 0;
+                resizableColumns_1
+                    .map(function (m) { return m.width; })
+                    .forEach(function (e) { return resizableColumnsWidth_1 += e; });
+                resizableColumns_1.forEach(function (c) {
+                    c.width = c.width * (stretchableGridAreaWidth_1 / resizableColumnsWidth_1);
+                });
+                this.slickGrid.setColumns(allVisibleColumns);
+                this.slickGrid.onColumnsResized.notify();
+            }
+            this.setItems(this.getItems());
+        };
+        GridBase.prototype.getSlickOptions = function () {
+            var opt = _super.prototype.getSlickOptions.call(this);
+            if (this.get_ExtGridOptions().AutoColumnSize == true) {
+                opt.forceFitColumns = true;
+            }
+            //opt.enableTextSelectionOnCells = true;
+            opt.enableCellNavigation = true;
+            opt.asyncEditorLoading = false;
+            opt.autoEdit = true;
+            return opt;
+        };
+        GridBase.prototype.getViewOptions = function () {
+            var opt = _super.prototype.getViewOptions.call(this);
+            opt.rowsPerPage = q.DefaultMainGridOptions.RowsPerPage;
+            return opt;
+        };
+        GridBase.prototype.onClick = function (e, row, cell) {
+            _super.prototype.onClick.call(this, e, row, cell);
+            if (e.isDefaultPrevented())
+                return;
+            var item = this.itemAt(row);
+            var recordId = item[this.getIdProperty()];
+            var target = $(e.target);
+            // if user clicks "i" element, e.g. icon
+            if (target.parent().hasClass('inline-action') || target.parent().hasClass('inline-actions') || target.parent().hasClass('inline-btn'))
+                target = target.parent();
+            if (target.hasClass('inline-action') || target.hasClass('inline-actions') || target.hasClass('inline-btn')) {
+                //e.preventDefault();
+                this.onInlineActionClick(target, recordId, item);
+            }
+        };
+        GridBase.prototype.onInlineActionClick = function (target, recordId, item) {
+            var _this = this;
+            if (target.hasClass('delete-row')) {
+                if (this.isReadOnly == true) {
+                    Q.notifyWarning('Read only records could not be deleted!');
+                }
+                else {
+                    Q.confirm('Delete record?', function () {
+                        var o = _this;
+                        if (o.deleteEntity) { //for in-memory grid
+                            o.deleteEntity(recordId);
+                        }
+                        else {
+                            Q.serviceRequest(_this.getService() + '/Delete', { EntityId: recordId }, function (response) {
+                                _this.refresh();
+                            });
+                        }
+                    });
+                }
+            }
+            else if (target.hasClass('view-details')) {
+                this.editItem(recordId);
+            }
+            else if (target.hasClass('select-row')) {
+                this.rowSelection.setSelectedKeys([recordId]);
+                this.pickerDialog.onSuccess(this.selectedItems);
+                this.pickerDialog.dialogClose();
+            }
+        };
+        GridBase.prototype.resetRowNumber = function () {
+            this.nextRowNumber = 1;
+            var items = this.getItems();
+            var grouping_fields = this.view.getGrouping();
+            if (grouping_fields.length == 0) {
+                for (var i = 0; i < items.length; i++) {
+                    items[i].RowNum = i + 1;
+                }
+            }
+            else if (grouping_fields.length > 0) {
+                var generateRowNumber_1 = function (groups) {
+                    for (var gi = 0; gi < groups.length; gi++) {
+                        var subGroups = groups[gi].groups;
+                        if (subGroups) {
+                            generateRowNumber_1(subGroups);
+                        }
+                        else {
+                            var rows = groups[gi].rows;
+                            for (var i = 0; i < rows.length; i++) {
+                                rows[i].RowNum = i + 1;
+                            }
+                        }
+                    }
+                };
+                var groups = this.view.getGroups();
+                generateRowNumber_1(groups);
+            }
+            this.setItems(items);
+        };
+        GridBase.prototype.setGrouping = function (groupInfo) {
+            this.view.setGrouping(groupInfo);
+            this.resetRowNumber();
+        };
+        GridBase.prototype.onViewProcessData = function (response) {
+            var _this = this;
+            var r = _super.prototype.onViewProcessData.call(this, response);
+            if (this.get_ExtGridOptions().ShowRowNumberColumn == true) {
+                setTimeout(function () { _this.resetRowNumber(); });
+            }
+            return r;
+        };
+        GridBase.prototype.initDialog = function (dialog) {
+            _super.prototype.initDialog.call(this, dialog);
+            dialog.parentGrid = this;
+        };
+        Object.defineProperty(GridBase.prototype, "selectedItems", {
+            get: function () {
+                var _this = this;
+                return this.rowSelection.getSelectedKeys().map(function (m) {
+                    return _this.view.getItemById(m);
+                });
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GridBase.prototype, "selectedKeys", {
+            set: function (value) {
+                var options = this.options;
+                if (options.multiple == true) {
+                    this.rowSelection.setSelectedKeys(value);
+                }
+                else {
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        GridBase = __decorate([
+            Serenity.Decorators.filterable()
+        ], GridBase);
+        return GridBase;
+    }(Serenity.EntityGrid));
+    _Ext.GridBase = GridBase;
+})(_Ext || (_Ext = {}));
+/// <reference path="../Bases/GridBase.ts" />
+var _Ext;
+(function (_Ext) {
+    var AuditLogGrid = /** @class */ (function (_super) {
+        __extends(AuditLogGrid, _super);
+        function AuditLogGrid(container) {
+            return _super.call(this, container) || this;
+        }
+        AuditLogGrid.prototype.getColumnsKey = function () { return '_Ext.AuditLog'; };
+        AuditLogGrid.prototype.getDialogType = function () { return _Ext.AuditLogDialog; };
+        AuditLogGrid.prototype.getIdProperty = function () { return AuditLogRow.idProperty; };
+        AuditLogGrid.prototype.getLocalTextPrefix = function () { return AuditLogRow.localTextPrefix; };
+        AuditLogGrid.prototype.getService = function () { return AuditLogService.baseUrl; };
+        AuditLogGrid.prototype.getButtons = function () {
+            var buttons = _super.prototype.getButtons.call(this);
+            buttons.splice(0, 1);
+            return buttons;
+        };
+        AuditLogGrid = __decorate([
+            Serenity.Decorators.registerClass()
+        ], AuditLogGrid);
+        return AuditLogGrid;
+    }(_Ext.GridBase));
+    _Ext.AuditLogGrid = AuditLogGrid;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var AuditLogViewer = /** @class */ (function () {
+        function AuditLogViewer(el, entityVersions) {
+            this.el = '.content-wrapper';
+            this.data = {
+                entityVersions: []
+            };
+            this.mounted = function () {
+            };
+            this.computed = {
+                test: function () {
+                    return 'test computed';
+                }
+            };
+            this.filters = {
+                filterByYardId: function () {
+                    return [];
+                }
+            };
+            this.methods = {
+                showDiff: function (versionInfo) {
+                    //showing diff visually
+                    var left = versionInfo.OldEntity;
+                    var right = versionInfo.NewEntity;
+                    var delta = jsondiffpatch.diff(left, right);
+                    // beautiful html diff
+                    document.getElementById('visualizeDiff').innerHTML = jsondiffpatch.formatters.html.format(delta, left);
+                },
+                getDiff: function (versionInfo) {
+                    //showing diff visually
+                    var left = versionInfo.OldEntity;
+                    var right = versionInfo.NewEntity;
+                    var delta = jsondiffpatch.diff(left, right);
+                    // beautiful html diff
+                    return jsondiffpatch.formatters.html.format(delta);
+                    //var delta = jsondiffpatch.diff(left, right);
+                    //// left is optional, if specified unchanged values will be visible too
+                    //document.getElementBy('the-diff').innerHTML = jsondiffpatch.formatters.html.format(delta, left);
+                    //// Also you can dinamically show/hide unchanged values
+                    //jsondiffpatch.formatters.html.showUnchanged();
+                    //jsondiffpatch.formatters.html.hideUnchanged();
+                    //// these will also adjust array move arrows (SVG), which is useful if something alters the html layout
+                }
+            };
+            this.el = el || this.el;
+            this.data.entityVersions = entityVersions;
+        }
+        AuditLogViewer.prototype.destroyed = function () {
+        };
+        return AuditLogViewer;
+    }());
+    _Ext.AuditLogViewer = AuditLogViewer;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var AuditLogViewerDialog = /** @class */ (function (_super) {
+        __extends(AuditLogViewerDialog, _super);
+        function AuditLogViewerDialog(request) {
+            var _this = _super.call(this) || this;
+            _this.request = request;
+            _this.dialogTitle = 'Audit Log Viewer';
+            _this.onDialogOpen = function () {
+                AuditLogViewerService.List(_this.request, function (response) {
+                    response.EntityVersions.forEach(function (e) {
+                        delete (e.Id);
+                        e.OldEntity = JSON.parse(e.OldEntity);
+                        e.NewEntity = JSON.parse(e.NewEntity);
+                        delete (e.OldEntity.Id);
+                        delete (e.OldEntity.IDate);
+                        delete (e.OldEntity.IUser);
+                        delete (e.OldEntity.EDate);
+                        delete (e.OldEntity.EUser);
+                        e.ActionType = AuditActionType[e.ActionType];
+                        e.isShowed = false;
+                    });
+                    new Vue(new _Ext.AuditLogViewer('#' + _this.idPrefix + 'dialogContent', response.EntityVersions));
+                });
+            };
+            return _this;
+        }
+        AuditLogViewerDialog.prototype.getTemplateName = function () {
+            usingVuejs();
+            usingJsonDiffPatch();
+            return '_Ext.AuditLogViewer';
+        };
+        AuditLogViewerDialog = __decorate([
+            Serenity.Decorators.registerClass(),
+            Serenity.Decorators.maximizable()
+        ], AuditLogViewerDialog);
+        return AuditLogViewerDialog;
+    }(Serenity.TemplatedDialog));
+    _Ext.AuditLogViewerDialog = AuditLogViewerDialog;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ReportGridBase = /** @class */ (function (_super) {
+        __extends(ReportGridBase, _super);
+        function ReportGridBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        ReportGridBase.prototype.getButtons = function () {
+            var buttons = _super.prototype.getButtons.call(this);
+            buttons.splice(0, 1);
+            return buttons;
+        };
+        ReportGridBase.prototype.getColumns = function () {
+            var columns = _super.prototype.getColumns.call(this);
+            columns.splice(0, 1);
+            return columns;
+        };
+        ReportGridBase = __decorate([
+            Serenity.Decorators.filterable()
+        ], ReportGridBase);
+        return ReportGridBase;
+    }(_Ext.GridBase));
+    _Ext.ReportGridBase = ReportGridBase;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ReportPanelBase = /** @class */ (function (_super) {
+        __extends(ReportPanelBase, _super);
+        function ReportPanelBase(container) {
+            var _this = _super.call(this, container) || this;
+            _this.byId('PanelTitle').text(_this.getReportTitle());
+            _this.byId('SubmitButton').click(function (e) {
+                e.preventDefault();
+                if (!_this.validateForm()) {
+                    return;
+                }
+                _Ext.ReportHelper.execute({ reportKey: _this.getReportKey(), params: { Request: _this.getReportRequest() }, extension: 'html' });
+            });
+            _this.byId('DownloadPdfButton').click(function (e) {
+                e.preventDefault();
+                if (!_this.validateForm()) {
+                    return;
+                }
+                _Ext.ReportHelper.execute({ reportKey: _this.getReportKey(), params: { Request: _this.getReportRequest() }, extension: 'html' });
+            });
+            return _this;
+        }
+        ReportPanelBase.prototype.getTemplateName = function () { return 'ReportPanel'; };
+        ReportPanelBase.prototype.getReportTitle = function () { return 'Report Title'; };
+        ReportPanelBase.prototype.getReportKey = function () { return 'Report.Key'; };
+        ReportPanelBase.prototype.getReportRequest = function () { return this.getSaveEntity(); };
+        return ReportPanelBase;
+    }(Serenity.PropertyPanel));
+    _Ext.ReportPanelBase = ReportPanelBase;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ReplaceRowDialog = /** @class */ (function (_super) {
+        __extends(ReplaceRowDialog, _super);
+        function ReplaceRowDialog(request, entityList) {
+            var _this = _super.call(this) || this;
+            _this.request = request;
+            _this.entityList = entityList;
+            _this.form = new ReplaceRowForm(_this.idPrefix);
+            _this.dialogTitle = 'Replace Row';
+            _this.form.DeletedEntityName.value = request.DeletedEntityName;
+            _this.form.ReplaceWithEntityId.items = entityList.map(function (m) { return { id: String(m[request.IdProperty]), text: m[request.NameProperty], source: m }; });
+            return _this;
+        }
+        ReplaceRowDialog.prototype.getFormKey = function () { return ReplaceRowForm.formKey; };
+        ReplaceRowDialog.prototype.getToolbarButtons = function () {
+            var _this = this;
+            var buttons = [];
+            _super.prototype.getToolbarButtons.call(this);
+            buttons.push({
+                title: 'Replace',
+                icon: 'fa fa fa-trash-o',
+                onClick: function () {
+                    if (_this.validateForm() == false)
+                        return;
+                    Q.confirm("Are you sure? \n\n" + _this.request.EntityTypeTitle + ": \"" + _this.request.DeletedEntityName + "\" will be deleted \nand all references will be replaced with \"" + _this.form.ReplaceWithEntityId.text + "\". \n\nThis action cannot be undone!\n\n", function () {
+                        _this.request.ReplaceWithEntityId = Q.toId(_this.form.ReplaceWithEntityId.value);
+                        Q.serviceRequest(Q.resolveUrl('~/Services/ReplaceRow/Replace'), _this.request, function (response) {
+                            _this.dialogClose();
+                            if (window['lastGrid']) //for single paged apps
+                                window['lastGrid'].refresh();
+                        });
+                    });
+                }
+            });
+            return buttons;
+        };
+        ReplaceRowDialog = __decorate([
+            Serenity.Decorators.registerClass(),
+            Serenity.Decorators.maximizable()
+        ], ReplaceRowDialog);
+        return ReplaceRowDialog;
+    }(_Ext.DialogBase));
+    _Ext.ReplaceRowDialog = ReplaceRowDialog;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var DevTools;
+    (function (DevTools) {
+        var SergenPanel = /** @class */ (function (_super) {
+            __extends(SergenPanel, _super);
+            function SergenPanel(container) {
+                var _this = _super.call(this, container) || this;
+                var vm = new Vue({
+                    el: $('<div/>').appendTo(_this.element)[0],
+                    data: {
+                        connection: "",
+                        connections: [],
+                        tables: [],
+                        generate: {
+                            Row: true,
+                            Service: true,
+                            UI: true
+                        }
+                    },
+                    methods: {
+                        generateCode: function (table) {
+                            if (!table.Identifier) {
+                                Q.notifyError("Identifier cannot be empty!");
+                                return;
+                            }
+                            if (!table.Module) {
+                                Q.notifyError("Module cannot be empty!");
+                                return;
+                            }
+                            SergenService.Generate({
+                                ConnectionKey: this.connection,
+                                Table: table,
+                                GenerateOptions: this.generate
+                            }, function (r) {
+                                Q.notifySuccess("Code for selected table is generated. You'll need to rebuild your project.");
+                            });
+                        }
+                    },
+                    watch: {
+                        connection: function (val) {
+                            if (!val || !val.length)
+                                vm.tables = [];
+                            else
+                                SergenService.ListTables({
+                                    ConnectionKey: val
+                                }, function (response) { return vm.tables = response.Entities; });
+                        }
+                    },
+                    template: Q.getTemplate('_Ext.SergenPanel')
+                });
+                SergenService.ListConnections({}, function (response) { return vm.connections = response.Entities; });
+                return _this;
+            }
+            return SergenPanel;
+        }(Serenity.Widget));
+        DevTools.SergenPanel = SergenPanel;
+    })(DevTools = _Ext.DevTools || (_Ext.DevTools = {}));
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var AutoCompleteEditor = /** @class */ (function (_super) {
+        __extends(AutoCompleteEditor, _super);
+        function AutoCompleteEditor(input, options) {
+            var _this = _super.call(this, input) || this;
+            _this.options = options;
+            input.bind('change', function (e) {
+                if (!Serenity.WX.hasOriginalEvent(e)) {
+                    return;
+                }
+            });
+            setTimeout(function () {
+                _this.bindAutoComplete(input);
+            }, 1000);
+            return _this;
+        }
+        AutoCompleteEditor.prototype.bindAutoComplete = function (input) {
+            var opt = this.options;
+            var source = opt.sourceArray;
+            if (opt.sourceCSV) {
+                source = opt.sourceCSV.split(',');
+            }
+            else if (this.options.lookupKey) {
+                var lookup_1 = Q.getLookup(opt.lookupKey);
+                source = lookup_1.items.map(function (m) { return m[lookup_1.textField]; });
+            }
+            input.autocomplete({
+                minLength: opt.minSearchLength || 0,
+                autoFocus: true,
+                source: source,
+                focus: function (event, ui) {
+                    //$(".ui-helper-hidden-accessible").hide();  //fix issue with the selected data showing up on webpage
+                    //event.preventDefault();
+                    //return false;
+                },
+            });
+            input.data("ui-autocomplete")._renderItem = function (ul, item) {
+                return $("<li>")
+                    .append("<a>" + item.label + "</a>")
+                    .appendTo(ul);
+            };
+            input.bind('click', function (e) {
+                var wasOpen = input.autocomplete("widget").is(":visible");
+                // Close if already visible
+                if (wasOpen) {
+                    return;
+                }
+                // Pass empty string as value to search for, displaying all results
+                input.autocomplete("search", "");
+            });
+        };
+        AutoCompleteEditor = __decorate([
+            Serenity.Decorators.registerEditor()
+        ], AutoCompleteEditor);
+        return AutoCompleteEditor;
+    }(Serenity.StringEditor));
+    _Ext.AutoCompleteEditor = AutoCompleteEditor;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ColorEditor = /** @class */ (function (_super) {
+        __extends(ColorEditor, _super);
+        function ColorEditor(container) {
+            var _this = _super.call(this, container) || this;
+            try {
+                _this.element.colorpicker({ format: "hex" });
+            }
+            catch (e) { }
+            return _this;
+        }
+        ColorEditor.prototype.getTemplate = function () {
+            usingBootstrapColorPicker();
+            return "<div class=\"input-group colorpicker-component\">\n                        <input type=\"text\" value=\"#00AABB\" class=\"form-control\" />\n                        <span class=\"input-group-addon\"><i></i></span>\n                    </div>";
+        };
+        ;
+        ColorEditor.prototype.getEditValue = function (property, target) {
+            try {
+                var editVal = this.element.colorpicker().data().color;
+                target[property.name] = editVal;
+            }
+            catch (e) { }
+        };
+        ColorEditor.prototype.setEditValue = function (source, property) {
+            var val = source[property.name];
+            //this.element.children('input').val(val);
+            try {
+                this.element.data('colorpicker').setValue(val);
+            }
+            catch (e) { }
+        };
+        ColorEditor = __decorate([
+            Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue]),
+            Serenity.Decorators.editor(),
+            Serenity.Decorators.element("<div/>")
+        ], ColorEditor);
+        return ColorEditor;
+    }(Serenity.TemplatedWidget));
+    _Ext.ColorEditor = ColorEditor;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var DateTimePickerEditor = /** @class */ (function (_super) {
+        __extends(DateTimePickerEditor, _super);
+        function DateTimePickerEditor(container) {
+            var _this = _super.call(this, container) || this;
+            usingJqueryUITimepickerAddon();
+            _this.element.datetimepicker({
+                timeInput: true,
+                controlType: 'select',
+                oneLine: true,
+                timeFormat: "HH:mm",
+                showOn: "button"
+            });
+            return _this;
+        }
+        DateTimePickerEditor.prototype.getEditValue = function (property, target) { target[property.name] = this.value; };
+        DateTimePickerEditor.prototype.setEditValue = function (source, property) { this.value = source[property.name]; };
+        Object.defineProperty(DateTimePickerEditor.prototype, "value", {
+            //http://trentrichardson.com/examples/timepicker
+            get: function () {
+                return Q.formatDate(this.valueAsDate, 'yyyy-MM-ddTHH:mm');
+            },
+            set: function (val) {
+                this.valueAsDate = Q.parseISODateTime(val);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DateTimePickerEditor.prototype, "valueAsDate", {
+            get: function () {
+                var val = this.element.datetimepicker('getDate');
+                return val;
+            },
+            set: function (val) {
+                this.element.datetimepicker('setDate', val);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DateTimePickerEditor.prototype.get_readOnly = function () {
+            return this.element.hasClass('readonly');
+        };
+        DateTimePickerEditor.prototype.set_readOnly = function (value) {
+            if (value == true) {
+                this.element.datetimepicker("option", "disabled", true);
+                this.element.addClass('readonly');
+                this.element.attr("disabled");
+            }
+            else {
+                this.element.datetimepicker("option", "disabled", false);
+                this.element.removeClass('readonly');
+                this.element.removeAttr("disabled");
+            }
+        };
+        DateTimePickerEditor.prototype.set_minDate = function (date) {
+            this.element.datetimepicker('option', 'minDate', date);
+        };
+        DateTimePickerEditor.prototype.set_maxDate = function (date) {
+            this.element.datetimepicker('option', 'maxDate', date);
+        };
+        DateTimePickerEditor.prototype.set_minDateTime = function (date) {
+            this.element.datetimepicker('option', 'minDateTime', date);
+        };
+        DateTimePickerEditor.prototype.set_maxDateTime = function (date) {
+            this.element.datetimepicker('option', 'maxDateTime', date);
+        };
+        DateTimePickerEditor = __decorate([
+            Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue, Serenity.IReadOnly]),
+            Serenity.Decorators.editor(),
+            Serenity.Decorators.element("<input/>")
+        ], DateTimePickerEditor);
+        return DateTimePickerEditor;
+    }(Serenity.Widget));
+    _Ext.DateTimePickerEditor = DateTimePickerEditor;
+})(_Ext || (_Ext = {}));
+/// <reference path="../Bases/DialogBase.ts" />
+var _Ext;
+(function (_Ext) {
+    var EditorDialogBase = /** @class */ (function (_super) {
+        __extends(EditorDialogBase, _super);
+        function EditorDialogBase() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EditorDialogBase.prototype.get_ExtDialogOptions = function () { return q.DefaultEditorDialogOptions; };
+        EditorDialogBase.prototype.getIdProperty = function () { return "__id"; };
+        EditorDialogBase.prototype.destroy = function () {
+            this.onSave = null;
+            this.onDelete = null;
+            _super.prototype.destroy.call(this);
+        };
+        EditorDialogBase.prototype.updateInterface = function () {
+            _super.prototype.updateInterface.call(this);
+            this.saveAndCloseButton.find('.button-inner').text(this.isNew() ? (Q.tryGetText('Controls.AddButton') || 'Add') : (Q.tryGetText('Controls.ApplyButton') || 'Apply'));
+            // apply changes button doesn't work properly with in-memory grids yet
+            if (this.applyChangesButton) {
+                this.applyChangesButton.hide();
+            }
+            if (this.parentEditor.isReadOnly == true) {
+                this.saveAndCloseButton.addClass('disabled');
+                this.deleteButton.addClass('disabled');
+                Serenity.EditorUtils.setReadonly(this.element.find('.editor'), true);
+                // remove required asterisk (*)
+                this.element.find('sup').hide();
+            }
+        };
+        EditorDialogBase.prototype.saveHandler = function (options, callback) {
+            this.onSave && this.onSave(options, callback);
+        };
+        EditorDialogBase.prototype.deleteHandler = function (options, callback) {
+            this.onDelete && this.onDelete(options, callback);
+        };
+        EditorDialogBase = __decorate([
+            Serenity.Decorators.registerClass()
+        ], EditorDialogBase);
+        return EditorDialogBase;
+    }(_Ext.DialogBase));
+    _Ext.EditorDialogBase = EditorDialogBase;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var EmptyLookupEditor = /** @class */ (function (_super) {
+        __extends(EmptyLookupEditor, _super);
+        function EmptyLookupEditor() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        EmptyLookupEditor.prototype.setSelect2Items = function (items) {
+            var _this = this;
+            this.clearItems();
+            items.forEach(function (item) { _this.addItem(item); });
+        };
+        EmptyLookupEditor.prototype.setLookupItems = function (lookup) {
+            var items = lookup.items.map(function (m) {
+                return {
+                    id: m[lookup.idField],
+                    text: m[lookup.textField],
+                    source: m
+                };
+            });
+            this.setSelect2Items(items);
+        };
+        EmptyLookupEditor = __decorate([
+            Serenity.Decorators.registerEditor()
+        ], EmptyLookupEditor);
+        return EmptyLookupEditor;
+    }(Serenity.Select2Editor));
+    _Ext.EmptyLookupEditor = EmptyLookupEditor;
+})(_Ext || (_Ext = {}));
+/// <reference path="../Bases/GridBase.ts" />
+var _Ext;
+(function (_Ext) {
+    var GridEditorBase = /** @class */ (function (_super) {
+        __extends(GridEditorBase, _super);
+        function GridEditorBase(container) {
+            var _this = _super.call(this, container) || this;
+            _this.nextId = 1;
+            _this.slickGrid.onSort.subscribe(function (e, args) {
+                _this.sortGridFunction(args.grid, args.sortCols[0], args.sortCols[0].sortCol.field);
+                //(args.grid as Slick.Grid).init();
+                args.grid.invalidateAllRows();
+                args.grid.invalidate();
+                args.grid.render();
+                args.grid.resizeCanvas();
+            });
+            return _this;
+        }
+        GridEditorBase.prototype.get_ExtGridOptions = function () { return q.DefaultEditorGridOptions; };
+        GridEditorBase.prototype.getIdProperty = function () { return "__id"; };
+        GridEditorBase.prototype.sortGridFunction = function (grid, column, field) {
+            grid.getData().sort(function (a, b) {
+                var result = a[field] > b[field] ? 1 :
+                    a[field] < b[field] ? -1 :
+                        0;
+                return column.sortAsc ? result : -result;
+            });
+        };
+        GridEditorBase.prototype.getQuickFilters = function () {
+            return [];
+        };
+        GridEditorBase.prototype.id = function (entity) {
+            return entity[this.getIdProperty()];
+        };
+        GridEditorBase.prototype.save = function (opt, callback) {
+            var _this = this;
+            var request = opt.request;
+            var row = Q.deepClone(request.Entity);
+            var id = this.id(row);
+            if (id == null) {
+                row[this.getIdProperty()] = "`" + this.nextId++;
+            }
+            if (!this.validateEntity(row, id)) {
+                return;
+            }
+            var items = this.view.getItems().slice();
+            if (id == null) {
+                items.push(row);
+            }
+            else {
+                var index = Q.indexOf(items, function (x) { return _this.id(x) === id; });
+                items[index] = Q.deepClone({}, items[index], row);
+            }
+            this.value = items;
+            callback({});
+        };
+        GridEditorBase.prototype.deleteEntity = function (id) {
+            var _this = this;
+            this.view.deleteItem(id);
+            setTimeout(function () { _this.onItemsChanged(); });
+            return true;
+        };
+        GridEditorBase.prototype.validateEntity = function (row, id) {
+            return true;
+        };
+        GridEditorBase.prototype.getNewEntity = function () {
+            return {};
+        };
+        GridEditorBase.prototype.getButtons = function () {
+            var _this = this;
+            return [{
+                    title: 'Add ' + this.getItemName(),
+                    cssClass: 'add-button',
+                    onClick: function () { _this.addButtonClick(); }
+                }];
+        };
+        GridEditorBase.prototype.addButtonClick = function () {
+            var _this = this;
+            this.createEntityDialog(this.getItemType(), function (dlg) {
+                var dialog = dlg;
+                dialog.parentEditor = _this;
+                dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
+                dialog.loadEntityAndOpenDialog(_this.getNewEntity());
+            });
+        };
+        GridEditorBase.prototype.editItem = function (entityOrId) {
+            var _this = this;
+            var id = entityOrId;
+            var item = this.view.getItemById(id);
+            this.createEntityDialog(this.getItemType(), function (dlg) {
+                var dialog = dlg;
+                dialog.onDelete = function (opt, callback) {
+                    if (!_this.deleteEntity(id)) {
+                        return;
+                    }
+                    callback({});
+                };
+                dialog.parentEditor = _this;
+                dialog.onSave = function (opt, callback) { return _this.save(opt, callback); };
+                dialog.loadEntityAndOpenDialog(item);
+            });
+            ;
+        };
+        GridEditorBase.prototype.getEditValue = function (property, target) {
+            target[property.name] = this.value;
+        };
+        GridEditorBase.prototype.setEditValue = function (source, property) {
+            this.value = source[property.name];
+        };
+        Object.defineProperty(GridEditorBase.prototype, "value", {
+            get: function () {
+                var p = this.getIdProperty();
+                this.slickGrid.getEditController().commitCurrentEdit();
+                var items = this.view.getItems();
+                this.onBeforeGetValue(items);
+                return items.map(function (x) {
+                    var y = Q.deepClone(x);
+                    var id = y[p];
+                    if (id && id.toString().charAt(0) == '`')
+                        delete y[p];
+                    if (y['RowNum'])
+                        delete y['RowNum'];
+                    return y;
+                });
+            },
+            set: function (value) {
+                var _this = this;
+                var id = this.getIdProperty();
+                var val = value || [];
+                var items = val.map(function (x) {
+                    var y = Q.deepClone(x);
+                    if (y[id] == null) {
+                        y[id] = "`" + _this.nextId++;
+                    }
+                    return y;
+                });
+                var r = this.onViewProcessData({ Entities: items });
+                this.view.setItems(r.Entities, true);
+                setTimeout(function () { _this.onItemsChanged(); });
+                this.resetRowNumber(); // to generate serial no.
+            },
+            enumerable: true,
+            configurable: true
+        });
+        GridEditorBase.prototype.getGridCanLoad = function () {
+            return false;
+        };
+        GridEditorBase.prototype.usePager = function () {
+            return false;
+        };
+        GridEditorBase.prototype.getInitialTitle = function () {
+            return null;
+        };
+        GridEditorBase.prototype.createToolbarExtensions = function () {
+            var _this = this;
+            //super.createToolbarExtensions();
+            Serenity.GridUtils.addQuickSearchInputCustom(this.toolbar.element, function (field, text) {
+                _this.searchText = Select2.util.stripDiacritics(Q.trimToNull(text) || '').toLowerCase();
+                _this.view.setItems(_this.view.getItems(), true);
+            });
+        };
+        GridEditorBase.prototype.onViewFilter = function (row) {
+            if (!_super.prototype.onViewFilter.call(this, row)) {
+                return false;
+            }
+            if (this.searchText) {
+                return this.matchContains(row);
+            }
+            return true;
+        };
+        GridEditorBase.prototype.matchContains = function (item) {
+            var result = false;
+            for (var prop in item) {
+                result = Select2.util.stripDiacritics(String(item[prop] || '')).toLowerCase().indexOf(this.searchText) >= 0;
+                if (result == true) {
+                    return result;
+                }
+            }
+            return result;
+        };
+        GridEditorBase.prototype.enableFiltering = function () { return false; };
+        GridEditorBase.prototype.onViewSubmit = function () { return false; };
+        GridEditorBase.prototype.get_readOnly = function () {
+            return this.isReadOnly;
+        };
+        GridEditorBase.prototype.set_readOnly = function (value) {
+            this.isReadOnly = value;
+            if (value == true) {
+                this.element.find('.add-button').addClass('disabled');
+                var opt = this.slickGrid.getOptions();
+                opt.editable = false;
+                this.slickGrid.setOptions(opt);
+            }
+            else {
+                this.element.find('.add-button').removeClass('disabled');
+            }
+        };
+        GridEditorBase.prototype.getSlickOptions = function () {
+            var opt = _super.prototype.getSlickOptions.call(this);
+            opt.forceFitColumns = false;
+            //opt.autoHeight = true; // If you need to show footer, you have to do opt.autoHeight = false
+            return opt;
+        };
+        //custom events
+        GridEditorBase.prototype.onItemsChanged = function () {
+        };
+        GridEditorBase.prototype.onBeforeGetValue = function (items) {
+        };
+        GridEditorBase = __decorate([
+            Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue, Serenity.IReadOnly]),
+            Serenity.Decorators.editor(),
+            Serenity.Decorators.element("<div/>")
+        ], GridEditorBase);
+        return GridEditorBase;
+    }(_Ext.GridBase));
+    _Ext.GridEditorBase = GridEditorBase;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var HardCodedLookupEditor = /** @class */ (function (_super) {
+        __extends(HardCodedLookupEditor, _super);
+        function HardCodedLookupEditor(container, options) {
+            var _this = _super.call(this, container, options) || this;
+            var source = options.sourceArray;
+            if (options.sourceCSV) {
+                source = options.sourceCSV.split(',');
+            }
+            source.forEach(function (i) { return _this.addOption(i, i); });
+            return _this;
+        }
+        HardCodedLookupEditor.prototype.getSelect2Options = function () {
+            var opt = _super.prototype.getSelect2Options.call(this);
+            return opt;
+        };
+        HardCodedLookupEditor = __decorate([
+            Serenity.Decorators.registerEditor()
+        ], HardCodedLookupEditor);
+        return HardCodedLookupEditor;
+    }(Serenity.Select2Editor));
+    _Ext.HardCodedLookupEditor = HardCodedLookupEditor;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var HtmlTemplateEditor = /** @class */ (function (_super) {
+        __extends(HtmlTemplateEditor, _super);
+        function HtmlTemplateEditor(textArea, opt) {
+            return _super.call(this, textArea, opt) || this;
+        }
+        HtmlTemplateEditor.prototype.getConfig = function () {
+            var config = _super.prototype.getConfig.call(this);
+            var placehorders = this.options.placeholders;
+            if (placehorders) {
+                config.placeholder_select = {
+                    placeholders: placehorders.split(',')
+                };
+                config.extraPlugins += ',richcombo,placeholder_select';
+            }
+            config.allowedContent = true;
+            config.enterMode = window['CKEDITOR'].ENTER_BR;
+            config.extraPlugins += ',showborders';
+            config.removePlugins += ',uploadimage';
+            //config.forcePasteAsPlainText = true;
+            //config.toolbar = [['placeholder_select']];
+            config.removeButtons += ',Cut,Copy,Paste,PasteText,PasteFromWord' +
+                ',SpecialChar,Subscript,Superscript,Styles,' +
+                'Link,Unlink,CreatePlaceholder,' +
+                'Image,Anchor,Blockquote,BGColor,' +
+                'Superscript,RemoveFormat';
+            return config;
+        };
+        HtmlTemplateEditor = __decorate([
+            Serenity.Decorators.editor(),
+            Serenity.Decorators.element("<div/>")
+        ], HtmlTemplateEditor);
+        return HtmlTemplateEditor;
+    }(Serenity.HtmlContentEditor));
+    _Ext.HtmlTemplateEditor = HtmlTemplateEditor;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var StaticTextBlock = /** @class */ (function (_super) {
+        __extends(StaticTextBlock, _super);
+        function StaticTextBlock(container, options) {
+            var _this = _super.call(this, container, options) || this;
+            // hide the caption label for this editor if in a form. ugly hack
+            if (_this.options.hideLabel)
+                _this.element.closest('.field').find('.caption').hide();
+            // remove required asterisk (*)
+            _this.element.closest('.field').find('sup').hide();
+            _this.updateElementContent();
+            return _this;
+        }
+        StaticTextBlock.prototype.updateElementContent = function () {
+            var text = Q.coalesce(this.options.text, this._value);
+            // if isLocalText is set, text is actually a local text key
+            if (this.options.isLocalText)
+                text = Q.text(text);
+            // don't html encode if isHtml option is true
+            if (this.options.isHtml)
+                this.element.html(text);
+            else
+                this.element.text(text);
+        };
+        /**
+         * By implementing ISetEditValue interface, we allow this editor to display its field value.
+         * But only do this when our text content is not explicitly set in options
+         */
+        StaticTextBlock.prototype.setEditValue = function (source, property) {
+            if (this.options.text == null) {
+                this._value = Q.coalesce(this.options.text, source[property.name]);
+                this.updateElementContent();
+            }
+        };
+        Object.defineProperty(StaticTextBlock.prototype, "value", {
+            get: function () {
+                return this._value;
+            },
+            set: function (value) {
+                this._value = value;
+                this.updateElementContent();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        StaticTextBlock = __decorate([
+            Serenity.Decorators.element("<div/>"),
+            Serenity.Decorators.registerEditor([Serenity.ISetEditValue])
+        ], StaticTextBlock);
+        return StaticTextBlock;
+    }(Serenity.Widget));
+    _Ext.StaticTextBlock = StaticTextBlock;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var GridItemPickerDialog = /** @class */ (function (_super) {
+        __extends(GridItemPickerDialog, _super);
+        function GridItemPickerDialog(options) {
+            var _this = _super.call(this, options) || this;
+            _this.onSuccess = function (selectedItems) { };
+            var gridType = options.gridType;
+            if (!gridType.prototype)
+                gridType = Q.typeByFullName(options.gridType);
+            try {
+                _this.checkGrid = new gridType(_this.byId("RowSelectionCheckGrid"), options);
+                if (options.preSelectedKeys)
+                    _this.checkGrid.selectedKeys = options.preSelectedKeys;
+                _this.dialogTitle = "Select " + _this.checkGrid.getTitle();
+                _this.checkGrid.setTitle(null);
+                _this.checkGrid.pickerDialog = _this;
+            }
+            catch (ex) {
+                Q.notifyError('Could not intialize ' + options.gridType);
+            }
+            return _this;
+        }
+        GridItemPickerDialog.prototype.getTemplate = function () {
+            return "<div id=\"~_RowSelectionCheckGrid\" \n                class=\"RowSelectionCheckGrid " + (this.options.multiple == true ? 'multi-select' : 'single-select') + "\" \n                style = \"margin: 15px 15px 0 15px;\" >\n            </div>";
+        };
+        Object.defineProperty(GridItemPickerDialog.prototype, "selectedItems", {
+            get: function () { return this.checkGrid.selectedItems; },
+            enumerable: true,
+            configurable: true
+        });
+        GridItemPickerDialog.prototype.getDialogOptions = function () {
+            var _this = this;
+            var opt = _super.prototype.getDialogOptions.call(this);
+            opt.buttons = [{
+                    text: Q.text("Dialogs.OkButton"),
+                    click: function () {
+                        var selectedItems = _this.checkGrid.selectedItems;
+                        if (!selectedItems.length) {
+                            Q.notifyWarning("Please select some items!");
+                            return;
+                        }
+                        _this.onSuccess(selectedItems);
+                        _this.dialogClose();
+                    }
+                }, {
+                    text: Q.text("Dialogs.CancelButton"),
+                    click: function () {
+                        _this.dialogClose();
+                    }
+                }];
+            return opt;
+        };
+        GridItemPickerDialog = __decorate([
+            Serenity.Decorators.registerClass()
+        ], GridItemPickerDialog);
+        return GridItemPickerDialog;
+    }(Serenity.TemplatedDialog));
+    _Ext.GridItemPickerDialog = GridItemPickerDialog;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var GridItemPickerEditor = /** @class */ (function (_super) {
+        __extends(GridItemPickerEditor, _super);
+        function GridItemPickerEditor(container, options) {
+            var _this = _super.call(this, container, options) || this;
+            setTimeout(function () {
+                _this.element.find('.btn').click(function (e) {
+                    var pickerDialog = new _Ext.GridItemPickerDialog(options);
+                    pickerDialog.onSuccess = function (selectedItems) {
+                        _this.value = pickerDialog.checkGrid.rowSelection.getSelectedKeys().join(',');
+                        _this.text = selectedItems.map(function (m) { return m[options.nameFieldInGridRow]; }).join(', ');
+                    };
+                    pickerDialog.dialogOpen();
+                });
+            }, 500);
+            return _this;
+        }
+        GridItemPickerEditor.prototype.getTemplate = function () {
+            return "<div class=\"input-group\">\n                        <input type=\"hidden\" class=\"value\" />\n                        <input type=\"text\" class=\"form-control text\" disabled/>\n                          <span class=\"input-group-btn\">\n                            <button class=\"btn btn-default\" style=\"height: 27px; padding-top: 3px;\" type=\"button\"><i class=\"fa fa-search\"></i></button>\n                          </span>\n                    </div>";
+        };
+        ;
+        GridItemPickerEditor.prototype.getEditValue = function (property, target) { target[property.name] = this.value; };
+        GridItemPickerEditor.prototype.setEditValue = function (source, property) { this.value = source[property.name]; this.text = source[this.options.nameFieldInThisRow]; };
+        Object.defineProperty(GridItemPickerEditor.prototype, "value", {
+            get: function () {
+                var editVal = this.element.find('input.value').val();
+                return editVal;
+            },
+            set: function (val) {
+                this.element.find('input.value').val(val);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(GridItemPickerEditor.prototype, "text", {
+            get: function () {
+                var editVal = this.element.find('input.text').val();
+                return editVal;
+            },
+            set: function (val) {
+                this.element.find('input.text').val(val);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        GridItemPickerEditor = __decorate([
+            Serenity.Decorators.registerClass([Serenity.IGetEditValue, Serenity.ISetEditValue]),
+            Serenity.Decorators.editor(),
+            Serenity.Decorators.element("<div/>")
+        ], GridItemPickerEditor);
+        return GridItemPickerEditor;
+    }(Serenity.TemplatedWidget));
+    _Ext.GridItemPickerEditor = GridItemPickerEditor;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var CardViewMixin = /** @class */ (function () {
+        function CardViewMixin(options) {
+            var _this = this;
+            this.options = options;
+            var u, f;
+            var dg = this.dataGrid = options.grid;
+            var idProperty = dg.getIdProperty();
+            var getId = this.getId = function (item) { return item[idProperty]; };
+            options.defaultViewType = options.defaultViewType || 'list';
+            this.viewType = options.defaultViewType;
+            var divViewSwitch = $('\n<div class="btn-group view-switch" data-toggle="buttons" style="float: right">\n    <label class="btn btn-default active" title="List View">\n        <i class="fa fa-th-list text-purple"><\/i>\n        <input type="radio" name="' + dg.element.attr("id") + '_ViewType" value="list" checked />\n    <\/label>\n    <label class="btn btn-default" title="Card View">\n        <i class="fa fa-th-large text-purple"><\/i>\n        <input type="radio" name="' + dg.element.attr("id") + '_ViewType" value="card" />    \n    <\/label>\n<\/div>')
+                .prependTo(dg.element.find(".grid-title"));
+            this.cardContainer = $('<div class="card-container" style="display: none;"><div class="card-items"><\/div><\/div>').insertAfter(dg.element.children(".grid-container"));
+            divViewSwitch.find("input").change(function (e) {
+                return _this.switchView($(e.target).val());
+            });
+            this.resizeCardView();
+            dg.element.bind("layout", function () {
+                return _this.resizeCardView();
+            });
+            dg.view.onDataChanged.subscribe(function () {
+                _this.vm && _this.updateCardItems();
+            });
+            u = dg.getCurrentSettings;
+            dg.getCurrentSettings = function (n) {
+                var i = u.apply(dg, [n]);
+                return i.viewType = divViewSwitch.find("input:checked").val(), i;
+            };
+            f = dg.restoreSettings;
+            dg.restoreSettings = function (n, i) {
+                var u, e, o, s;
+                if (f.apply(dg, [n, i]),
+                    n == null) {
+                    if (u = this.getPersistanceStorage(),
+                        u == null)
+                        return;
+                    if (e = Q.trimToNull(u.getItem(this.getPersistanceKey())),
+                        !e)
+                        return;
+                    n = JSON.parse(e);
+                }
+                o = n.viewType || options.defaultViewType;
+                s = divViewSwitch.find("input:checked").val() || options.defaultViewType;
+                o != s && divViewSwitch.find("input").eq(o == "card" ? 1 : 0).click();
+            };
+        }
+        CardViewMixin.prototype.switchView = function (viewType) {
+            this.resizeCardView();
+            var isCardView = viewType == "card";
+            this.dataGrid.element.children(".card-container").toggle(isCardView);
+            this.dataGrid.element.children(".grid-container").toggle(!isCardView);
+            isCardView && this.updateCardItems();
+            this.dataGrid.persistSettings();
+        };
+        CardViewMixin.prototype.updateCardItems = function () {
+            if (this.vm)
+                this.vm.items = this.dataGrid.getItems();
+            else {
+                usingVuejs();
+                this.vm = new Vue({
+                    el: this.cardContainer.children()[0],
+                    template: this.options.containerTemplate ? "<div> " + this.options.containerTemplate + " </div>"
+                        : "<div class=\"card-items\">\n    <div v-for=\"(item, index) in items\" class=\"" + (this.options.itemCssClass || 'col-sm-12 col-md-6 col-lg-4') + "\">\n        <div class=\"card-item\" style=\"" + this.options.itemCssStyle + "\">\n        " + this.options.itemTemplate + "\n        </div>\n    </div>\n</div>",
+                    data: {
+                        items: this.dataGrid.getItems()
+                    },
+                    methods: this.options.methods
+                });
+            }
+        };
+        CardViewMixin.prototype.resizeCardView = function () {
+            var gridContainer = this.dataGrid.element.children(".grid-container"), width = this.dataGrid.element.width(), height = gridContainer.height();
+            this.dataGrid.element.children(".card-container").css({
+                width: width + "px",
+                height: height + "px"
+            });
+        };
+        return CardViewMixin;
+    }());
+    _Ext.CardViewMixin = CardViewMixin;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    /**
+     * A mixin that can be applied to a DataGrid for excel style filtering functionality
+     */
+    var HeaderFiltersMixin = /** @class */ (function () {
+        function HeaderFiltersMixin(options) {
+            this.options = options;
+            var dg = this.dataGrid = options.grid;
+            var currentColumn = null;
+            var cachedValues = {};
+            usingSlickHeaderFilters();
+            var headerFilters = new Slick['Plugins'].HeaderFilters({
+                getFilterValues: function (column, setFilterableValues) {
+                    if (!dg.view.url || !dg.view["getPagingInfo"]().rowsPerPage || dg.view.getLength() == 0
+                        && !Q.any(dg.slickGrid.getColumns(), function (x) { return x.filterValues && x.filterValues.length > 0; })) {
+                        return null;
+                    }
+                    currentColumn = column;
+                    try {
+                        if (!dg.onViewSubmit()) {
+                            setFilterableValues([]);
+                            return;
+                        }
+                    }
+                    finally {
+                        currentColumn = null;
+                    }
+                    var request = Q.deepClone(dg.view.params);
+                    request.DistinctFields = [column.field];
+                    request.Skip = 0;
+                    request.Take = 0;
+                    var cacheKey = $.toJSON(request);
+                    var cachedValue = cachedValues[cacheKey];
+                    if (cachedValue && cachedValue.expires > (new Date).getTime())
+                        setFilterableValues(cachedValue.value);
+                    else {
+                        Q.serviceCall({
+                            request: request,
+                            url: dg.view.url,
+                            onSuccess: function (response) {
+                                cachedValues[cacheKey] = {
+                                    value: response.Values,
+                                    expires: (new Date).getTime() + 1e3 * 30
+                                };
+                                setFilterableValues(response.Values);
+                            }
+                        });
+                    }
+                },
+                isFilterable: function (column) {
+                    return column.sourceItem != null && column.sortable && (column.sourceItem.notFilterable == null || !column.sourceItem.notFilterable);
+                }
+            });
+            headerFilters.onFilterApplied.subscribe(function () {
+                dg.refresh();
+            });
+            dg.slickGrid.registerPlugin(headerFilters);
+            var oldOnViewSubmit = dg.onViewSubmit;
+            dg.onViewSubmit = function () {
+                if (!oldOnViewSubmit.call(dg))
+                    return false;
+                var columns = dg.slickGrid.getColumns();
+                var request = dg.view.params;
+                for (var n = 0; n < columns.length; n++) {
+                    var column = columns[n];
+                    if (column === currentColumn)
+                        continue;
+                    var filterValues = column.filterValues;
+                    if (filterValues && filterValues.length) {
+                        var u = filterValues.filter(function (f) { return f != null; });
+                        var d = [[column.field], "in", [u]];
+                        if (u.length !== filterValues.length) {
+                            if (u.length > 0)
+                                d = Serenity.Criteria.or(["is null", [column.field]], d);
+                            else
+                                d = ["is null", [column.field]];
+                        }
+                        request.Criteria = Serenity.Criteria.and(request.Criteria, d);
+                    }
+                }
+                return true;
+            };
+        }
+        return HeaderFiltersMixin;
+    }());
+    _Ext.HeaderFiltersMixin = HeaderFiltersMixin;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    /**
+     * A mixin that can be applied to a DataGrid for tree functionality
+     */
+    var TreeGridMixin = /** @class */ (function () {
+        function TreeGridMixin(options) {
+            this.options = options;
+            var dg = this.dataGrid = options.grid;
+            var idProperty = options.idField || dg.getIdProperty();
+            var getId = this.getId = function (item) { return item[idProperty]; };
+            dg.element.find('.grid-container').on('click', function (e) {
+                if ($(e.target).hasClass('s-TreeToggle')) {
+                    var src = dg.slickGrid.getCellFromEvent(e);
+                    if (src.cell >= 0 &&
+                        src.row >= 0) {
+                        TreeGridMixin.toggleClick(e, src.row, src.row, dg.view, getId);
+                    }
+                }
+            });
+            var oldViewFilter = dg.onViewFilter;
+            dg.onViewFilter = function (item) {
+                if (!oldViewFilter.apply(this, [item]))
+                    return false;
+                return TreeGridMixin.filterById(item, dg.view, idProperty, options.getParentId);
+            };
+            var oldProcessData = dg.onViewProcessData;
+            dg.onViewProcessData = function (response) {
+                response = oldProcessData.apply(this, [response]);
+                response.Entities = TreeGridMixin.applyTreeOrdering(response.Entities, getId, options.getParentId);
+                Serenity.SlickTreeHelper.setIndents(response.Entities, getId, options.getParentId, (options.initialCollapse && options.initialCollapse()) || false);
+                return response;
+            };
+            if (options.toggleField) {
+                var col = Q.first(dg.getGrid().getColumns(), function (x) { return x.field == options.toggleField; });
+                col.format = TreeGridMixin.treeToggle(function () { return dg.view; }, getId, col.format || (function (ctx) { return Q.htmlEncode(ctx.value); }));
+                col.formatter = Serenity.SlickHelper.convertToFormatter(col.format);
+            }
+        }
+        /**
+         * Expands / collapses all rows in a grid automatically
+         */
+        TreeGridMixin.prototype.toggleAll = function () {
+            Serenity.SlickTreeHelper.setCollapsed(this.dataGrid.view.getItems(), !this.dataGrid.view.getItems().every(function (x) { return x._collapsed == true; }));
+            this.dataGrid.view.setItems(this.dataGrid.view.getItems(), true);
+        };
+        TreeGridMixin.prototype.expandAll = function () {
+            Serenity.SlickTreeHelper.setCollapsed(this.dataGrid.view.getItems(), false);
+            this.dataGrid.view.setItems(this.dataGrid.view.getItems(), true);
+        };
+        TreeGridMixin.prototype.collapsedAll = function () {
+            Serenity.SlickTreeHelper.setCollapsed(this.dataGrid.view.getItems(), true);
+            this.dataGrid.view.setItems(this.dataGrid.view.getItems(), true);
+        };
+        /**
+         * Reorders a set of items so that parents comes before their children.
+         * This method is required for proper tree ordering, as it is not so easy to perform with SQL.
+         * @param items list of items to be ordered
+         * @param getId a delegate to get ID of a record (must return same ID with grid identity field)
+         * @param getParentId a delegate to get parent ID of a record
+         */
+        TreeGridMixin.applyTreeOrdering = function (items, getId, getParentId) {
+            var result = [];
+            var byId = Q.toGrouping(items, getId);
+            var byParentId = Q.toGrouping(items, getParentId);
+            var visited = {};
+            function takeChildren(theParentId) {
+                if (visited[theParentId])
+                    return;
+                visited[theParentId] = true;
+                for (var _i = 0, _a = (byParentId[theParentId] || []); _i < _a.length; _i++) {
+                    var child = _a[_i];
+                    result.push(child);
+                    takeChildren(getId(child));
+                }
+            }
+            for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
+                var item = items_1[_i];
+                var parentId = getParentId(item);
+                var hasParent = parentId != null;
+                var parent_1 = byId[parentId];
+                var isRootItem = !hasParent || !(parent_1 || []).length;
+                if (isRootItem) {
+                    result.push(item);
+                    takeChildren(getId(item));
+                }
+            }
+            return result;
+        };
+        TreeGridMixin.filterById = function (item, view, idProperty, getParentId) {
+            return Serenity.SlickTreeHelper.filterCustom(item, function (x) {
+                var parentId = getParentId(x);
+                if (parentId == null) {
+                    return null;
+                }
+                var items = view.getItems();
+                var parentItem = items.filter(function (f) { return f[idProperty] == parentId; })[0];
+                return parentItem;
+            });
+        };
+        TreeGridMixin.treeToggle = function (getView, getId, formatter) {
+            return function (ctx) {
+                var text = formatter(ctx);
+                var view = getView();
+                var indent = Q.coalesce(ctx.item._indent, 0);
+                var spacer = '<span class="s-TreeIndent" style="width:' + 15 * indent + 'px"></span>';
+                var id = getId(ctx.item);
+                var idx = view.getIdxById(ctx.item.__id || id);
+                var next = view.getItemByIdx(idx + 1);
+                if (next != null) {
+                    var nextIndent = Q.coalesce(next._indent, 0);
+                    if (nextIndent > indent) {
+                        if (!!!!ctx.item._collapsed) {
+                            return spacer + '<span class="s-TreeToggle s-TreeExpand"></span>' + text;
+                        }
+                        else {
+                            return spacer + '<span class="s-TreeToggle s-TreeCollapse"></span>' + text;
+                        }
+                    }
+                }
+                return spacer + '<span class="s-TreeToggle"></span>' + text;
+            };
+        };
+        TreeGridMixin.toggleClick = function (e, row, cell, view, getId) {
+            var target = $(e.target);
+            if (!target.hasClass('s-TreeToggle')) {
+                return;
+            }
+            if (target.hasClass('s-TreeCollapse') || target.hasClass('s-TreeExpand')) {
+                var item = view.getItem(row);
+                if (item != null) {
+                    if (!!!item._collapsed) {
+                        item._collapsed = true;
+                    }
+                    else {
+                        item._collapsed = false;
+                    }
+                    var id = getId(item);
+                    view.updateItem(item.__id || id, item); //to support in-memory grid we check fake item.__id
+                }
+                if (e.shiftKey) {
+                    view.beginUpdate();
+                    try {
+                        Serenity.SlickTreeHelper.setCollapsed(view.getItems(), !!item._collapsed);
+                        view.setItems(view.getItems(), true);
+                    }
+                    finally {
+                        view.endUpdate();
+                    }
+                }
+            }
+        };
+        return TreeGridMixin;
+    }());
+    _Ext.TreeGridMixin = TreeGridMixin;
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ExcelExportHelper;
+    (function (ExcelExportHelper) {
+        function createToolButton(options) {
+            return {
+                hint: Q.coalesce(options.title, 'Excel'),
+                title: Q.coalesce(options.hint, ''),
+                cssClass: 'export-xlsx-button',
+                onClick: function () {
+                    if (!options.onViewSubmit()) {
+                        return;
+                    }
+                    var grid = options.grid;
+                    var request = Q.deepClone(grid.getView().params);
+                    request.Take = 0;
+                    request.Skip = 0;
+                    var sortBy = grid.getView().sortBy;
+                    if (sortBy) {
+                        request.Sort = sortBy;
+                    }
+                    request.IncludeColumns = [];
+                    var columns = grid.getGrid().getColumns();
+                    for (var _i = 0, columns_2 = columns; _i < columns_2.length; _i++) {
+                        var column = columns_2[_i];
+                        request.IncludeColumns.push(column.id || column.field);
+                    }
+                    Q.postToService({ service: options.service, request: request, target: '_blank' });
+                },
+                separator: options.separator
+            };
+        }
+        ExcelExportHelper.createToolButton = createToolButton;
+    })(ExcelExportHelper = _Ext.ExcelExportHelper || (_Ext.ExcelExportHelper = {}));
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var PdfExportHelper;
+    (function (PdfExportHelper) {
+        function toAutoTableColumns(srcColumns, columnStyles, columnTitles) {
+            return srcColumns.map(function (src) {
+                var col = {
+                    dataKey: src.id || src.field,
+                    title: src.name || ''
+                };
+                if (columnTitles && columnTitles[col.dataKey] != null)
+                    col.title = columnTitles[col.dataKey];
+                var style = {};
+                if ((src.cssClass || '').indexOf("align-right") >= 0)
+                    style.halign = 'right';
+                else if ((src.cssClass || '').indexOf("align-center") >= 0)
+                    style.halign = 'center';
+                columnStyles[col.dataKey] = style;
+                return col;
+            });
+        }
+        function toAutoTableData(entities, keys, srcColumns) {
+            var el = document.createElement('span');
+            var row = 0;
+            return entities.map(function (item) {
+                var dst = {};
+                for (var cell = 0; cell < srcColumns.length; cell++) {
+                    var src = srcColumns[cell];
+                    var fld = src.field || '';
+                    var key = keys[cell];
+                    var txt = void 0;
+                    var html = void 0;
+                    if (src.formatter) {
+                        html = src.formatter(row, cell, item[fld], src, item);
+                    }
+                    else if (src.format) {
+                        html = src.format({ row: row, cell: cell, item: item, value: item[fld] });
+                    }
+                    else {
+                        dst[key] = item[fld];
+                        continue;
+                    }
+                    if (!html || (html.indexOf('<') < 0 && html.indexOf('&') < 0))
+                        dst[key] = html;
+                    else {
+                        el.innerHTML = html;
+                        if (el.children.length == 1 &&
+                            $(el.children[0]).is(":input")) {
+                            dst[key] = $(el.children[0]).val();
+                        }
+                        else if (el.children.length == 1 &&
+                            $(el.children).is('.check-box')) {
+                            dst[key] = $(el.children).hasClass("checked") ? "Yes" : "No";
+                        }
+                        else
+                            dst[key] = el.textContent || '';
+                    }
+                }
+                row++;
+                return dst;
+            });
+        }
+        function exportToPdf(options) {
+            var g = options.grid;
+            if (!options.onViewSubmit())
+                return;
+            includeAutoTable();
+            var request = Q.deepClone(g.view.params);
+            request.Take = 0;
+            request.Skip = 0;
+            var sortBy = g.view.sortBy;
+            if (sortBy != null)
+                request.Sort = sortBy;
+            var gridColumns = g.slickGrid.getColumns();
+            gridColumns = gridColumns.filter(function (x) { return x.id !== "__select__" && x.name.length > 0; });
+            request.IncludeColumns = [];
+            for (var _i = 0, gridColumns_2 = gridColumns; _i < gridColumns_2.length; _i++) {
+                var column = gridColumns_2[_i];
+                request.IncludeColumns.push(column.id || column.field);
+            }
+            Q.serviceCall({
+                url: g.view.url,
+                request: request,
+                onSuccess: function (response) {
+                    var doc = new jsPDF('l', 'pt');
+                    var groupings = g.view.getGrouping(); //group fields
+                    var groupingColumns = gridColumns.filter(function (f) { return groupings.some(function (s) { return s.getter == f.field; }) == true; });
+                    var srcColumns = gridColumns.filter(function (f) { return groupings.some(function (s) { return s.getter == f.field; }) == false; });
+                    var columnStyles = {};
+                    var columns = toAutoTableColumns(srcColumns, columnStyles, options.columnTitles);
+                    var keys = columns.filter(function (f) { return groupings.some(function (s) { return s.getter == f; }) == false; }).map(function (x) { return x.dataKey; });
+                    var totalPagesExp = "{{T}}";
+                    var pageNumbers = options.pageNumbers == null || options.pageNumbers;
+                    var autoOptions = $.extend({
+                        margin: { top: 40, left: 40, right: 40, bottom: pageNumbers ? 110 : 100 },
+                        startY: 90,
+                        styles: {
+                            fontSize: 8,
+                            overflow: 'linebreak',
+                            cellPadding: 5,
+                            valign: 'middle',
+                            lineColor: 0
+                        },
+                        headerStyles: { fillColor: 255, textColor: 0, lineWidth: 1, fillStyle: 'S', halign: 'center', valign: 'middle' },
+                        columnStyles: columnStyles
+                    }, options.tableOptions);
+                    ///region Title
+                    {
+                        if (q.jsPDFHeaderImageData) {
+                            doc.addImage(q.jsPDFHeaderImageData, 'PNG', 40, 40, 60, 60);
+                        }
+                        doc.autoTable([q.jsPDFHeaderTitle], [], {
+                            margin: { bottom: 10, left: 110 },
+                            startY: options.titleTop || 45,
+                            headerStyles: { fillColor: 255, textColor: 0 },
+                            styles: { halign: 'left', fontSize: 18 }
+                        });
+                        var reportTitle = '';
+                        if (groupingColumns[0])
+                            reportTitle = groupingColumns.map(function (m) { return m.name; }).join(', ') + ' wise ';
+                        reportTitle += options.reportTitle || g.getTitle();
+                        reportTitle += " Report";
+                        //doc.autoTable([reportTitle], [], {
+                        //    margin: { top: 10, bottom: 10, left: 110},
+                        //    startY: doc.autoTableEndPosY(),
+                        //    headerStyles: { fillColor: 255, textColor: 0 },
+                        //    styles: { halign: 'left', fontSize: 14 }
+                        //});
+                    }
+                    ///region Header
+                    {
+                        var header = function (data) {
+                        };
+                        autoOptions.beforePageContent = header;
+                    }
+                    ///region Footer
+                    {
+                        if (pageNumbers) {
+                            var footer = function (data) {
+                                var str = data.pageCount;
+                                // Total page number plugin only available in jspdf v1.0+
+                                if (typeof doc.putTotalPages === 'function') {
+                                    str = str + " / " + totalPagesExp;
+                                }
+                                doc.autoTableText(str, doc.internal.pageSize.width / 2, doc.internal.pageSize.height - autoOptions.margin.bottom, {
+                                    halign: 'center'
+                                });
+                            };
+                            autoOptions.afterPageContent = footer;
+                        }
+                    }
+                    ///region Content
+                    {
+                        //extra space after title
+                        doc.autoTable([''], [], {
+                            startY: doc.autoTableEndPosY() + 20,
+                            headerStyles: { fillColor: 255, textColor: 0 }
+                        });
+                        var headerHeight = 125;
+                        var headerFontSizeBase = 11;
+                        var entities = response.Entities || [];
+                        g.setItems(entities);
+                        var groups = g.view.getGroups(); //grouped data
+                        if (groups.length > 0) {
+                            var ggg = function (grps, parentGroupIndex) {
+                                var endPosY = doc.autoTableEndPosY();
+                                for (var i = 0; i < grps.length; i++) {
+                                    var group = grps[i];
+                                    var level = group.level + 1;
+                                    doc.autoTable([group.title], [], {
+                                        margin: { left: 30 + level * 10, top: 2 },
+                                        startY: doc.autoTableEndPosY(),
+                                        headerStyles: { fillColor: 255, textColor: 0, fontSize: 10 - group.level, cellPadding: 0 }
+                                    });
+                                    if (group.groups) {
+                                        ggg(group.groups, i);
+                                    }
+                                    else {
+                                        var data = toAutoTableData(group.rows, keys, srcColumns);
+                                        autoOptions.startY = doc.autoTableEndPosY();
+                                        autoOptions.margin.left = 30 + level * 10;
+                                        autoOptions.margin.bottom = 10;
+                                        doc.autoTable(columns, data, autoOptions);
+                                        //for extra space
+                                        doc.autoTable([''], [], {
+                                            margin: { left: 30 + level * 10, top: 2 },
+                                            startY: doc.autoTableEndPosY() + 10,
+                                            headerStyles: { fillColor: 255, textColor: 0 }
+                                        });
+                                    }
+                                }
+                            };
+                            ggg(groups, -1);
+                        }
+                        else {
+                            var data = toAutoTableData(g.getItems(), keys, srcColumns);
+                            autoOptions.startY = headerHeight;
+                            doc.autoTable(columns, data, autoOptions);
+                        }
+                    }
+                    if (typeof doc.putTotalPages === 'function') {
+                        doc.putTotalPages(totalPagesExp);
+                    }
+                    if (!options.output || options.output == "file") {
+                        var fileName = options.reportTitle || "{0}_{1}.pdf";
+                        fileName = Q.format(fileName, g.getTitle() || "report", Q.formatDate(new Date(), "yyyyMMdd_HHmm"));
+                        doc.save(fileName);
+                        return;
+                    }
+                    if (options.autoPrint)
+                        doc.autoPrint();
+                    var output = options.output;
+                    if (output == 'newwindow' || '_blank')
+                        output = 'dataurlnewwindow';
+                    else if (output == 'window')
+                        output = 'datauri';
+                    doc.output(output);
+                }
+            });
+        }
+        PdfExportHelper.exportToPdf = exportToPdf;
+        function createToolButton(options) {
+            return {
+                title: options.title || '',
+                hint: options.hint || 'PDF',
+                cssClass: 'export-pdf-button',
+                onClick: function () { return exportToPdf(options); },
+                separator: options.separator
+            };
+        }
+        PdfExportHelper.createToolButton = createToolButton;
+        function includeJsPDF() {
+            if (typeof jsPDF !== "undefined")
+                return;
+            var script = $("jsPDFScript");
+            if (script.length > 0)
+                return;
+            $("<script/>")
+                .attr("type", "text/javascript")
+                .attr("id", "jsPDFScript")
+                .attr("src", Q.resolveUrl("~/Scripts/jspdf.min.js"))
+                .appendTo(document.head);
+        }
+        function includeAutoTable() {
+            includeJsPDF();
+            if (typeof jsPDF === "undefined" ||
+                typeof jsPDF.API == "undefined" ||
+                typeof jsPDF.API.autoTable !== "undefined")
+                return;
+            var script = $("jsPDFAutoTableScript");
+            if (script.length > 0)
+                return;
+            $("<script/>")
+                .attr("type", "text/javascript")
+                .attr("id", "jsPDFAutoTableScript")
+                .attr("src", Q.resolveUrl("~/Scripts/jspdf.plugin.autotable.min.js"))
+                .appendTo(document.head);
+        }
+    })(PdfExportHelper = _Ext.PdfExportHelper || (_Ext.PdfExportHelper = {}));
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var ReportHelper;
+    (function (ReportHelper) {
+        function createToolButton(options) {
+            return {
+                title: Q.coalesce(options.title, 'Report'),
+                cssClass: Q.coalesce(options.cssClass, 'print-button'),
+                icon: options.icon,
+                onClick: function () {
+                    ReportHelper.execute(options);
+                }
+            };
+        }
+        ReportHelper.createToolButton = createToolButton;
+        function execute(options) {
+            var opt = options.getParams ? options.getParams() : options.params;
+            Q.postToUrl({
+                url: '~/Report/' + (options.download ? 'Download' : 'Render'),
+                params: {
+                    key: options.reportKey,
+                    ext: Q.coalesce(options.extension, 'pdf'),
+                    opt: opt ? $.toJSON(opt) : ''
+                },
+                target: Q.coalesce(options.target, '_blank')
+            });
+        }
+        ReportHelper.execute = execute;
+    })(ReportHelper = _Ext.ReportHelper || (_Ext.ReportHelper = {}));
+})(_Ext || (_Ext = {}));
+var _Ext;
+(function (_Ext) {
+    var DialogUtils;
+    (function (DialogUtils) {
+        function pendingChangesConfirmation(element, hasPendingChanges) {
+            element.bind('dialogbeforeclose', function (e) {
+                if (!Serenity.WX.hasOriginalEvent(e) || !hasPendingChanges()) {
+                    return;
+                }
+                e.preventDefault();
+                Q.confirm('You have pending changes. Save them?', function () { return element.find('div.save-and-close-button').click(); }, {
+                    onNo: function () {
+                        element.dialog().dialog('close');
+                    }
+                });
+            });
+        }
+        DialogUtils.pendingChangesConfirmation = pendingChangesConfirmation;
+    })(DialogUtils = _Ext.DialogUtils || (_Ext.DialogUtils = {}));
+})(_Ext || (_Ext = {}));
+function loadScriptAsync(url, callback) {
+    // Adding the script tag to the head as suggested before
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onload = callback;
+    // Fire the loading
+    head.appendChild(script);
+}
+function loadScript(url) {
+    $.ajax({
+        url: url,
+        dataType: "script",
+        async: false,
+        cache: true,
+        success: function () {
+            // all good...
+        },
+        error: function () {
+            throw new Error("Could not load script " + url);
+        }
+    });
+}
+function usingVuejs() {
+    if (window['Vue']) {
+        return;
+    }
+    else {
+        loadScript(Q.resolveUrl("~/Scripts/vue.js"));
+        //filters
+        window['Vue'].filter('formatDate', function (value, format) {
+            if (value) {
+                return Q.formatDate(value, format);
+            }
+        });
+        window['Vue'].filter('formatDateReadable', function (value) {
+            if (value) {
+                var date = Q.parseISODateTime(value);
+                return date.getDate() + ' ' + _Ext.Months[date.getMonth()].substr(0, 3) + ' ' + date.getFullYear();
+            }
+        });
+        window['Vue'].filter('dayOnly', function (value) {
+            if (value) {
+                return Q.formatDate(value, 'dd');
+            }
+        });
+        window['Vue'].filter('monthOnly', function (value) {
+            if (value) {
+                var date = Q.parseISODateTime(value);
+                return _Ext.Months[date.getMonth()];
+            }
+        });
+        window['Vue'].filter('monthOnly3', function (value) {
+            if (value) {
+                var date = Q.parseISODateTime(value);
+                return _Ext.Months[date.getMonth()].substr(0, 3);
+            }
+        });
+        window['Vue'].filter('yearOnly', function (value) {
+            if (value) {
+                var date = Q.parseISODateTime(value);
+                return date.getFullYear();
+            }
+        });
+        window['Vue'].filter('timeOnlyHHmm', function (value) {
+            if (value) {
+                return Q.formatDate(value, 'HH:mm');
+            }
+        });
+        window['Vue'].filter('formatDateTimeReadable', function (value) {
+            if (value) {
+                var date = Q.parseISODateTime(value);
+                return date.getDate() + ' ' + _Ext.Months[date.getMonth()] + ' ' + date.getFullYear()
+                    + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            }
+        });
+        window['Vue'].filter('enumText', function (value, enumKey) {
+            if (value) {
+                return Serenity.EnumFormatter.format(Serenity.EnumTypeRegistry.get(enumKey), value);
+            }
+        });
+        window['Vue'].filter('truncate', function (text, length, clamp) {
+            clamp = clamp || '...';
+            length = length || 30;
+            if (text.length <= length)
+                return text;
+            var tcText = text.slice(0, length - clamp.length);
+            var last = tcText.length - 1;
+            while (last > 0 && tcText[last] !== ' ' && tcText[last] !== clamp[0])
+                last -= 1;
+            // Fix for case when text dont have any `space`
+            last = last || length - clamp.length;
+            tcText = tcText.slice(0, last);
+            return tcText + clamp;
+        });
+        window['Vue'].filter('capitalize', function (value) {
+            if (!value)
+                return '';
+            value = value.toString();
+            return value.charAt(0).toUpperCase() + value.toLowerCase().slice(1);
+        });
+    }
+}
+function includeBootstrapColorPickerCss() {
+    var style = $("#colorpicker");
+    if (style.length > 0) {
+        return;
+    }
+    $("<link/>")
+        .attr("type", "text/css")
+        .attr("id", "colorpicker")
+        .attr("rel", "stylesheet")
+        .attr("href", Q.resolveUrl("~/Scripts/colorpicker/bootstrap-colorpicker.min.css"))
+        .appendTo(document.head);
+}
+function usingBootstrapColorPicker() {
+    if (window['colorpicker']) {
+        return;
+    }
+    else {
+        includeBootstrapColorPickerCss();
+        loadScript(Q.resolveUrl("~/Scripts/colorpicker/bootstrap-colorpicker.min.js"));
+    }
+}
+function includeJqueryUITimepickerAddonCss() {
+    var style = $("#datetimepicker");
+    if (style.length > 0) {
+        return;
+    }
+    $("<link/>")
+        .attr("type", "text/css")
+        .attr("id", "datetimepicker")
+        .attr("rel", "stylesheet")
+        .attr("href", Q.resolveUrl("~/Content/jquery-ui-timepicker-addon.css"))
+        .appendTo(document.head);
+}
+function usingJqueryUITimepickerAddon() {
+    if (window['datetimepicker']) {
+        return;
+    }
+    else {
+        includeJqueryUITimepickerAddonCss();
+        loadScript(Q.resolveUrl("~/Scripts/jquery-ui-timepicker-addon.js"));
+    }
+}
+function usingBabylonjs() {
+    if (window['BABYLON'] && window['BABYLON']['Engine']) {
+        return;
+    }
+    else {
+        loadScript(Q.resolveUrl("~/Scripts/babylonjs/babylon.js"));
+    }
+}
+function usingChartjs() {
+    if (window['Chart']) {
+        return;
+    }
+    else {
+        loadScript(Q.resolveUrl('~/Scripts/chartjs/Chart.js'));
+    }
+}
+function includeCustomMarkerCss() {
+    var style = $("#customMarker");
+    if (style.length > 0) {
+        return;
+    }
+    $("<link/>")
+        .attr("type", "text/css")
+        .attr("id", "customMarker")
+        .attr("rel", "stylesheet")
+        .attr("href", Q.resolveUrl("~/Scripts/googlemap/CustomMarker.css"))
+        .appendTo(document.head);
+}
+function usingCustomMarker() {
+    if (window['CustomMarker']) {
+        return;
+    }
+    else {
+        includeCustomMarkerCss();
+        loadScript(Q.resolveUrl("~/Scripts/googlemap/CustomMarker.js"));
+    }
+}
+function includeGoogleMap(callback, callbackFullName) {
+    if (window['google']) {
+        if (callback)
+            callback();
+        return;
+    }
+    var script = $("#googleScript");
+    if (script.length > 0) {
+        if (callback)
+            callback();
+        return;
+    }
+    $("<script/>")
+        .attr("type", "text/javascript")
+        .attr("id", "googleScript")
+        .attr("src", 'http://maps.google.com/maps/api/js?v=3.31&key=AIzaSyCRiY7aFA2cI6STbl3YQ3r6m1IpUFmBM98&callback=' + callbackFullName || 'includeGoogleMap')
+        .appendTo(document.head);
+}
+function includeMarkerWithLabel() {
+    if (window['MarkerWithLabel']) {
+        return;
+    }
+    var script = $("#MarkerWithLabelScript");
+    if (script.length > 0) {
+        return;
+    }
+    $("<script/>")
+        .attr("type", "text/javascript")
+        .attr("id", "MarkerWithLabelScript")
+        .attr("src", Q.resolveUrl("~/Scripts/googlemap/markerwithlabel.js"))
+        .appendTo(document.head);
+}
+function includeVisCss() {
+    var style = $("#Vis");
+    if (style.length > 0) {
+        return;
+    }
+    $("<link/>")
+        .attr("type", "text/css")
+        .attr("id", "Vis")
+        .attr("rel", "stylesheet")
+        .attr("href", Q.resolveUrl("~/Scripts/visjs/vis.min.css"))
+        .appendTo(document.head);
+}
+function usingVisjs() {
+    if (window['vis']) {
+        return;
+    }
+    else {
+        includeVisCss();
+        loadScript(Q.resolveUrl("~/Scripts/visjs/vis.min.js"));
+    }
+}
+function usingJsonDiffPatch() {
+    if (window['jsondiffpatch']) {
+        return;
+    }
+    else {
+        $("<link/>").attr("type", "text/css").attr("id", "JsonDiffPatch").attr("rel", "stylesheet")
+            .attr("href", Q.resolveUrl("~/Modules/_Ext/AuditLogViewer/jsondiffpatch/formatters-styles/html.css"))
+            .appendTo(document.head);
+        loadScript(Q.resolveUrl("~/Modules/_Ext/AuditLogViewer/jsondiffpatch/jsondiffpatch.min.js"));
+        loadScript(Q.resolveUrl("~/Modules/_Ext/AuditLogViewer/jsondiffpatch/jsondiffpatch-formatters.min.js"));
+    }
+}
+function usingSlickGridEditors() {
+    if (window['Slick'] && window['Slick']['Editors'] && window['Slick']['Editors']['Text']) {
+        return;
+    }
+    else {
+        loadScript(Q.resolveUrl("~/Modules/_Ext/Editors/slick.editors.js"));
+    }
+}
+function usingSlickAutoColumnSize() {
+    if (window['Slick'] && window['Slick']['AutoColumnSize']) {
+        return;
+    }
+    else {
+        loadScript(Q.resolveUrl("~/Modules/_Ext/CustomSlickGridPlugin/slick.autocolumnsize.js"));
+    }
+}
+function usingSlickHeaderFilters() {
+    if (window['Slick'] && window['Slick']['HeaderFilters']) {
+        return;
+    }
+    else {
+        $("<link/>")
+            .attr("type", "text/css")
+            .attr("id", "CustomSlickGridPlugin")
+            .attr("rel", "stylesheet")
+            .attr("href", Q.resolveUrl("~/Modules/_Ext/CustomSlickGridPlugin/slick-headerfilters.css"))
+            .appendTo(document.head);
+        loadScript(Q.resolveUrl("~/Modules/_Ext/CustomSlickGridPlugin/slick.headerfilters.js"));
+    }
+}
+var q;
+(function (q) {
+    function groupBy(xs, key) {
+        return xs.reduce(function (rv, x) {
+            (rv[x[key]] = rv[x[key]] || []).push(x);
+            return rv;
+        }, {});
+    }
+    q.groupBy = groupBy;
+    function sortBy(xs, key) {
+        return xs.sort(function (a, b) {
+            if (a[key] < b[key]) {
+                return -1;
+            }
+            if (a[key] > b[key]) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+    q.sortBy = sortBy;
+    function sortByDesc(xs, key) {
+        return xs.sort(function (a, b) {
+            if (a[key] > b[key]) {
+                return -1;
+            }
+            if (a[key] < b[key]) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+    q.sortByDesc = sortByDesc;
+})(q || (q = {}));
+var q;
+(function (q) {
+    function nextTick(date) {
+        return new Date(date.getTime() + 1);
+    }
+    q.nextTick = nextTick;
+    function addMinutes(date, minutes) {
+        return new Date(date.getTime() + minutes * 60000);
+    }
+    q.addMinutes = addMinutes;
+    function addHours(date, hours) {
+        return new Date(date.getTime() + hours * 3600000);
+    }
+    q.addHours = addHours;
+    function getHours(fromDate, toDate) {
+        var hours = 0;
+        if (fromDate && toDate) {
+            var totalMiliSeconds = toDate.valueOf() - fromDate.valueOf();
+            hours = totalMiliSeconds / (1000 * 60 * 60);
+        }
+        return hours;
+    }
+    q.getHours = getHours;
+    function getDays24HourPulse(fromDate, toDate) {
+        var days = q.getHours(fromDate, toDate) / 24;
+        return Math.ceil(days);
+    }
+    q.getDays24HourPulse = getDays24HourPulse;
+    function getDays(pFromDate, pToDate) {
+        var fromDate = new Date(pFromDate.getFullYear(), pFromDate.getMonth(), pFromDate.getDate());
+        var toDate = new Date(pToDate.getFullYear(), pToDate.getMonth(), pToDate.getDate(), 23, 59, 59);
+        var days = q.getHours(fromDate, toDate) / 24;
+        //days = days <= 0 ? 1 : days;
+        return Math.ceil(days);
+    }
+    q.getDays = getDays;
+    function getMonths(fromDate, toDate) {
+        var months = q.getDays24HourPulse(fromDate, toDate) / 30;
+        return Math.ceil(months);
+    }
+    q.getMonths = getMonths;
+    function getCalenderMonths(fromDate, toDate) {
+        var months;
+        months = (toDate.getFullYear() - fromDate.getFullYear()) * 12;
+        months -= fromDate.getMonth();
+        months += toDate.getMonth();
+        return months <= 0 ? 0 : months;
+    }
+    q.getCalenderMonths = getCalenderMonths;
+    function getCalenderMonthsCeil(fromDate, toDate) {
+        var months = q.getCalenderMonths(fromDate, toDate);
+        return months == 0 ? 1 : months;
+    }
+    q.getCalenderMonthsCeil = getCalenderMonthsCeil;
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+        return result;
+    }
+    q.addDays = addDays;
+    function addMonths(date, months) {
+        var result = new Date(date);
+        result.setMonth(result.getMonth() + months);
+        return result;
+    }
+    q.addMonths = addMonths;
+    function addYear(date, years) {
+        var result = new Date(date);
+        result.setFullYear(result.getFullYear() + years);
+        return result;
+    }
+    q.addYear = addYear;
+    function getPeriods(fromDate, toDate, periodUnit) {
+        if (periodUnit == _Ext.TimeUoM.Day) {
+            var days = q.getDays(fromDate, toDate);
+            return days;
+        }
+        else if (periodUnit == _Ext.TimeUoM.Month) {
+            var months = q.getMonths(fromDate, toDate);
+            return months == 0 ? 1 : months;
+        }
+        else if (periodUnit == _Ext.TimeUoM.CalenderMonth) {
+            var calenderMonths = q.getCalenderMonths(fromDate, toDate);
+            return calenderMonths + 1;
+        }
+    }
+    q.getPeriods = getPeriods;
+    function addPeriod(date, period, periodUnit) {
+        var result = new Date(date);
+        if (periodUnit == _Ext.TimeUoM.Day)
+            result.setDate(result.getDate() + period);
+        else if (periodUnit == _Ext.TimeUoM.Month)
+            result.setMonth(result.getMonth() + period);
+        else if (periodUnit == _Ext.TimeUoM.CalenderMonth) {
+            result.setDate(1);
+            result.setMonth(result.getMonth() + period);
+        }
+        return result;
+    }
+    q.addPeriod = addPeriod;
+    function formatISODate(date) {
+        if (date) {
+            var offset = date.getTimezoneOffset();
+            var result = new Date(date.getTime() - offset * 60 * 1000);
+            return result.toISOString();
+        }
+        else
+            return null;
+    }
+    q.formatISODate = formatISODate;
+    //editor utils
+    function bindDateTimeEditorChange(editor, handler) {
+        editor.change(handler);
+        editor.element.closest('.field').find('.time').change(handler);
+        editor.element.closest('.field').find('.inplace-now').click(handler);
+    }
+    q.bindDateTimeEditorChange = bindDateTimeEditorChange;
+    function initDateRangeEditor(fromDateEditor, toDateEditor, onChangeHandler) {
+        var startDateTextBox = fromDateEditor.element;
+        var endDateTextBox = toDateEditor.element;
+        startDateTextBox.datepicker('option', 'onClose', function (dateText, inst) {
+            if (endDateTextBox.val() != '') {
+                var testStartDate = startDateTextBox.datepicker('getDate');
+                var testEndDate = endDateTextBox.datepicker('getDate');
+                if (testStartDate > testEndDate)
+                    endDateTextBox.datepicker('setDate', testStartDate);
+            }
+            else {
+                endDateTextBox.val(dateText);
+            }
+        });
+        endDateTextBox.datepicker('option', 'minDate', startDateTextBox.datepicker('getDate'));
+        startDateTextBox.datepicker('option', 'onSelect', function (selectedDateTime) {
+            endDateTextBox.datepicker('option', 'minDate', startDateTextBox.datepicker('getDate'));
+        });
+        endDateTextBox.datepicker('option', 'onClose', function (dateText, inst) {
+            if (startDateTextBox.val() != '') {
+                var testStartDate = startDateTextBox.datepicker('getDate');
+                var testEndDate = endDateTextBox.datepicker('getDate');
+                if (testStartDate > testEndDate)
+                    startDateTextBox.datepicker('setDate', testEndDate);
+            }
+            else {
+                startDateTextBox.val(dateText);
+            }
+        });
+        startDateTextBox.datepicker('option', 'maxDate', endDateTextBox.datepicker('getDate'));
+        endDateTextBox.datepicker('option', 'onSelect', function (selectedDateTime) {
+            startDateTextBox.datepicker('option', 'maxDate', endDateTextBox.datepicker('getDate'));
+        });
+        setTimeout(function () {
+            fromDateEditor.change(onChangeHandler);
+            toDateEditor.change(onChangeHandler);
+        }, 500);
+    }
+    q.initDateRangeEditor = initDateRangeEditor;
+    function initDateTimeRangeEditor(fromDateTimeEditor, toDateTimeEditor, onChangeHandler) {
+        //fromDateTimeEditor.destroy();
+        //toDateTimeEditor.destroy();
+        var startDateTextBox = fromDateTimeEditor.element;
+        var endDateTextBox = toDateTimeEditor.element;
+        //startDateTextBox.datetimepicker('option', 'timeFormat', 'HH:mm z')
+        startDateTextBox.datetimepicker('option', 'onClose', function (dateText, inst) {
+            if (endDateTextBox.val() != '') {
+                var testStartDate = startDateTextBox.datetimepicker('getDate');
+                var testEndDate = endDateTextBox.datetimepicker('getDate');
+                if (testStartDate > testEndDate)
+                    endDateTextBox.datetimepicker('setDate', testStartDate);
+            }
+            else {
+                endDateTextBox.val(dateText);
+            }
+        });
+        endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate'));
+        startDateTextBox.datetimepicker('option', 'onSelect', function (selectedDateTime) {
+            endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate'));
+        });
+        //endDateTextBox.datetimepicker('option', 'timeFormat', 'HH:mm z')
+        endDateTextBox.datetimepicker('option', 'onClose', function (dateText, inst) {
+            if (startDateTextBox.val() != '') {
+                var testStartDate = startDateTextBox.datetimepicker('getDate');
+                var testEndDate = endDateTextBox.datetimepicker('getDate');
+                if (testStartDate > testEndDate)
+                    startDateTextBox.datetimepicker('setDate', testEndDate);
+            }
+            else {
+                startDateTextBox.val(dateText);
+            }
+        });
+        startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate'));
+        endDateTextBox.datetimepicker('option', 'onSelect', function (selectedDateTime) {
+            startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate'));
+        });
+        setTimeout(function () {
+            fromDateTimeEditor.change(onChangeHandler);
+            toDateTimeEditor.change(onChangeHandler);
+        }, 500);
+    }
+    q.initDateTimeRangeEditor = initDateTimeRangeEditor;
+    function formatDate(d, format) {
+        if (!d) {
+            return '';
+        }
+        var date;
+        if (typeof d == "string") {
+            var res = Q.parseDate(d);
+            if (!res)
+                return d;
+            date = res;
+        }
+        else
+            date = d;
+        if (format == null || format == "d") {
+            format = Q.Culture.dateFormat;
+        }
+        else {
+            switch (format) {
+                case "g":
+                    format = Q.Culture.dateTimeFormat.replace(":ss", "");
+                    break;
+                case "G":
+                    format = Q.Culture.dateTimeFormat;
+                    break;
+                case "s":
+                    format = "yyyy-MM-ddTHH:mm:ss";
+                    break;
+                case "u": return Q.formatISODateTimeUTC(date);
+            }
+        }
+        var pad = function (i) {
+            return Q.zeroPad(i, 2);
+        };
+        return format.replace(new RegExp('dd?d?d?|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|fff|zz?z?|\\/', 'g'), function (fmt) {
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            switch (fmt) {
+                case '/': return Q.Culture.dateSeparator;
+                case 'hh': return pad(((date.getHours() < 13) ? date.getHours() : (date.getHours() - 12)));
+                case 'h': return ((date.getHours() < 13) ? date.getHours() : (date.getHours() - 12));
+                case 'HH': return pad(date.getHours());
+                case 'H': return date.getHours();
+                case 'mm': return pad(date.getMinutes());
+                case 'm': return date.getMinutes();
+                case 'ss': return pad(date.getSeconds());
+                case 's': return date.getSeconds();
+                case 'yyyy': return date.getFullYear();
+                case 'yy': return date.getFullYear().toString().substr(2, 4);
+                case 'dddd': return days[date.getDay()];
+                case 'ddd': return days[date.getDay()].substr(0, 3);
+                case 'dd': return pad(date.getDate());
+                case 'd': return date.getDate().toString();
+                case 'MMMM': return months[date.getMonth()];
+                case 'MMM': return months[date.getMonth()].substr(0, 3);
+                case 'MM': return pad(date.getMonth() + 1);
+                case 'M': return date.getMonth() + 1;
+                case 't': return ((date.getHours() < 12) ? 'A' : 'P');
+                case 'tt': return ((date.getHours() < 12) ? 'AM' : 'PM');
+                case 'fff': return Q.zeroPad(date.getMilliseconds(), 3);
+                case 'zzz':
+                case 'zz':
+                case 'z': return '';
+                default: return fmt;
+            }
+        });
+    }
+    q.formatDate = formatDate;
+})(q || (q = {}));
+var q;
+(function (q) {
+    function initDetailEditor(dialog, editor, options) {
+        if (options === void 0) { options = {}; }
+        if (options.showCaption != true) {
+            editor.element.siblings('.caption').hide();
+        }
+        if (options.hideToolbar == true) {
+            editor.element.find('.grid-toolbar').hide();
+        }
+        if (options.isReadOnly == true) {
+            editor.set_readOnly(options.isReadOnly);
+        }
+        editor.parentDialog = dialog;
+        dialog.onAfterSetDialogSize = function () {
+            var $gridContainer = editor.element.find('.grid-container');
+            if (options.height) {
+                editor.slickGrid.setOptions({ autoHeight: false });
+                $gridContainer.height(options.height);
+            }
+            else {
+                var top_1 = $gridContainer.position().top;
+                var height = dialog.element.innerHeight() - top_1 - 40;
+                if (height > 200)
+                    $gridContainer.height(height);
+            }
+            if (options.width) {
+                $gridContainer.width(options.width);
+            }
+            editor.slickGrid.resizeCanvas();
+        };
+    }
+    q.initDetailEditor = initDetailEditor;
+    function setGridEditorHeight(editor, heightInPx) {
+        editor.css('height', heightInPx + 'px');
+        editor.find('.grid-container')
+            .css('height', (heightInPx - 25) + 'px')
+            .height(heightInPx);
+    }
+    q.setGridEditorHeight = setGridEditorHeight;
+    function addNotificationIcon(editor, isSuccess) {
+        var isAddOnInitialized = editor.element.data('isAddOnInitialized');
+        if (isAddOnInitialized != true) {
+            editor.element.after('<span class="text text-danger" style="padding:3px"><i class="fa fa-times"></i></span>');
+            editor.element.data('isAddOnInitialized', true);
+        }
+        if (isSuccess == true) {
+            editor.element.switchClass('bg-danger', 'bg-success')
+                .siblings('.text').switchClass('text-danger', 'text-success')
+                .children().switchClass('fa-times', 'fa-check');
+        }
+        else {
+            editor.element.switchClass('bg-success', 'bg-danger')
+                .siblings('.text').switchClass('text-success', 'text-danger')
+                .children().switchClass('fa-check', 'fa-times');
+        }
+    }
+    q.addNotificationIcon = addNotificationIcon;
+    function setEditorLabel(editor, value) {
+        editor.element.siblings('label').text(value);
+    }
+    q.setEditorLabel = setEditorLabel;
+    function hideEditorLabel(editor) {
+        editor.element.siblings('label').hide();
+    }
+    q.hideEditorLabel = hideEditorLabel;
+    function setEditorCategoryLabel(editor, value) {
+        var categoryAnchor = editor.element.closest('.category').find('.category-anchor');
+        categoryAnchor.text(value);
+        var categoryAnchorName = categoryAnchor.attr('name');
+        categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").text(value);
+    }
+    q.setEditorCategoryLabel = setEditorCategoryLabel;
+    function hideEditorCategory(editor, value) {
+        if (value === void 0) { value = true; }
+        if (value == true)
+            editor.element.closest('.category').hide();
+        else
+            editor.element.closest('.category').show();
+        var categoryAnchor = editor.element.closest('.category').find('.category-anchor');
+        var categoryAnchorName = categoryAnchor.attr('name');
+        if (value == true)
+            categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").hide();
+        else
+            categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").show();
+    }
+    q.hideEditorCategory = hideEditorCategory;
+    function hideCategories(containerElement, value) {
+        if (value === void 0) { value = true; }
+        if (value == true)
+            containerElement.find('.category').hide();
+        else
+            containerElement.find('.category').show();
+        var categoryAnchor = containerElement.find('.category').find('.category-anchor');
+        var categoryAnchorName = categoryAnchor.attr('name');
+        if (value == true)
+            categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").hide();
+        else
+            categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").show();
+    }
+    q.hideCategories = hideCategories;
+    function hideFields(containerElement, value) {
+        if (value === void 0) { value = true; }
+        if (value == true)
+            containerElement.find('.field').hide();
+        else
+            containerElement.find('.field').show();
+    }
+    q.hideFields = hideFields;
+    function hideFieldsAndCategories(containerElement, value) {
+        if (value === void 0) { value = true; }
+        hideFields(containerElement);
+        hideCategories(containerElement);
+    }
+    q.hideFieldsAndCategories = hideFieldsAndCategories;
+    function hideField(editor, value) {
+        if (value === void 0) { value = true; }
+        if (editor) {
+            if (value == true)
+                editor.element.closest('.field').hide();
+            else
+                editor.element.closest('.field').show();
+        }
+    }
+    q.hideField = hideField;
+    function showField(editor, value) {
+        if (value === void 0) { value = true; }
+        if (editor) {
+            if (value == true)
+                editor.element.closest('.field').show();
+            else
+                editor.element.closest('.field').hide();
+        }
+    }
+    q.showField = showField;
+    function showFieldAndCategory(editor, value) {
+        if (value === void 0) { value = true; }
+        showField(editor, value);
+        if (value == true)
+            hideEditorCategory(editor, false);
+    }
+    q.showFieldAndCategory = showFieldAndCategory;
+    function hideEditorTab(editor, value) {
+        if (value === void 0) { value = true; }
+        var tabId = editor.element.closest('.tab-pane').hide().attr('id');
+        var tabAnchor = editor.element.closest('.s-PropertyGrid').find("a[href='#" + tabId + "']");
+        tabAnchor.closest('li').hide();
+    }
+    q.hideEditorTab = hideEditorTab;
+    function readOnlyEditorTab(editor, value) {
+        if (value === void 0) { value = true; }
+        var $editors = editor.element.closest('.tab-pane').find('.editor');
+        Serenity.EditorUtils.setReadonly($editors, value);
+    }
+    q.readOnlyEditorTab = readOnlyEditorTab;
+    function readOnlyEditorCategory(editor, value) {
+        if (value === void 0) { value = true; }
+        var $editors = editor.element.closest('.category').find('.editor');
+        Serenity.EditorUtils.setReadonly($editors, value);
+    }
+    q.readOnlyEditorCategory = readOnlyEditorCategory;
+    function readonlyEditorCategory($editor, value) {
+        if (value === void 0) { value = true; }
+        var $editors = $editor.closest('.category').find('.editor');
+        Serenity.EditorUtils.setReadonly($editors, value);
+    }
+    q.readonlyEditorCategory = readonlyEditorCategory;
+    function readOnlyEditor(editor, value) {
+        if (value === void 0) { value = true; }
+        Serenity.EditorUtils.setReadOnly(editor, value);
+    }
+    q.readOnlyEditor = readOnlyEditor;
+    function readonlyEditor($editor, value) {
+        if (value === void 0) { value = true; }
+        Serenity.EditorUtils.setReadonly($editor, value);
+    }
+    q.readonlyEditor = readonlyEditor;
+    function moveEditorFromTab(editor, toElement, isPrepend) {
+        if (isPrepend === void 0) { isPrepend = false; }
+        var fieldDiv = editor.element.closest('.field');
+        if (isPrepend == true)
+            fieldDiv.prependTo(toElement);
+        else
+            fieldDiv.appendTo(toElement);
+    }
+    q.moveEditorFromTab = moveEditorFromTab;
+    function moveEditorCategoryFromTab(editor, toElement, isPrepend) {
+        if (isPrepend === void 0) { isPrepend = false; }
+        var fieldDiv = editor.element.closest('.field');
+        var categoryDiv = editor.element.closest('.category');
+        if (isPrepend == true)
+            categoryDiv.prependTo(toElement);
+        else
+            categoryDiv.appendTo(toElement);
+        //hide category navigation link
+        var categoryAnchor = categoryDiv.find('.category-anchor');
+        var categoryAnchorName = categoryAnchor.attr('name');
+        categoryAnchor.closest('.s-PropertyGrid').find("a[href='#" + categoryAnchorName + "']").hide();
+    }
+    q.moveEditorCategoryFromTab = moveEditorCategoryFromTab;
+    function selectEditorTab(editor) {
+        var tabId = editor.element.closest('.tab-pane').attr('id');
+        var tabAnchor = editor.element.closest('.s-PropertyGrid').find("a[href='#" + tabId + "']");
+        tabAnchor.tab('show');
+    }
+    q.selectEditorTab = selectEditorTab;
+    // for select2 lookup editor
+    function getSelectedRow(e) {
+        var selectedItem = e.added;
+        var selectedRow = selectedItem.source;
+        return selectedRow;
+    }
+    q.getSelectedRow = getSelectedRow;
+})(q || (q = {}));
+var q;
+(function (q) {
+    function getEnumText(enumKey, value) {
+        var title = Serenity.EnumFormatter.format(Serenity.EnumTypeRegistry.get(enumKey), value);
+        return title;
+    }
+    q.getEnumText = getEnumText;
+    function getEnumValues(enumType) {
+        var items = [];
+        for (var item in enumType) {
+            if (!isNaN(Number(item))) {
+                items.push(enumType[item]);
+            }
+        }
+        return items;
+    }
+    q.getEnumValues = getEnumValues;
+    function getEnumKeys(enumType) {
+        var items = [];
+        for (var item in enumType) {
+            if (!isNaN(Number(item))) {
+                items.push(item);
+            }
+        }
+        return items;
+    }
+    q.getEnumKeys = getEnumKeys;
+})(q || (q = {}));
+var q;
+(function (q) {
+    function isCosmicThemeApplied() {
+        return document.body.className.indexOf('cosmic') >= 0;
+    }
+    q.isCosmicThemeApplied = isCosmicThemeApplied;
+    function getSelectedLanguage() {
+        return document.getElementById('LanguageSelect').value;
+    }
+    q.getSelectedLanguage = getSelectedLanguage;
+    function formatDecimal(value) {
+        var title = Serenity.NumberFormatter.format(value, '#,##0.00');
+        return title;
+    }
+    q.formatDecimal = formatDecimal;
+    function formatInt(value) {
+        var title = Serenity.NumberFormatter.format(value, '#,##0');
+        return title;
+    }
+    q.formatInt = formatInt;
+    // Check numeric or not then return value, if NAN then return zero(0)
+    function ToNumber(value) {
+        return isNaN(value) ? 0 : value;
+    }
+    q.ToNumber = ToNumber;
+    function ToBool(value) {
+        return value == 'true' ? true : false;
+    }
+    q.ToBool = ToBool;
+    //colorDepth should be within '0123456789ABCDEF'
+    function getRandomColor(hexLetters) {
+        var letters = hexLetters; // '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            var letterIndex = Math.floor((Math.random()) * letters.length);
+            if (letterIndex > 15)
+                letterIndex = 15;
+            if (letterIndex < 0)
+                letterIndex = 0;
+            color += letters[letterIndex];
+        }
+        return color;
+    }
+    q.getRandomColor = getRandomColor;
+})(q || (q = {}));
+var isPageRefreshRequired;
+//const nameof = <T>(name: keyof T) => name;
+//const nameofFactory = <T>() => (name: keyof T) => name;
+//usage const nameof = nameofFactory<Edoc.RevenueReportModel>();
+var q;
+(function (q) {
+    q.queryString = {};
+    q.jsPDFHeaderImageData = null;
+    q.jsPDFHeaderTitle = 'Report Title';
+    q.useSerenityInlineEditors = true;
+    q.DefaultMainGridOptions = {
+        AutoColumnSize: true,
+        FadeInEffectWhenInit: true,
+        ShowAnyInEqualityFilterWithTextValue: true,
+        ShowInlineActionsColumn: true,
+        ShowDeleteInlineButtun: false,
+        ShowEditInlineButtun: true,
+        ShowRowNumberColumn: true,
+        ShowRowSelectionCheckboxColumn: false,
+        RowsPerPage: 100
+    };
+    q.DefaultEditorGridOptions = {
+        AutoColumnSize: true,
+        FadeInEffectWhenInit: true,
+        ShowAnyInEqualityFilterWithTextValue: true,
+        ShowInlineActionsColumn: true,
+        ShowDeleteInlineButtun: true,
+        ShowEditInlineButtun: true,
+        ShowRowSelectionCheckboxColumn: false,
+        ShowRowNumberColumn: true
+    };
+    q.DefaultEntityDialogOptions = {
+        AutoFitContentArea: true,
+        HideCategoyLinksBar: true,
+        PendingChangesConfirmation: true,
+        ShowSaveAndNewButtonInToolbar: false,
+        ShowCloseButtonInToolbar: false,
+        ShowRefreshButtonInToolbar: false,
+        ShowChangeLogButtonInToolbar: false,
+        ShowReplaceRowButtonInToolbar: false
+    };
+    q.DefaultEditorDialogOptions = {
+        AutoFitContentArea: false,
+        HideCategoyLinksBar: true,
+        PendingChangesConfirmation: true,
+        ShowSaveAndNewButtonInToolbar: false,
+        ShowCloseButtonInToolbar: false,
+        ShowRefreshButtonInToolbar: false,
+        ShowChangeLogButtonInToolbar: false,
+        ShowReplaceRowButtonInToolbar: false
+    };
+    //date time
+    q.fiscalYearMonths = [6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5];
+})(q || (q = {}));
 //# sourceMappingURL=WebMyMoney.Web.js.map

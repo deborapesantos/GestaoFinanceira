@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface CadContaRow {
         CadContaId?: number;
         CadGrupoFamiliarId?: number;
@@ -29,59 +28,40 @@ namespace WebMyMoney.Default {
         export const idProperty = 'CadContaId';
         export const nameProperty = 'Titulo';
         export const localTextPrefix = 'Default.CadConta';
-        export const deletePermission = 'Administration:General';
-        export const insertPermission = 'Administration:General';
-        export const readPermission = 'Administration:General';
-        export const updatePermission = 'Administration:General';
+        export const lookupKey = 'Default.CadConta';
 
-        export namespace Fields {
-            export declare const CadContaId;
-            export declare const CadGrupoFamiliarId;
-            export declare const CadUsuarioId;
-            export declare const CodigoTabTipoConta;
-            export declare const ValorInicial;
-            export declare const SaldoAtual;
-            export declare const Titulo;
-            export declare const Ativo;
-            export declare const DataInicial;
-            export declare const CadGrupoFamiliarCadAssinanteId;
-            export declare const CadGrupoFamiliarAtivo;
-            export declare const CadGrupoFamiliarDataCriacao;
-            export declare const CadGrupoFamiliarCodigoAcesso;
-            export declare const CadGrupoFamiliarQdteUsuarios;
-            export declare const CadUsuarioCadGrupoFamiliarId;
-            export declare const CadUsuarioUserId;
-            export declare const CadUsuarioNome;
-            export declare const CadUsuarioTelefone;
-            export declare const CadUsuarioDataCriacao;
-            export declare const CadUsuarioEmail;
-            export declare const CadUsuarioAtivo;
-            export declare const CodigoTabTipoContaDescricao;
+        export function getLookup(): Q.Lookup<CadContaRow> {
+            return Q.getLookup<CadContaRow>('Default.CadConta');
         }
+        export const deletePermission = 'Usuario:Editar';
+        export const insertPermission = 'Usuario:Editar';
+        export const readPermission = 'Usuario:Visualizar';
+        export const updatePermission = 'Usuario:Editar';
 
-        [
-            'CadContaId',
-            'CadGrupoFamiliarId',
-            'CadUsuarioId',
-            'CodigoTabTipoConta',
-            'ValorInicial',
-            'SaldoAtual',
-            'Titulo',
-            'Ativo',
-            'DataInicial',
-            'CadGrupoFamiliarCadAssinanteId',
-            'CadGrupoFamiliarAtivo',
-            'CadGrupoFamiliarDataCriacao',
-            'CadGrupoFamiliarCodigoAcesso',
-            'CadGrupoFamiliarQdteUsuarios',
-            'CadUsuarioCadGrupoFamiliarId',
-            'CadUsuarioUserId',
-            'CadUsuarioNome',
-            'CadUsuarioTelefone',
-            'CadUsuarioDataCriacao',
-            'CadUsuarioEmail',
-            'CadUsuarioAtivo',
-            'CodigoTabTipoContaDescricao'
-        ].forEach(x => (<any>Fields)[x] = x);
+        export declare const enum Fields {
+            CadContaId = "CadContaId",
+            CadGrupoFamiliarId = "CadGrupoFamiliarId",
+            CadUsuarioId = "CadUsuarioId",
+            CodigoTabTipoConta = "CodigoTabTipoConta",
+            ValorInicial = "ValorInicial",
+            SaldoAtual = "SaldoAtual",
+            Titulo = "Titulo",
+            Ativo = "Ativo",
+            DataInicial = "DataInicial",
+            CadGrupoFamiliarCadAssinanteId = "CadGrupoFamiliarCadAssinanteId",
+            CadGrupoFamiliarAtivo = "CadGrupoFamiliarAtivo",
+            CadGrupoFamiliarDataCriacao = "CadGrupoFamiliarDataCriacao",
+            CadGrupoFamiliarCodigoAcesso = "CadGrupoFamiliarCodigoAcesso",
+            CadGrupoFamiliarQdteUsuarios = "CadGrupoFamiliarQdteUsuarios",
+            CadUsuarioCadGrupoFamiliarId = "CadUsuarioCadGrupoFamiliarId",
+            CadUsuarioUserId = "CadUsuarioUserId",
+            CadUsuarioNome = "CadUsuarioNome",
+            CadUsuarioTelefone = "CadUsuarioTelefone",
+            CadUsuarioDataCriacao = "CadUsuarioDataCriacao",
+            CadUsuarioEmail = "CadUsuarioEmail",
+            CadUsuarioAtivo = "CadUsuarioAtivo",
+            CodigoTabTipoContaDescricao = "CodigoTabTipoContaDescricao"
+        }
     }
 }
+

@@ -17,19 +17,19 @@ namespace WebMyMoney.Common.Pages
         {
 
             var model = new DashboardPageModel();
-            using (var connection = SqlConnections.NewFor<CadUsuarioRow>())
-            {
-                if (Authorization.HasPermission(PermissionKeys.Usuario))
-                {
-                    var listaContas = connection.List<CadContaRow>(CadContaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList();
-                    var listaReceitas = connection.List<CadReceitaRow>(CadReceitaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList(); 
-                    var listaDespesas = connection.List<CadDespesaRow>(CadDespesaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList();
+            //using (var connection = SqlConnections.NewFor<CadUsuarioRow>())
+            //{
+            //    if (Authorization.HasPermission(PermissionKeys.Usuario))
+            //    {
+            //        var listaContas = connection.List<CadContaRow>(CadContaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList();
+            //        var listaReceitas = connection.List<CadReceitaRow>(CadReceitaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList(); 
+            //        var listaDespesas = connection.List<CadDespesaRow>(CadDespesaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).ToList();
 
-                    model.SaldoContas = listaContas.Sum(x => x.SaldoAtual).GetValueOrDefault();
-                    model.Despesas = listaDespesas.Sum(x => x.ValorTotal).GetValueOrDefault();
-                    model.Receitas = listaReceitas.Sum(x => x.Valor).GetValueOrDefault();
-                }
-            }
+            //        model.SaldoContas = listaContas.Sum(x => x.SaldoAtual).GetValueOrDefault();
+            //        model.Despesas = listaDespesas.Sum(x => x.ValorTotal).GetValueOrDefault();
+            //        model.Receitas = listaReceitas.Sum(x => x.Valor).GetValueOrDefault();
+            //    }
+            //}
               
 
 

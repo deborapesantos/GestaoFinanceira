@@ -20,5 +20,7 @@
         public DateTime? LastDirectoryUpdate { get; set; }
 
         public Int32? UsuarioId { get; set; }
+        public Int32? CadGrupoFamiliarId { get; set; }
+        public Int32? CaAssinanteId { get; set; }
     }
 }

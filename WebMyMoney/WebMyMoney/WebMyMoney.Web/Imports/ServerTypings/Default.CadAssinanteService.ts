@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace CadAssinanteService {
         export const baseUrl = 'Default/CadAssinante';
 
@@ -9,12 +8,12 @@ namespace WebMyMoney.Default {
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<CadAssinanteRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<CadAssinanteRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/CadAssinante/Create",
+            Update = "Default/CadAssinante/Update",
+            Delete = "Default/CadAssinante/Delete",
+            Retrieve = "Default/CadAssinante/Retrieve",
+            List = "Default/CadAssinante/List"
         }
 
         [
@@ -24,10 +23,10 @@ namespace WebMyMoney.Default {
             'Retrieve', 
             'List'
         ].forEach(x => {
-            (<any>CadAssinanteService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>CadAssinanteService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace TabTipoReceitaService {
         export const baseUrl = 'Default/TabTipoReceita';
 
@@ -9,12 +8,12 @@ namespace WebMyMoney.Default {
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<TabTipoReceitaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<TabTipoReceitaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/TabTipoReceita/Create",
+            Update = "Default/TabTipoReceita/Update",
+            Delete = "Default/TabTipoReceita/Delete",
+            Retrieve = "Default/TabTipoReceita/Retrieve",
+            List = "Default/TabTipoReceita/List"
         }
 
         [
@@ -24,10 +23,10 @@ namespace WebMyMoney.Default {
             'Retrieve', 
             'List'
         ].forEach(x => {
-            (<any>TabTipoReceitaService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>TabTipoReceitaService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

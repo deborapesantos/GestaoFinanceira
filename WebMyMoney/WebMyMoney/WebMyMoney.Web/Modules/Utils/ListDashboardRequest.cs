@@ -44,6 +44,8 @@ namespace WebMyMoney.Modules.Utils
 
     public class CartaoCreditoModel
     {
+        public List<CadDespesaRow> listaDespesaCartaoCredito { get; set; }
+        
         public string Descricao { get; set; }
 
         public string Titulo { get; set; }
@@ -61,5 +63,7 @@ namespace WebMyMoney.Modules.Utils
         public decimal LimiteDisponivel { get; set; }
 
         public bool FaturaAberta { get; set; }
+
+        public int Tipo { get; set; }
     }
 }

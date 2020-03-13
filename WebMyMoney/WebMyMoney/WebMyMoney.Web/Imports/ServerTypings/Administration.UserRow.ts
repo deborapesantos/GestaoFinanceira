@@ -1,6 +1,7 @@
 ﻿namespace WebMyMoney.Administration {
     export interface UserRow {
         UserId?: number;
+        UsuarioId?: number;
         Username?: string;
         Source?: string;
         PasswordHash?: string;
@@ -20,7 +21,6 @@
 
     export namespace UserRow {
         export const idProperty = 'UserId';
-        export const isActiveProperty = 'IsActive';
         export const nameProperty = 'Username';
         export const localTextPrefix = 'Administration.User';
         export const lookupKey = 'Administration.User';
@@ -28,9 +28,14 @@
         export function getLookup(): Q.Lookup<UserRow> {
             return Q.getLookup<UserRow>('Administration.User');
         }
+        export const deletePermission = 'Administration:Security';
+        export const insertPermission = 'Administration:Security';
+        export const readPermission = 'Administration:Security';
+        export const updatePermission = 'Administration:Security';
 
         export declare const enum Fields {
             UserId = "UserId",
+            UsuarioId = "UsuarioId",
             Username = "Username",
             Source = "Source",
             PasswordHash = "PasswordHash",

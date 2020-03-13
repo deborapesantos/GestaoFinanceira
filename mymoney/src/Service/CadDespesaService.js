@@ -17,5 +17,10 @@ export  default class CadDespesaService extends BaseService {
   async retrieve(id) {
     return await this.post(this.api_url + 'Retrieve/',{EntityId: id})
   };
+  async listar(listRequest) {
+    return await this.post(this.api_url + 'ListCadDespesa/',listRequest)
+  };
+
+  
 
 }

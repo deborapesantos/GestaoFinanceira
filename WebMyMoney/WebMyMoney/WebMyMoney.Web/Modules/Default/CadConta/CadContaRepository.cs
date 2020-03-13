@@ -58,30 +58,41 @@ namespace WebMyMoney.Default.Repositories
 
             var saldo = connection.List<MyRow>(fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId).Sum(x => x.SaldoAtual).GetValueOrDefault();
 
+            //var totalReceita = connection.List<CadReceitaRow>(fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+            //    && CadReceitaRow.Fields.Recebido == 1).Sum(x => x.Valor).GetValueOrDefault();
+
+            var lastDayOfMonth = DateTime.DaysInMonth(dataAtual.Year, request.mes);
+
             var totalReceita = connection.List<CadReceitaRow>(fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                && ((CadReceitaRow.Fields.DataRecebimento >= new DateTime(dataAtual.Year, request.mes, 1))
+                && CadReceitaRow.Fields.DataRecebimento <= new DateTime(dataAtual.Year, request.mes, lastDayOfMonth)) ||
+                 ((CadReceitaRow.Fields.DataCriacao >= new DateTime(dataAtual.Year, request.mes, 1))
+                && CadReceitaRow.Fields.DataCriacao <= new DateTime(dataAtual.Year, request.mes, lastDayOfMonth))
                 && CadReceitaRow.Fields.Recebido == 1).Sum(x => x.Valor).GetValueOrDefault();
+
 
             var totasDespesasMes = connection.List<CadDespesaRow>(
                    despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
                 && despesaFld.DataVencimento > new DateTime(dataAtual.Year, request.mes, 1)
-                && despesaFld.DataVencimento < new DateTime(dataAtual.Year, request.mes, 28)).ToList();
+                && despesaFld.DataVencimento < new DateTime(dataAtual.Year, request.mes, lastDayOfMonth)
+                ).ToList().Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
             var vencidos = connection.List<CadDespesaRow>(
                    despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
-                && despesaFld.DataVencimento < dataAtual 
-                && despesaFld.Pago != 1).ToList();
+                && despesaFld.DataVencimento <= dataAtual 
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
             var estaSemana = connection.List<CadDespesaRow>(
                    despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
-                && despesaFld.DataVencimento > dataAtual 
-                && despesaFld.DataVencimento < dataAtual.AddDays(7)
-                && despesaFld.Pago != 1).ToList();
+                && despesaFld.DataVencimento >= dataAtual 
+                && despesaFld.DataVencimento <= dataAtual.AddDays(7)
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
             var esteMes = connection.List<CadDespesaRow>(
                    despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
-                && despesaFld.DataVencimento > dataAtual 
-                && despesaFld.DataVencimento < dataAtual.AddDays(30)
-                && despesaFld.Pago != 1).ToList();
+                && despesaFld.DataVencimento >= dataAtual 
+                && despesaFld.DataVencimento <= dataAtual.AddDays(30)
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
             var totalDespesas = totasDespesasMes.Sum(x => x.ValorTotal).GetValueOrDefault();
 
@@ -126,18 +137,31 @@ namespace WebMyMoney.Default.Repositories
 
             foreach (var item in cartaoCredito)
             {
+                var faturaMes = connection.List<CadFaturaCartaoCreditoRow>(
+                   CadFaturaCartaoCreditoRow.Fields.CadCartaoCreditoCadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId &&
+                   CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == request.mes
+                   ).FirstOrDefault();
+
+                var receitasCartaoCreditoMes = connection.List<CadDespesaRow>(
+                 CadDespesaRow.Fields.CadFaturaCartaoCreditoId == (int)faturaMes.CadFaturaCartaoCreditoId
+                   ).ToList();
+
+                
+
                 cartao.Add(new CartaoCreditoModel()
                 {
                     CadCoartaoCreditoId = item.CadCartaoCreditoId ?? 0,
                     CadContaId = item.CadContaId ?? 0,
                     CadUsuarioId = item.CadUsuarioId ?? 0,
-                    DataPagamento = item.DataPagamentoFatura ?? DateTime.Now,
+                    DataPagamento = faturaMes.DataPagamentoFatura ?? new DateTime(),
                     Descricao = item.Descricao,
                     DiaVencimento = item.DiaPagarFatura ?? 1,
                     LimiteDisponivel = item.ValorLimiteAtual ?? 0,
                     LimiteTotal = item.ValorLimiteTotal ?? 0,
-                    ValorFatura = item.ValorParcialFaturaAtual ?? 0,
-                    Titulo = item.Titulo
+                    FaturaAberta = faturaMes.Pago.GetValueOrDefault() ? false: true,
+                    ValorFatura = receitasCartaoCreditoMes.Sum(x=>x.ValorTotal ?? 0) + (faturaMes.SaldoAnterior ?? 0),
+                    Titulo = item.Titulo,
+                    listaDespesaCartaoCredito = receitasCartaoCreditoMes
                 });
 
             }

@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export interface CadReceitaRow {
         CadReceitaId?: number;
         CadGrupoFamiliarId?: number;
@@ -14,6 +13,9 @@ namespace WebMyMoney.Default {
         DataFixaRecebimento?: number;
         Valor?: number;
         Recebido?: boolean;
+        Juros?: number;
+        Rendimento?: number;
+        Imposto?: number;
         Ativo?: boolean;
         CadGrupoFamiliarCadAssinanteId?: number;
         CadGrupoFamiliarAtivo?: boolean;
@@ -42,85 +44,51 @@ namespace WebMyMoney.Default {
         export const idProperty = 'CadReceitaId';
         export const nameProperty = 'Titulo';
         export const localTextPrefix = 'Default.CadReceita';
-        export const deletePermission = 'Administration:General';
-        export const insertPermission = 'Administration:General';
-        export const readPermission = 'Administration:General';
-        export const updatePermission = 'Administration:General';
+        export const deletePermission = 'Usuario:Editar';
+        export const insertPermission = 'Usuario:Editar';
+        export const readPermission = 'Usuario: Visualizar';
+        export const updatePermission = 'Usuario:Editar';
 
-        export namespace Fields {
-            export declare const CadReceitaId;
-            export declare const CadGrupoFamiliarId;
-            export declare const CadContaId;
-            export declare const CadUsuarioId;
-            export declare const CodigoTabTipoReceita;
-            export declare const Titulo;
-            export declare const Descricao;
-            export declare const DataRecebimento;
-            export declare const DataCriacao;
-            export declare const IsFixo;
-            export declare const DataFixaRecebimento;
-            export declare const Valor;
-            export declare const Recebido;
-            export declare const Ativo;
-            export declare const CadGrupoFamiliarCadAssinanteId;
-            export declare const CadGrupoFamiliarAtivo;
-            export declare const CadGrupoFamiliarDataCriacao;
-            export declare const CadGrupoFamiliarCodigoAcesso;
-            export declare const CadGrupoFamiliarQdteUsuarios;
-            export declare const CadContaCadGrupoFamiliarId;
-            export declare const CadContaCadUsuarioId;
-            export declare const CadContaCodigoTabTipoConta;
-            export declare const CadContaValorInicial;
-            export declare const CadContaSaldoAtual;
-            export declare const CadContaTitulo;
-            export declare const CadContaAtivo;
-            export declare const CadContaDataInicial;
-            export declare const CadUsuarioCadGrupoFamiliarId;
-            export declare const CadUsuarioUserId;
-            export declare const CadUsuarioNome;
-            export declare const CadUsuarioTelefone;
-            export declare const CadUsuarioDataCriacao;
-            export declare const CadUsuarioEmail;
-            export declare const CadUsuarioAtivo;
-            export declare const CodigoTabTipoReceitaDescricao;
+        export declare const enum Fields {
+            CadReceitaId = "CadReceitaId",
+            CadGrupoFamiliarId = "CadGrupoFamiliarId",
+            CadContaId = "CadContaId",
+            CadUsuarioId = "CadUsuarioId",
+            CodigoTabTipoReceita = "CodigoTabTipoReceita",
+            Titulo = "Titulo",
+            Descricao = "Descricao",
+            DataRecebimento = "DataRecebimento",
+            DataCriacao = "DataCriacao",
+            IsFixo = "IsFixo",
+            DataFixaRecebimento = "DataFixaRecebimento",
+            Valor = "Valor",
+            Recebido = "Recebido",
+            Juros = "Juros",
+            Rendimento = "Rendimento",
+            Imposto = "Imposto",
+            Ativo = "Ativo",
+            CadGrupoFamiliarCadAssinanteId = "CadGrupoFamiliarCadAssinanteId",
+            CadGrupoFamiliarAtivo = "CadGrupoFamiliarAtivo",
+            CadGrupoFamiliarDataCriacao = "CadGrupoFamiliarDataCriacao",
+            CadGrupoFamiliarCodigoAcesso = "CadGrupoFamiliarCodigoAcesso",
+            CadGrupoFamiliarQdteUsuarios = "CadGrupoFamiliarQdteUsuarios",
+            CadContaCadGrupoFamiliarId = "CadContaCadGrupoFamiliarId",
+            CadContaCadUsuarioId = "CadContaCadUsuarioId",
+            CadContaCodigoTabTipoConta = "CadContaCodigoTabTipoConta",
+            CadContaValorInicial = "CadContaValorInicial",
+            CadContaSaldoAtual = "CadContaSaldoAtual",
+            CadContaTitulo = "CadContaTitulo",
+            CadContaAtivo = "CadContaAtivo",
+            CadContaDataInicial = "CadContaDataInicial",
+            CadUsuarioCadGrupoFamiliarId = "CadUsuarioCadGrupoFamiliarId",
+            CadUsuarioUserId = "CadUsuarioUserId",
+            CadUsuarioNome = "CadUsuarioNome",
+            CadUsuarioTelefone = "CadUsuarioTelefone",
+            CadUsuarioDataCriacao = "CadUsuarioDataCriacao",
+            CadUsuarioEmail = "CadUsuarioEmail",
+            CadUsuarioAtivo = "CadUsuarioAtivo",
+            CodigoTabTipoReceitaDescricao = "CodigoTabTipoReceitaDescricao"
         }
-
-        [
-            'CadReceitaId',
-            'CadGrupoFamiliarId',
-            'CadContaId',
-            'CadUsuarioId',
-            'CodigoTabTipoReceita',
-            'Titulo',
-            'Descricao',
-            'DataRecebimento',
-            'DataCriacao',
-            'IsFixo',
-            'DataFixaRecebimento',
-            'Valor',
-            'Recebido',
-            'Ativo',
-            'CadGrupoFamiliarCadAssinanteId',
-            'CadGrupoFamiliarAtivo',
-            'CadGrupoFamiliarDataCriacao',
-            'CadGrupoFamiliarCodigoAcesso',
-            'CadGrupoFamiliarQdteUsuarios',
-            'CadContaCadGrupoFamiliarId',
-            'CadContaCadUsuarioId',
-            'CadContaCodigoTabTipoConta',
-            'CadContaValorInicial',
-            'CadContaSaldoAtual',
-            'CadContaTitulo',
-            'CadContaAtivo',
-            'CadContaDataInicial',
-            'CadUsuarioCadGrupoFamiliarId',
-            'CadUsuarioUserId',
-            'CadUsuarioNome',
-            'CadUsuarioTelefone',
-            'CadUsuarioDataCriacao',
-            'CadUsuarioEmail',
-            'CadUsuarioAtivo',
-            'CodigoTabTipoReceitaDescricao'
-        ].forEach(x => (<any>Fields)[x] = x);
     }
 }
+

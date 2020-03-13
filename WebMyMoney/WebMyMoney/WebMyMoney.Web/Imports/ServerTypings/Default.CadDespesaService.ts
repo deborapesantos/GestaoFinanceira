@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace CadDespesaService {
         export const baseUrl = 'Default/CadDespesa';
 
@@ -8,13 +7,15 @@ namespace WebMyMoney.Default {
         export declare function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<CadDespesaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<CadDespesaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function ListCadDespesa(request: Modules.Default.DefaultListRequest, onSuccess?: (response: Modules.Utils.ListScreenViewModel<CadDespesaRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/CadDespesa/Create",
+            Update = "Default/CadDespesa/Update",
+            Delete = "Default/CadDespesa/Delete",
+            Retrieve = "Default/CadDespesa/Retrieve",
+            List = "Default/CadDespesa/List",
+            ListCadDespesa = "Default/CadDespesa/ListCadDespesa"
         }
 
         [
@@ -22,12 +23,13 @@ namespace WebMyMoney.Default {
             'Update', 
             'Delete', 
             'Retrieve', 
-            'List'
+            'List', 
+            'ListCadDespesa'
         ].forEach(x => {
-            (<any>CadDespesaService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>CadDespesaService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

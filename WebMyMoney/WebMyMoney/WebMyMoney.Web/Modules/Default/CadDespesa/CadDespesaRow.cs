@@ -11,18 +11,18 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadDespesa]")]
     [DisplayName("Cad Despesa"), InstanceName("Cad Despesa")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:Visualizar")]
+    [ModifyPermission("Usuario:Editar")]
     public sealed class CadDespesaRow : Row, IIdRow, INameRow
     {
-        [DisplayName("Cad Despesa Id"), Identity]
+        [DisplayName("Despesa Id"), Identity]
         public Int32? CadDespesaId
         {
             get { return Fields.CadDespesaId[this]; }
             set { Fields.CadDespesaId[this] = value; }
         }
 
-        [DisplayName("Cad Conta"), NotNull, ForeignKey("[dbo].[CadConta]", "CadContaId"), LeftJoin("jCadConta"), TextualField("CadContaTitulo")]
+        [DisplayName("Conta"), NotNull, ForeignKey("[dbo].[CadConta]", "CadContaId"), LeftJoin("jCadConta"), TextualField("CadContaTitulo")]
         [LookupEditor(typeof(CadContaRow)), QuickFilter]
         public Int32? CadContaId
         {
@@ -30,7 +30,7 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CadContaId[this] = value; }
         }
 
-        [DisplayName("Cad Grupo Familiar"), NotNull, ForeignKey("[dbo].[CadGrupoFamiliar]", "CadGrupoFamiliarId"), LeftJoin("jCadGrupoFamiliar"), TextualField("CadGrupoFamiliarCodigoAcesso")]
+        [DisplayName("Grupo Familiar"), NotNull, ForeignKey("[dbo].[CadGrupoFamiliar]", "CadGrupoFamiliarId"), LeftJoin("jCadGrupoFamiliar"), TextualField("CadGrupoFamiliarCodigoAcesso")]
         [LookupEditor(typeof(CadGrupoFamiliarRow)), QuickFilter]
         public Int32? CadGrupoFamiliarId
         {
@@ -38,7 +38,7 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CadGrupoFamiliarId[this] = value; }
         }
 
-        [DisplayName("Cad Usuario"), NotNull, ForeignKey("[dbo].[CadUsuario]", "CadUsuarioId"), LeftJoin("jCadUsuario"), TextualField("CadUsuarioNome")]
+        [DisplayName("Usuário"), NotNull, ForeignKey("[dbo].[CadUsuario]", "CadUsuarioId"), LeftJoin("jCadUsuario"), TextualField("CadUsuarioNome")]
         [LookupEditor(typeof(CadUsuarioRow)), QuickFilter]
         public Int32? CadUsuarioId
         {
@@ -46,7 +46,15 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CadUsuarioId[this] = value; }
         }
 
-        [DisplayName("Codigo Tab Tipo Despesa"), NotNull, ForeignKey("[dbo].[TabTipoDespesa]", "CodigoTabTipoDespesa"), LeftJoin("jCodigoTabTipoDespesa"), TextualField("CodigoTabTipoDespesaDescricao")]
+        [DisplayName("Fatura"), ForeignKey("[dbo].[CadFaturaCartaoCredito]", "CadFaturaCartaoCreditoId"), LeftJoin("jCadFaturaCartaoCredito"), TextualField("MesFaturaVigente")]
+        [LookupEditor(typeof(CadFaturaCartaoCreditoRow)), QuickFilter]
+        public Int32? CadFaturaCartaoCreditoId
+        {
+            get { return Fields.CadFaturaCartaoCreditoId[this]; }
+            set { Fields.CadFaturaCartaoCreditoId[this] = value; }
+        }
+
+        [DisplayName("Tipo de Despesa"), NotNull, ForeignKey("[dbo].[TabTipoDespesa]", "CodigoTabTipoDespesa"), LeftJoin("jCodigoTabTipoDespesa"), TextualField("CodigoTabTipoDespesaDescricao")]
         [LookupEditor(typeof(TabTipoDespesaRow)), QuickFilter]
         public Int32? CodigoTabTipoDespesa
         {
@@ -54,32 +62,61 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CodigoTabTipoDespesa[this] = value; }
         }
 
-        [DisplayName("Titulo"), Size(255), NotNull, QuickSearch]
+        [DisplayName("Quem recebe"),  ForeignKey("[dbo].[CadParticipante]", "CadParticipanteId"), LeftJoin("jCadParticipante"), TextualField("NomeRazaoSocial")]
+        [LookupEditor(typeof(CadParticipanteRow)), QuickFilter]
+        public Int32? CadParticipanteId
+        {
+            get { return Fields.CadParticipanteId[this]; }
+            set { Fields.CadParticipanteId[this] = value; }
+        }
+
+        [DisplayName("Nome"), Size(255), NotNull, QuickSearch]
         public String Titulo
         {
             get { return Fields.Titulo[this]; }
             set { Fields.Titulo[this] = value; }
         }
 
-        [DisplayName("Data Pagamento")]
+        [DisplayName("Data de Pagamento")]
         public DateTime? DataPagamento
         {
             get { return Fields.DataPagamento[this]; }
             set { Fields.DataPagamento[this] = value; }
         }
 
-        [DisplayName("Data Criacao"), NotNull]
+        [DisplayName("Data de Criacao"), NotNull]
         public DateTime? DataCriacao
         {
             get { return Fields.DataCriacao[this]; }
             set { Fields.DataCriacao[this] = value; }
         }
 
-        [DisplayName("Is Fixo"), Column("isFixo")]
+        [DisplayName("Despesa Fixa?"), Column("isFixo")]
         public Boolean? IsFixo
         {
             get { return Fields.IsFixo[this]; }
             set { Fields.IsFixo[this] = value; }
+        }
+
+        [DisplayName("Parcelado? "), Column("IsParcelado")]
+        public Boolean? IsParcelado
+        {
+            get { return Fields.IsParcelado[this]; }
+            set { Fields.IsParcelado[this] = value; }
+        }
+
+        [DisplayName("Numero da Parcela"), Column("NumParcela")]
+        public Int32? NumParcela
+        {
+            get { return Fields.NumParcela[this]; }
+            set { Fields.NumParcela[this] = value; }
+        }
+
+        [DisplayName("Qdte Parcelas"), NotMapped]
+        public Int32? QdteParcelas
+        {
+            get { return Fields.QdteParcelas[this]; }
+            set { Fields.QdteParcelas[this] = value; }
         }
 
         [DisplayName("Data Vencimento"), NotNull]
@@ -89,21 +126,21 @@ namespace WebMyMoney.Default.Entities
             set { Fields.DataVencimento[this] = value; }
         }
 
-        [DisplayName("Valor Total"), Size(18), NotNull]
+        [DisplayName("Valor Total"), NotNull, DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
         public Decimal? ValorTotal
         {
             get { return Fields.ValorTotal[this]; }
             set { Fields.ValorTotal[this] = value; }
         }
 
-        [DisplayName("Multas Juros"), Size(18)]
+        [DisplayName("Multas Juros"), DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
         public Decimal? MultasJuros
         {
             get { return Fields.MultasJuros[this]; }
             set { Fields.MultasJuros[this] = value; }
         }
 
-        [DisplayName("Data Fixa Vencimento")]
+        [DisplayName("Data Fixa de Vencimento")]
         public Int32? DataFixaVencimento
         {
             get { return Fields.DataFixaVencimento[this]; }
@@ -123,13 +160,22 @@ namespace WebMyMoney.Default.Entities
             get { return Fields.Ativo[this]; }
             set { Fields.Ativo[this] = value; }
         }
+        [DisplayName("Imposto"), DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
+        public Decimal? Imposto
+        {
+            get { return Fields.Imposto[this]; }
+            set { Fields.Imposto[this] = value; }
+        }
 
-        [DisplayName("Descontos"), Size(18)]
+        [DisplayName("Descontos"), DisplayFormat("#,##0.00"), Size(18), Scale(2), AlignRight]
         public Decimal? Descontos
         {
             get { return Fields.Descontos[this]; }
             set { Fields.Descontos[this] = value; }
         }
+
+        //----------------------------------------------------------------
+        
 
         [DisplayName("Cad Conta Cad Grupo Familiar Id"), Expression("jCadConta.[CadGrupoFamiliarId]")]
         public Int32? CadContaCadGrupoFamiliarId
@@ -285,6 +331,21 @@ namespace WebMyMoney.Default.Entities
             set { Fields.CodigoTabTipoDespesaIcone[this] = value; }
         }
 
+
+        [DisplayName("Nome Participante"), Expression("jCadParticipante.[NomeRazaoSocial]")]
+        public String NomeParticipante
+        {
+            get { return Fields.NomeParticipante[this]; }
+            set { Fields.NomeParticipante[this] = value; }
+        }
+
+        [DisplayName("CPF/CNPJ Participante"), Expression("jCadParticipante.[CpfCnpj]")]
+        public String CpfCnpjParticipante
+        {
+            get { return Fields.CpfCnpjParticipante[this]; }
+            set { Fields.CpfCnpjParticipante[this] = value; }
+        }
+
         IIdField IIdRow.IdField
         {
             get { return Fields.CadDespesaId; }
@@ -308,18 +369,24 @@ namespace WebMyMoney.Default.Entities
             public Int32Field CadContaId;
             public Int32Field CadGrupoFamiliarId;
             public Int32Field CadUsuarioId;
+            public Int32Field CadFaturaCartaoCreditoId;
+            public Int32Field CadParticipanteId;
             public Int32Field CodigoTabTipoDespesa;
             public StringField Titulo;
             public DateTimeField DataPagamento;
             public DateTimeField DataCriacao;
             public BooleanField IsFixo;
+            public BooleanField IsParcelado;
             public DateTimeField DataVencimento;
             public DecimalField ValorTotal;
             public DecimalField MultasJuros;
             public Int32Field DataFixaVencimento;
             public BooleanField Pago;
             public BooleanField Ativo;
+            public DecimalField Imposto;
             public DecimalField Descontos;
+            public Int32Field NumParcela;
+            public Int32Field QdteParcelas;
 
             public Int32Field CadContaCadGrupoFamiliarId;
             public Int32Field CadContaCadUsuarioId;
@@ -346,6 +413,10 @@ namespace WebMyMoney.Default.Entities
 
             public StringField CodigoTabTipoDespesaDescricao;
             public StringField CodigoTabTipoDespesaIcone;
+
+
+            public StringField NomeParticipante;
+            public StringField CpfCnpjParticipante;
         }
     }
 }

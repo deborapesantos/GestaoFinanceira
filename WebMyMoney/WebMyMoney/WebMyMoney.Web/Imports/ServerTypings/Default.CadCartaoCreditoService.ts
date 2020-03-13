@@ -1,5 +1,4 @@
-﻿
-namespace WebMyMoney.Default {
+﻿namespace WebMyMoney.Default {
     export namespace CadCartaoCreditoService {
         export const baseUrl = 'Default/CadCartaoCredito';
 
@@ -8,13 +7,15 @@ namespace WebMyMoney.Default {
         export declare function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<CadCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<CadCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function ListarCartaoCreditoDepesas(request: Modules.Default.DefaultListRequest, onSuccess?: (response: Modules.Utils.CartaoCreditoModel) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
-        export namespace Methods {
-            export declare const Create: string;
-            export declare const Update: string;
-            export declare const Delete: string;
-            export declare const Retrieve: string;
-            export declare const List: string;
+        export declare const enum Methods {
+            Create = "Default/CadCartaoCredito/Create",
+            Update = "Default/CadCartaoCredito/Update",
+            Delete = "Default/CadCartaoCredito/Delete",
+            Retrieve = "Default/CadCartaoCredito/Retrieve",
+            List = "Default/CadCartaoCredito/List",
+            ListarCartaoCreditoDepesas = "Default/CadCartaoCredito/ListarCartaoCreditoDepesas"
         }
 
         [
@@ -22,12 +23,13 @@ namespace WebMyMoney.Default {
             'Update', 
             'Delete', 
             'Retrieve', 
-            'List'
+            'List', 
+            'ListarCartaoCreditoDepesas'
         ].forEach(x => {
-            (<any>CadCartaoCreditoService)[x] = function (r, s, o) { 
-                return Q.serviceRequest(baseUrl + '/' + x, r, s, o); 
+            (<any>CadCartaoCreditoService)[x] = function (r, s, o) {
+                return Q.serviceRequest(baseUrl + '/' + x, r, s, o);
             };
-            (<any>Methods)[x] = baseUrl + '/' + x;
         });
     }
 }
+

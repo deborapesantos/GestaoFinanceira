@@ -1018,6 +1018,78 @@
     <Content Include="tools\Node\less\lib\less\visitor.js" />
     <Content Include="tools\Node\node.exe" />
     <Content Include="tsconfig.json" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Administration.PermissionKeys.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadAssinanteColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadCartaoCreditoColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadContaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadDespesaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadFaturaCartaoCreditoColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadGrupoFamiliarColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadObjetivoColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadParticipanteColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadReceitaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadUsuarioColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoCartaoCreditoColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoContaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoDespesaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoObjetivoColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoReceitaColumns.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Membership.LoginResponse.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Default.CadReceita.CadReceitaViewModel`1.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Default.DefaultListRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Default.DefaultRetrieveRequest.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Utils.CartaoCreditoModel.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Utils.DespesaMesModel.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Utils.ListDashboardRequest`1.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Imports\ServerTypings\Modules.Utils.ListScreenViewModel`1.ts">
+      <DependentUpon>ServerTypings.tt</DependentUpon>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Imports\ServerTypings\Texts.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
@@ -1755,22 +1827,28 @@
     <TypeScriptCompile Include="Imports\ServerTypings\Default.TabTipoReceitaForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.RolePermissionsRow.ts">
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadFaturaCartaoCreditoRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.RolesRow.ts">
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadFaturaCartaoCreditoService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.UserPermissionsRow.ts">
+    <Content Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadFaturaCartaoCreditoForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.UserPreferencesRow.ts">
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadParticipanteRow.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.UserRolesRow.ts">
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadParticipanteService.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Imports\ServerTypings\Default.UsersRow.ts">
+    <Content Include="Modules\Default\CadParticipante\CadParticipanteIndex.cshtml" />
+    <TypeScriptCompile Include="Modules\Default\CadParticipante\CadParticipanteDialog.ts" />
+    <TypeScriptCompile Include="Modules\Default\CadParticipante\CadParticipanteGrid.ts" />
+    <TypeScriptCompile Include="Imports\ServerTypings\Default.CadParticipanteForm.ts">
       <DependentUpon>ServerTypings.tt</DependentUpon>
     </TypeScriptCompile>
   </ItemGroup>
@@ -1789,6 +1867,33 @@
     <Compile Include="App_Start\SiteInitialization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.AuditLogActionTypeFormatterAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.AutoCompleteEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.ColorEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.DateTimePickerEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.EmptyLookupEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.GridItemPickerEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.HardCodedLookupEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.HtmlTemplateEditorAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Imports\ClientTypes\_Ext.StaticTextBlockAttribute.cs">
+      <DependentUpon>ClientTypes.tt</DependentUpon>
     </Compile>
     <Compile Include="Modules\Administration\AdministrationNavigation.cs" />
     <Compile Include="Modules\Administration\Language\LanguageLookup.cs" />
@@ -1848,6 +1953,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Common\IIntNameRow.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationItems.cs" />
     <Compile Include="Modules\Common\Navigation\NavigationModel.cs" />
     <Compile Include="Modules\Common\Reporting\DynamicDataReport.cs" />
@@ -1859,6 +1965,7 @@
     <Compile Include="Modules\Common\UserPreference\UserPreferenceModels.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceEndpoint.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceRepository.cs" />
+    <Compile Include="Modules\Default\CadReceita\CadReceitaViewModel.cs" />
     <Compile Include="Modules\Default\DefaultListRequest.cs" />
     <Compile Include="Modules\Default\DefaultRetrieveRequest.cs" />
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
@@ -1887,6 +1994,7 @@
     <Compile Include="Modules\Administration\User\Authentication\AuthenticationService.cs" />
     <Compile Include="Modules\Administration\User\Authentication\UserRetrieveService.cs" />
     <Compile Include="Modules\Membership\Account\LoginRequest.cs" />
+    <Compile Include="Modules\Utils\ListScreenViewModel.cs" />
     <Compile Include="Modules\Utils\ContatoMail.cs" />
     <Compile Include="Modules\Utils\EnviarEmail.cs" />
     <Compile Include="Modules\Utils\ListDashboardRequest.cs" />
@@ -1998,6 +2106,18 @@
     <Compile Include="Modules\Default\TabTipoReceita\TabTipoReceitaPage.cs" />
     <Compile Include="Modules\Default\TabTipoReceita\TabTipoReceitaColumns.cs" />
     <Compile Include="Modules\Default\TabTipoReceita\TabTipoReceitaForm.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoRow.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoRepository.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoEndpoint.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoPage.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoColumns.cs" />
+    <Compile Include="Modules\Default\CadFaturaCartaoCredito\CadFaturaCartaoCreditoForm.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipanteRow.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipanteRepository.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipanteEndpoint.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipantePage.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipanteColumns.cs" />
+    <Compile Include="Modules\Default\CadParticipante\CadParticipanteForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

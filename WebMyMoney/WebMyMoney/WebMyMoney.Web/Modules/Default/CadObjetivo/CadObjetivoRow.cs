@@ -11,8 +11,8 @@ namespace WebMyMoney.Default.Entities
 
     [ConnectionKey("Default"), Module("Default"), TableName("[dbo].[CadObjetivo]")]
     [DisplayName("Cad Objetivo"), InstanceName("Cad Objetivo")]
-    [ReadPermission("Administration:General")]
-    [ModifyPermission("Administration:General")]
+    [ReadPermission("Usuario:Visualizar")]
+    [ModifyPermission("Usuario:Editar")]
     public sealed class CadObjetivoRow : Row, IIdRow, INameRow
     {
         [DisplayName("Cad Objetivo Id"), Identity]

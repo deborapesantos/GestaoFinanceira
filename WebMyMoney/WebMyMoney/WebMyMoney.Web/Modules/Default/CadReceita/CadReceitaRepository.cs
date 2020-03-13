@@ -6,7 +6,10 @@ namespace WebMyMoney.Default.Repositories
     using Serenity.Services;
     using System;
     using System.Data;
+    using System.Linq;
     using WebMyMoney.Default.Entities;
+    using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Utils;
     using MyRow = Entities.CadReceitaRow;
 
     public class CadReceitaRepository
@@ -36,6 +39,31 @@ namespace WebMyMoney.Default.Repositories
         public ListResponse<MyRow> List(IDbConnection connection, ListRequest request)
         {
             return new MyListHandler().Process(connection, request);
+        }
+
+        public ListScreenViewModel<MyRow> ListCadReceita(IDbConnection connection, DefaultListRequest request)
+        {
+            DateTime dataAtual = DateTime.Now;
+            var lastDayOfMonth = DateTime.DaysInMonth(dataAtual.Year, request.mes);
+
+            //var receitasMes = connection.List<MyRow>(fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+            //    && fld.DataCriacao > new DateTime(dataAtual.Year, request.mes, 1)
+            //    && fld.DataCriacao < new DateTime(dataAtual.Year, request.mes, lastDayOfMonth)).ToList();
+
+            var receitasMes = connection.List<CadReceitaRow>(fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+               && ((CadReceitaRow.Fields.DataRecebimento >= new DateTime(dataAtual.Year, request.mes, 1))
+               && CadReceitaRow.Fields.DataRecebimento <= new DateTime(dataAtual.Year, request.mes, lastDayOfMonth)) ||
+                ((CadReceitaRow.Fields.DataCriacao >= new DateTime(dataAtual.Year, request.mes, 1))
+               && CadReceitaRow.Fields.DataCriacao <= new DateTime(dataAtual.Year, request.mes, lastDayOfMonth))).ToList();
+
+            return new ListScreenViewModel<MyRow>()
+            {
+                Lista = receitasMes,
+                TotalConcluido = receitasMes.Count(x => x.Recebido == true),
+                TotalPendente = receitasMes.Count(x => x.Recebido != true)
+
+            };
+
         }
 
         private class MySaveHandler : SaveRequestHandler<MyRow> {

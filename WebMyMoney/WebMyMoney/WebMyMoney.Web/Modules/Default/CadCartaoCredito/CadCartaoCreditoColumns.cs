@@ -22,13 +22,13 @@ namespace WebMyMoney.Default.Columns
         [EditLink]
         public String Titulo { get; set; }
         public String Descricao { get; set; }
-        public DateTime DataPagamentoFatura { get; set; }
+        //public DateTime DataPagamentoFatura { get; set; }
         public Int32 DiaPagarFatura { get; set; }
-        public DateTime DataFechamentoFatura { get; set; }
+        //public DateTime DataFechamentoFatura { get; set; }
         public Int32 DiaFecharFatura { get; set; }
         public Decimal ValorLimiteTotal { get; set; }
         public Decimal ValorLimiteAtual { get; set; }
-        public Decimal ValorParcialFaturaAtual { get; set; }
+        //public Decimal ValorParcialFaturaAtual { get; set; }
         public Decimal Saldo { get; set; }
         public Boolean Ativo { get; set; }
     }

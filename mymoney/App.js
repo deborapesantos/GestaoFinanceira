@@ -12,6 +12,11 @@ import useLinking from './src/navigation/useLinking';
 
 import Login from './src/screens/Login';
 import Home from './src/screens/Home';
+
+import ContaReceita from './src/screens/ContaReceita';
+import ContaDespesa from './src/screens/ContaDespesa';
+import CartaoCredito from './src/screens/CartaoCredito';
+
 import { Header } from 'react-native/Libraries/NewAppScreen';
 
 const Stack = createStackNavigator();
@@ -60,8 +65,11 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState} >
           <Stack.Navigator >
-            <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }} />
-            <Stack.Screen name="Root" component={BottomTabNavigator}  />
+            <Stack.Screen name="Login" component={Login}  options={{ headerShown: false}} />
+            <Stack.Screen name="ContaReceita" component={ContaReceita} options={{ title:'Receitas'}}  />
+            <Stack.Screen name="ContaDespesa" component={ContaDespesa} options={{ title:'Despesas',headerStyle:{ backgroundColor:"red"},headerTitleStyle:{color:"#FFFFFF"},headerBackTitleStyle:{color:"#FFFFFF"}}} />
+            <Stack.Screen name="CartaoCredito" component={CartaoCredito} options={{title:'Cartao Crédito'}}/>
+            <Stack.Screen name="Root" component={BottomTabNavigator}  options={{ headerShown: false}}/>
             <Stack.Screen name="Carteira" component={Home}/>
           </Stack.Navigator>
          

@@ -14,3 +14,5 @@ using MyPages = WebMyMoney.Default.Pages;
 [assembly: NavigationLink(int.MaxValue, "Default/Tab Tipo Despesa", typeof(MyPages.TabTipoDespesaController), icon: null)]
 [assembly: NavigationLink(int.MaxValue, "Default/Tab Tipo Objetivo", typeof(MyPages.TabTipoObjetivoController), icon: null)]
 [assembly: NavigationLink(int.MaxValue, "Default/Tab Tipo Receita", typeof(MyPages.TabTipoReceitaController), icon: null)]
+[assembly: NavigationLink(int.MaxValue, "Default/Cad Fatura Cartao Credito", typeof(MyPages.CadFaturaCartaoCreditoController), icon: null)]
+[assembly: NavigationLink(int.MaxValue, "Default/Cad Participante", typeof(MyPages.CadParticipanteController), icon: null)]

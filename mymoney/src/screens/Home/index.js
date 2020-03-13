@@ -2,18 +2,16 @@ import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } from 'react-native';
 import { Container,Right} from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
-import * as WebBrowser from 'expo-web-browser';
 import Style from './../../theme/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Serenity from '@Service/Serenity'
 import CadContaService from '@Service/CadContaService';
 import LoginService from "@Service/LoginService";
 import Moment from 'moment';
-
 let LoginServiceInstance = new LoginService();
 let CadContaServiceInstance = new CadContaService();
 
 
+const data = new Date();
 export default class HomeIndex extends React.Component {
  
   constructor(props) {
@@ -27,87 +25,95 @@ export default class HomeIndex extends React.Component {
       TotalReceitas:0,
       TotalDespesas:0,
       MesVigente:3
-     },
-     filter:{
-       data:new Date()
      }
-      
     }
-
-    Moment.locale(); 
-  }
+  }  
 
   componentDidMount() {
-    LoginServiceInstance.getUsuarioLogado()
-      .then(res =>{
-        if(res){
-          var restoJson = JSON.parse(res);
-          var usuario = {
-            CadUsuarioId: restoJson.CadUsuarioId,
-            Username : restoJson.Username,
-            Password : restoJson.Password,
-            DisplayName : restoJson.DisplayName
-          }
+    let listRequest = {
+        mes: 3,
+      }
 
-          let listRequest = {
-            mes: 3 ,
-          }
-
-          CadContaServiceInstance.getDashboard(listRequest)
-          .then(x=>{
-            this.setState({ dashboardRequest: x })
-          })
-        }
-      })
-    
+    CadContaServiceInstance.getDashboard(listRequest)
+    .then(x=>{
+      this.setState({ dashboardRequest: x })
+    })
    }
+
+
+
+   openCadReceitaList(){
+    this.props.navigation.navigate('ContaReceita')
+   }
+
+   openCadDespesaList(){
+    this.props.navigation.navigate('ContaDespesa')
+  }
+
+  currencyFormat(num){
+    return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
+
+  openCadDespesaByFilter(pfiltro){
+    this.props.navigation.navigate('ContaDespesa',{filtro:pfiltro})
+  }
+
+  openCartaoCredito(item){
+    this.props.navigation.navigation('CartaoCredito',{filtro:item});
+  }
   
 render() {
-
-
+  
     return (
       
             <Container style={[Style.container]}>
+              <View style={Style.row}>
+                <View style={[Style.col1, {backgroundColor:'#930D72',Color:"#ffffff", height:80,width:'100%',borderRadius:100,padding:40}]}>
+                    <Text style={[Style.textCenter, Style.textMedium,{color:"#ffffff"}]}> {'<  '} {Moment(data).format("MMMM")} {'  >'} </Text>
+                </View>
+              </View>
                <ScrollView style={Style.body}>              
                <View style={[Style.row,{paddingHorizontal:20}]}>
                   <View style={[Style.boxInfoflatList,Style.col1]}>
-                    <View style={[Style.row]}>
-                        <Text style={[Style.col1,Style.textCenter, Style.textMedium,{padding:10}]}>{Moment(this.state.filter.data).format("MMMM")} </Text>
-                    </View>
-                    <View style={[Style.row]}>
+                    {/* <View style={[Style.row]}>
+                        <Text style={[Style.col1,Style.textCenter, Style.textMedium,{padding:10}]}>{Moment(data).format("MMMM")} </Text>
+                    </View> */}
+                    <View style={[Style.row,{paddingBottom:10}]}>
                         <View style={[Style.col1]}>
-                          <Text style={[Style.textCenter,Style.textMedium]}>Saldo</Text>
-                          <Text style={[Style.textCenter,Style.textMediumg]}>{this.state.dashboardRequest.SaldoAtual}</Text>
+                          
+                          <Text style={[Style.textCenter,Style.textLarge]}>
+                          <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                          { this.currencyFormat(this.state.dashboardRequest.SaldoAtual)   }
+                            </Text>
+                            <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]}>Saldo em Contas</Text>
                         </View>
                     </View>
                     <View style={[Style.row]}>
-                      <View style={[Style.col2]}>
-                        <Text style={[Style.textCenter,Style.textMedium]}>Receita</Text>
-                        <Text style={[Style.textCenter,Style.textBlue,Style.textMediumg]}>{this.state.dashboardRequest.TotalReceitas}</Text>
+                      <View style={[Style.col2]} >
+                       
+                        <Text style={[Style.textCenter,Style.textBlue,Style.textLarge]} onPress={()=> this.openCadReceitaList() }>
+                        <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                          { this.currencyFormat(this.state.dashboardRequest.TotalReceitas)   }
+                          </Text>
+                          <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]} onPress={()=> this.openCadReceitaList() } >Receitas</Text>
                       </View>
-                      <View style={[Style.col2]}>
-                        <Text style={[Style.textCenter,Style.textMedium]}>Despesa</Text>
-                        <Text style={[Style.textCenter,Style.textRed,Style.textMediumg]}>{this.state.dashboardRequest.TotalDespesas}</Text>
+                      <View style={[Style.col2]} >
+                        
+                        <Text style={[Style.textCenter,Style.textRed,Style.textLarge]} onPress={()=> this.openCadDespesaList()}>
+                        <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                        { this.currencyFormat(this.state.dashboardRequest.TotalDespesas)   }
+                       
+                          </Text>
+                          <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]} onPress={()=> this.openCadDespesaList()}>Despesas</Text>
                       </View>
+
                     </View>
                 </View>
               </View>
              
                 <View style={[{paddingHorizontal:10}]}>
                   <View style={[Style.row]}>
-                  {/* <FlatList
-                      data={this.state.categories}
-                      style={[]}
-                      numColumns={4}
-                      renderItem={({ item }) => (
-                          <TouchableOpacity style={[]} underlayColor='transparent' onPress={() => this.onSelectEventCategory(item)}>
-                              <View style={[]}>
-                                  <Text style={[]}>{item.descricao}</Text>
-                              </View>
-                          </TouchableOpacity>
-                      )}
-                      
-                  /> */}
+
                    <View style={Style.sectionGrey}>
                             <View style={Style.headerBg}>
                                 <Text style={Style.sHeader}>{'Todos os titulos'.toUpperCase()}</Text>
@@ -118,15 +124,8 @@ render() {
                                 showsHorizontalScrollIndicator={false}
                                 style={Style.flatList}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity style={[Style.boxInfoflatList,{backgroundColor:'#00adb5',height:95}]} underlayColor='transparent' onPress={() => this.onLearnMoreEvent(item)}>
-                                        {/* <View style={[Style.row,{padding:5}]}>
-                                           <View style={[Style.col1]}>
-                                                  <Text style={[Style.textMedium,Style.textWhite]} >{item.qdte}</Text>
-                                            </View>
-                                            <View style={[Style.col3]}>
-                                              <Text style={[Style.textMedium,Style.boxInfoflatListTitle,Style.textWhite]}>{item.qdte} - {item.nome}</Text>
-                                            </View>
-                                        </View> */}
+                                    <TouchableOpacity style={[Style.boxInfoflatList,{backgroundColor:'#00adb5',height:95}]} underlayColor='transparent' onPress={() => this.openCadDespesaByFilter(item.Descricao)}>
+                                     
                                         <View style={[Style.row,{padding:6,paddingHorizontal:10}]}>
                                            <View style={[Style.col1]}>
                                                   <Text style={[Style.textWhite,Style.textMedium]} >{item.Qtde}   {item.Descricao}</Text>
@@ -134,18 +133,19 @@ render() {
                                         </View>
                                         <View style={[Style.row,{padding:5}]}>
                                            <View style={[Style.col2]}>
-                                                  <Text style={[Style.textWhite]} >Valor total</Text>
+                                                  <Text style={[Style.textWhite]} >
+                                                    Valor total
+                                                    
+                                                    </Text>
                                             </View>
                                             <View style={[Style.col3]}>
-                                              <Text style={[Style.textMedium,Style.textRight,Style.boxInfoflatListTitle,Style.textWhite]}>R$ {item.Valor}</Text>
+                                              <Text style={[Style.textMedium,Style.textRight,Style.boxInfoflatListTitle,Style.textWhite]}>
+                                                <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                                                { this.currencyFormat(item.Valor) }
+                                                </Text>
                                             </View>
                                         </View>
-{/*                                        
-                                          <View>
-                                                <Text style={[Style.textMediumg,Style.textRight,Style.textWhite]}>R$ {item.valorTotal}</Text>
-                                                <Text style={[Style.textSmall,Style.textRight,Style.textWhite]}>Valor total</Text>
-                                          </View> */}
-                                       
+
 
                                     </TouchableOpacity>
                                 )}
@@ -177,7 +177,10 @@ render() {
 
                                             <View style={[Style.row]}>
                                                 <View style={[Style.col4]}>
-                                                <Text style={[Style.textMediumg]}>R$ {item.Valor}</Text>
+                                                <Text style={[Style.textMediumg]}>
+                                                <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                                                  { this.currencyFormat(item.Valor) }
+                                                </Text>
                                                 <Text style={[Style.textSmall,Style.textGrey]}>Valor total</Text>
                                                 </View>
 
@@ -240,7 +243,7 @@ render() {
                                 showsHorizontalScrollIndicator={false}
                                 style={Style.flatList}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => this.onLearnMoreEvent(item)}>
+                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => this.openCartaoCredito(item)}>
                                         
                                         {
                                         !item.isAdicionar ?
@@ -284,14 +287,22 @@ render() {
                                                 <Text style={[Style.textSmall,Style.textGrey]}>Valor parcial da fatura</Text>
                                             </View>
                                             <View style={[{}]}>
-                                                <Text style={[Style.textSmall,Style.textGrey,Style.textMediumg]}>R$ {item.ValorFatura}</Text>
+                                                <Text style={[Style.textSmall,Style.textGrey,Style.textMediumg]}>
+                                              
+                                                  <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                                                  { this.currencyFormat(item.ValorFatura) }
+                                                </Text>
                                             </View>
                                             <View style={[Style.row]}>
                                                 <View style={[Style.col3]}>
                                                    <Text style={[Style.textSmall,Style.textGrey]}>Limite disponível</Text>
                                                 </View>
                                                 <View style={[Style.col2]}>
-                                                   <Text style={[Style.textRight]}>R$ {item.LimiteDisponivel}</Text>
+                                                   <Text style={[Style.textRight]}>
+                                                   <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                                                  { this.currencyFormat(item.LimiteDisponivel) }
+                                                </Text>
+                                                 
                                                 </View>
                                             </View>
                                             

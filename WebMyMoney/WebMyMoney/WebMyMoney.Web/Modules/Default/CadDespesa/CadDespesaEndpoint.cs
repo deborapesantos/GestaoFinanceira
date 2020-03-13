@@ -6,6 +6,8 @@ namespace WebMyMoney.Default.Endpoints
     using Serenity.Services;
     using System.Data;
     using System.Web.Mvc;
+    using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadDespesaRepository;
     using MyRow = Entities.CadDespesaRow;
 
@@ -42,5 +44,13 @@ namespace WebMyMoney.Default.Endpoints
         {
             return new MyRepository().List(connection, request);
         }
+
+        [HttpPost]
+        public ListScreenViewModel<MyRow> ListCadDespesa(IDbConnection connection, DefaultListRequest request)
+        {
+            return new MyRepository().ListCadDespesa(connection, request);
+        }
+
+        
     }
 }
