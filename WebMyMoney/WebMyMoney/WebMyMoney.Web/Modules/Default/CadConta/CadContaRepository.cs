@@ -96,8 +96,6 @@ namespace WebMyMoney.Default.Repositories
 
             var totalDespesas = totasDespesasMes.Sum(x => x.ValorTotal).GetValueOrDefault();
 
-
-
                 DespesaMesModel vencido = new DespesaMesModel()
                 {
                     CadUsuarioId = (int)((UserDefinition)Authorization.UserDefinition).UsuarioId,
@@ -106,11 +104,6 @@ namespace WebMyMoney.Default.Repositories
                     Qtde = vencidos.Count()
                 };
            
-           
-
-
-
-
             despesaMes.Add(vencido);
 
             despesaMes.Add(new DespesaMesModel()

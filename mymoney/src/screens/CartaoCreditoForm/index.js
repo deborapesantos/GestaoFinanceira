@@ -17,8 +17,8 @@ export default class CartaoCreditoForm extends React.Component {
   
 render() {
     return (
-        <View >
-         <Text> CartaoCreditoForm</Text>
+        <View  >
+         <Text>CartaoCreditoForm</Text>
         </View>
       )
   }

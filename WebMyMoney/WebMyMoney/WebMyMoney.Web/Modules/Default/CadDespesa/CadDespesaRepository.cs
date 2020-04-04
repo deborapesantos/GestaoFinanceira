@@ -11,6 +11,7 @@ namespace WebMyMoney.Default.Repositories
     using MyRow = Entities.CadDespesaRow;
     using System.Linq;
     using WebMyMoney.Modules.Utils;
+    using System.Collections.Generic;
 
     public class CadDespesaRepository
     {
@@ -44,19 +45,48 @@ namespace WebMyMoney.Default.Repositories
         public ListScreenViewModel<MyRow> ListCadDespesa(IDbConnection connection, DefaultListRequest request)
         {
             DateTime dataAtual = DateTime.Now;
+            var despesaFld = CadDespesaRow.Fields;
             var lastDayOfMonth = DateTime.DaysInMonth(dataAtual.Year, request.mes);
+            List<MyRow> lista = new List<MyRow>();
+            if (request.tipo == "Vencidos")
+            {
+             lista  = connection.List<CadDespesaRow>(
+                   despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                && despesaFld.DataVencimento <= dataAtual
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
+            }
+            else if(request.tipo == "Esta semana")
+            {
+                lista = connection.List<CadDespesaRow>(
+                   despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                && despesaFld.DataVencimento >= dataAtual
+                && despesaFld.DataVencimento <= dataAtual.AddDays(7)
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
-            var DespesasMes = connection.List<MyRow>(
-                   fld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
-                && fld.DataVencimento >= new DateTime(dataAtual.Year, request.mes, 1)
-                && fld.DataVencimento <= new DateTime(dataAtual.Year, request.mes, lastDayOfMonth)).Where(x => x.CadFaturaCartaoCreditoId == null).OrderByDescending(x => x.DataVencimento).ToList();
+            }
+            else if (request.tipo == "Próximos 30 dias")
+            {
+                lista = connection.List<CadDespesaRow>(
+                   despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                && despesaFld.DataVencimento >= dataAtual
+                && despesaFld.DataVencimento <= dataAtual.AddDays(30)
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
+            }
+            else 
+            {
+                lista = connection.List<CadDespesaRow>(
+                   despesaFld.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                && despesaFld.DataVencimento >= dataAtual
+                && despesaFld.DataVencimento <= dataAtual.AddDays(30)
+                && despesaFld.Pago != 1).Where(x => x.CadFaturaCartaoCreditoId == null).ToList();
 
+            }
 
             return new ListScreenViewModel<MyRow> () { 
-                    Lista = DespesasMes,
-                    TotalConcluido = DespesasMes.Count(x=>x.Pago == true),
-                    TotalPendente = DespesasMes.Count(x => x.Pago != true)
+                    Lista = lista,
+                    TotalConcluido = lista.Count(x=>x.Pago == true),
+                    TotalPendente = lista.Count(x => x.Pago != true)
 
             };
 
@@ -86,7 +116,9 @@ namespace WebMyMoney.Default.Repositories
                 {
                     var fatura = this.Connection.First<CadFaturaCartaoCreditoRow>(CadFaturaCartaoCreditoRow.Fields.CadFaturaCartaoCreditoId == (int)Row.CadFaturaCartaoCreditoId);
 
-                    fatura.ValorParcialFaturaAtual = fatura.ValorParcialFaturaAtual + Row.ValorTotal;
+                    fatura.ValorParcialFaturaAtual = fatura.SaldoAnterior + fatura.ValorParcialFaturaAtual + Row.ValorTotal;
+
+                    Row.DataVencimento = fatura.DiaVencimentoFatura;
 
                     this.Connection.UpdateById<CadFaturaCartaoCreditoRow>(fatura);
 
@@ -122,22 +154,60 @@ namespace WebMyMoney.Default.Repositories
 
 
                         var proximoMes = faturaSelecionada.MesFaturaVigente + 1;
-                        
-                        var faturaProximoMes = this.Connection.First<CadFaturaCartaoCreditoRow>(
-                            CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == (int)proximoMes
-                            );
 
-                        faturaProximoMes.ValorParcialFaturaAtual = faturaProximoMes.ValorParcialFaturaAtual + Row.ValorTotal;
+                        var faturaProximoMes = new CadFaturaCartaoCreditoRow();
+
+                        faturaProximoMes =  this.Connection.List<CadFaturaCartaoCreditoRow>(
+                            CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == (int)proximoMes
+                            ).FirstOrDefault();
+
+                        if (faturaProximoMes == null)
+                        {
+                            var ano = DateTime.Now.Year;
+                            if (proximoMes == 1)
+                            {
+                                ano = ano + 1;
+
+                                proximoMes = proximoMes + 1;
+
+                            }
+                            
+                            if (proximoMes > 12 )
+                            {
+                                ano = ano + 1;
+
+                                proximoMes = 1;
+
+                            }
+
+                            faturaProximoMes = new CadFaturaCartaoCreditoRow()
+                            {
+
+                                Ativo = true,
+                                MesFaturaVigente = proximoMes,
+                                DataFechamentoFatura = new DateTime(ano, proximoMes ?? 1, DateTime.Now.Day),
+                                DiaFecharFatura = 16,
+                                DiaVencimentoFatura = new DateTime(ano, proximoMes ?? 1, DateTime.Now.Day),
+                                SaldoAnterior = 0,
+                                CadCartaoCreditoId = fatura.CadCartaoCreditoId,
+                                ValorParcialFaturaAtual = valorParcela
+
+
+                            };
+
+                            this.Connection.Insert<CadFaturaCartaoCreditoRow>(faturaProximoMes);
+                        }
+
+                        faturaProximoMes = this.Connection.List<CadFaturaCartaoCreditoRow>(
+                            CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == (int)proximoMes
+                            ).FirstOrDefault();
+
+                        faturaProximoMes.ValorParcialFaturaAtual = faturaProximoMes.SaldoAnterior +  faturaProximoMes.ValorParcialFaturaAtual + valorParcela;
 
                         this.Connection.UpdateById<CadFaturaCartaoCreditoRow>(faturaProximoMes);
 
 
                         idFaturaMesAnterior = faturaProximoMes.CadFaturaCartaoCreditoId;
-
-                       if (faturaProximoMes == null)
-                        {
-
-                        }
 
                         CadDespesaRow novoItem = new CadDespesaRow()
                         {
@@ -159,12 +229,13 @@ namespace WebMyMoney.Default.Repositories
                             Pago = false
                         };
 
-                         
-
                         this.Connection.Insert<CadDespesaRow>(novoItem);
 
 
                     }
+                    Row.NumParcela = 1;
+                    Row.QdteParcelas = 0;
+                    Row.IsParcelado = false;
                 }
 
 

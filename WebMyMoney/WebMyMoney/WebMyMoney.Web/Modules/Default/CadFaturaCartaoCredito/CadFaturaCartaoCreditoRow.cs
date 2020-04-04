@@ -218,8 +218,7 @@ namespace WebMyMoney.Default.Entities
         {
             get { return Fields.MesVigente; }
         }
-
-       
+               
 
         public static readonly RowFields Fields = new RowFields().Init();
 

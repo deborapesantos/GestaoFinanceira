@@ -7,30 +7,42 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CadDespesaService from '@Service/CadDespesaService';
 import LoginService from "@Service/LoginService";
 import Moment from 'moment';
+import NavigationService from '@Service/Navigation';
 
 let CadDespesaServiceInstance = new CadDespesaService();
 const data = new Date();
 
-
 export default class ContaDespesa extends React.Component {
-  //Este método é usado para inicializar nosso componente com estado inicial, nenhum elemento de UI nativo foi renderizado
+  
+ 
   constructor(props) {
     super(props);
+    
     this.state={
       model:{
         Lista:[],
         TotalPendente:0,
         TotalConcluido:0
       }
-      
-  }
+    }
+    
 }
 
  componentDidMount() {
-   var listRequest ={
-     mes:3
-   };
-  CadDespesaServiceInstance.listar(listRequest)
+
+  const { filtro }  = this.props.route.params;
+  filtroDespesa = filtro;
+
+  var listRequest ={
+    mes:3,
+    tipo:filtro
+  };
+
+  listarDespesa(listRequest);
+ }
+
+ listarDespesa(filtroRequest){
+  CadDespesaServiceInstance.listar(filtroRequest)
   .then(x=>{
     this.setState({ model: x })
   })
@@ -39,13 +51,15 @@ export default class ContaDespesa extends React.Component {
  currencyFormat(num){
   return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
+
+aparece(){
+  
+}
   
 render() {
-
-  // const { params } = this.props.navigation.state;
-  // const filtro = params ? params.filtro : null;
-
-  // console.log(filtro);
+  
+  
+  
 
     return (
       <Container style={[Style.container]}>
@@ -55,8 +69,8 @@ render() {
            <View style={[Style.row]}>
                <Text style={[Style.col1,Style.textCenter, Style.textMedium,{padding:10}]}>{Moment(data).format("MMMM")} </Text>
            </View>
-           <View style={[Style.row]}>
-             <View style={[Style.col2]}>
+           <View style={[Style.row]} >
+             <View style={[Style.col2]} >
                <Text style={[Style.textCenter,Style.textMedium]}>A pagar</Text>
                <Text style={[Style.textCenter,Style.textBlue,Style.textMediumg]}>{this.state.model.TotalPendente}</Text>
              </View>
@@ -78,8 +92,10 @@ render() {
                        data={this.state.model.Lista}
                        style={Style.flatList}
                        renderItem={({ item }) => (
-                           <TouchableOpacity style={Style.itemsInfoflatList} underlayColor='transparent' onPress={() => this.onDetails(item)}>
-                               
+                           <TouchableOpacity style={Style.itemsInfoflatList} underlayColor='transparent' onPress={()=>{
+                            this.aparece()
+                          }}>
+                               {/* onPress={() => this.onDetails(item)} */}
                          
                                <View style={[{padding:5}]}>
                                    <View style={[Style.row]}>

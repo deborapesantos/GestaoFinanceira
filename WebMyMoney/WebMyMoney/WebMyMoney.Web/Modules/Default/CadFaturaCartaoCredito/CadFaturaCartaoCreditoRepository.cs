@@ -81,6 +81,10 @@ namespace WebMyMoney.Default.Repositories
 
                     this.Connection.UpdateById<CadContaRow>(conta);
 
+
+ //                   var proximaFatura = this.Connection.First<MyRow>(MyRow.Fields.MesFaturaVigente == (int)Row.MesFaturaVigente + 1);
+//
+ //                   this.Connection.UpdateById<MyRow>(proximaFatura);
                 }
 
                 BatchGenerationUpdater.OnCommit(this.UnitOfWork, fld.GenerationKey);

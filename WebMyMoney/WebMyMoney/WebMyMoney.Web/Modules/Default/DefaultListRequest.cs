@@ -11,5 +11,7 @@ namespace WebMyMoney.Modules.Default
         public int mes { get; set; }
 
         public int Id { get; set; }
+
+        public string tipo { get; set; }
     }
 }
