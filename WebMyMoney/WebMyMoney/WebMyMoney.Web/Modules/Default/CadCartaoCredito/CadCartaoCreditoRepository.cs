@@ -58,7 +58,8 @@ namespace WebMyMoney.Default.Repositories
 
                 model = new CartaoCreditoModel()
                 {
-                    CadCoartaoCreditoId = cartaoCredito.CadCartaoCreditoId ?? 0,
+                    CadCartaoCreditoId = cartaoCredito.CadCartaoCreditoId ?? 0,
+                    CadFaturaId = faturaMes.CadFaturaCartaoCreditoId ?? 0,
                     CadContaId = cartaoCredito.CadContaId ?? 0,
                     CadUsuarioId = cartaoCredito.CadUsuarioId ?? 0,
                     DataPagamento = faturaMes.DataPagamentoFatura ?? new DateTime(),

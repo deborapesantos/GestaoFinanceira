@@ -3,9 +3,10 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } fr
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 import CadCartaCreditoService from '@Service/CadCartaCreditoService';
-import { MonoText } from '../components/StyledText';
+import { Container,Right} from 'native-base';
+import Style from './../../theme/style';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
-
+import Moment from 'moment';
 let CadCartaCreditoServiceInstance = new CadCartaCreditoService();
 
 export default class CartaoCredito extends React.Component {
@@ -32,53 +33,70 @@ export default class CartaoCredito extends React.Component {
 }
 
  componentDidMount() {
+  const { filtro }  = this.props.route.params;
+   
+  if(filtro != null){
+    this.setState({ model: filtro })
+  }
+  else
+  {
     var request={
       mes:3,
       Id: 1
     }
-  CadCartaCreditoServiceInstance.listar(request)
-  .then(x=>{
-    this.setState({ model: x })
-  })
-
+    this.listarCartaoCredito(request)
   }
+}
+
+  listarCartaoCredito(request){
+    CadCartaCreditoServiceInstance.listar(request)
+    .then(x=>{
+      this.setState({ model: x })
+    })
+}
   
 render() {
     return (
       <Container style={[Style.container]}>
-      <ScrollView style={Style.body}>              
+      <ScrollView style={[Style.body,{padding:20}]}>              
         <View style={[Style.row]}>
             <View style={Style.sectionGrey}>
                 <View style={Style.headerBg}>
-                    <Text style={Style.sHeader}>{'Cartões de crédito'.toUpperCase()}</Text>
+                    {/* <Text style={Style.sHeader}>{'Cartões de crédito'.toUpperCase()}</Text> */}
                 </View>
             </View>
           </View>
-          
-          <View style={[Style.row, Style.col1,{ height:100, width:'96%', backgroundColor:"#564E95", borderRadius:12, }]}>
+          <View style={[Style.row,{marginBottom:20}]}>
+          <View style={[Style.col1,{ height:200, padding:20, backgroundColor:"#564E95", borderRadius:12 }]}>
             <View style={[Style.row, Style.col1]}>
                 <Text style={[{ color:"#ffffff" }]}>{this.state.model.Descricao}</Text>
-                <Text style={[{ color:"#ffffff" }]}>{this.state.model.Titulo}</Text>
             </View>
-            <View style={[Style.row]}>
+            <View style={[Style.row, Style.col1]}>
+               <Text style={[{ color:"#ffffff" },Style.textRight]}>{this.state.model.Titulo}</Text>
+            </View>
+            {/* <View style={[{height:5,backgroundColor:"#dddddd"}]}>
+              <View style={[{height:5,width:50,backgroundColor:"#930D72"}]}>
+              </View> 
+              </View>*/}
+            
               <View style={[Style.row, Style.col2]}>
-                  <Text style={[{ color:"#ffffff" },Style.textLeft]}>{this.state.model.LimiteDisponivel}</Text>
+                  <Text style={[{ color:"#ffffff" },Style.textLeft]}>Limite Disponível: {this.state.model.LimiteDisponivel}</Text>
               </View>
               <View style={[Style.row, Style.col2]}>
-                  <Text style={[{ color:"#ffffff" },Style.textRight]}>{this.state.model.LimiteTotal}</Text>
+                  <Text style={[{ color:"#ffffff" },Style.textRight]}>Limite Total: {this.state.model.LimiteTotal}</Text>
               </View>
+           
             </View>
           </View>
+          
           <Collapse>
             <CollapseHeader>
-            <View style={[Style.row, Style.col1,{ height:50, width:'96%', backgroundColor:"#fff",  }]}>
-                <View style={[Style.row]}>
-                  <View style={[Style.row, Style.col2]}>
-                      <Text style={[{ color:"#ffffff" },Style.textLeft]}>Total</Text>
-                  </View>
-                  <View style={[Style.row, Style.col2]}>
-                      <Text style={[{ color:"#ffffff" },Style.textRight]}>{this.state.model.ValorFatura}</Text>
-                  </View>
+            <View style={[Style.row, Style.col1,{ height:50,  backgroundColor:"#ffffff",padding:11 }]}>
+                <View style={[Style.col2]}>
+                  <Text style={[Style.textLeft,Style.textMedium]}>Total</Text>
+                </View>
+                <View style={[Style.col2]}>
+                      <Text style={[Style.textRight,Style.textMedium]}>{this.state.model.ValorFatura}</Text>
                 </View>
               </View>
               </CollapseHeader>

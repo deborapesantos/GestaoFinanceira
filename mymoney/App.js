@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 import useLinking from './src/navigation/useLinking';
 
@@ -15,6 +15,8 @@ import Home from './src/screens/Home';
 
 import ContaReceita from './src/screens/ContaReceita';
 import ContaDespesa from './src/screens/ContaDespesa';
+import CartaoCredito from './src/screens/CartaoCredito';
+import ContaDespesaDetail from './src/screens/ContaDespesaDetail'
 
 import { Header } from 'react-native/Libraries/NewAppScreen';
 
@@ -60,6 +62,7 @@ export default function App(props) {
     return null;
   } else {
     return (
+      
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState} >
@@ -67,12 +70,15 @@ export default function App(props) {
             <Stack.Screen name="Login" component={Login}  options={{ headerShown: false}} />
             <Stack.Screen name="ContaReceita" component={ContaReceita} options={{ title:'Receitas'}}  />
             <Stack.Screen name="ContaDespesa" component={ContaDespesa} options={{ title:'Despesas',headerStyle:{ backgroundColor:"red"},headerTitleStyle:{color:"#FFFFFF"},headerBackTitleStyle:{color:"#FFFFFF"}}} />
-            
-            <Stack.Screen name="Root" component={BottomTabNavigator}  options={{ headerShown: false}}/>
+            <Stack.Screen name="CartaoCredito" component={CartaoCredito} options={{ title:'Cartão Crédito',headerStyle:{ backgroundColor:"red"},headerTitleStyle:{color:"#FFFFFF"},headerBackTitleStyle:{color:"#FFFFFF"}}} />
+            <Stack.Screen name="ContaDespesaDetail" component={ContaDespesaDetail} options={{ title:'Detalhes da despesa',headerStyle:{ backgroundColor:"red"},headerTitleStyle:{color:"#FFFFFF"},headerBackTitleStyle:{color:"#FFFFFF"}}} />
+           
+        <Stack.Screen name="Root" component={BottomTabNavigator}  options={{ headerShown: false}}/> 
             <Stack.Screen name="Carteira" component={Home}/>
           </Stack.Navigator>
          
         </NavigationContainer>
+        
       </View>
     );
   }

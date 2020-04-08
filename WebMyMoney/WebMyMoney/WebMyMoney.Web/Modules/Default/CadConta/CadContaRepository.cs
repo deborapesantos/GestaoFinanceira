@@ -143,7 +143,8 @@ namespace WebMyMoney.Default.Repositories
 
                 cartao.Add(new CartaoCreditoModel()
                 {
-                    CadCoartaoCreditoId = item.CadCartaoCreditoId ?? 0,
+                    CadCartaoCreditoId = item.CadCartaoCreditoId ?? 0,
+                    CadFaturaId = faturaMes.CadFaturaCartaoCreditoId ?? 0,
                     CadContaId = item.CadContaId ?? 0,
                     CadUsuarioId = item.CadUsuarioId ?? 0,
                     DataPagamento = faturaMes.DataPagamentoFatura ?? new DateTime(),
@@ -170,7 +171,25 @@ namespace WebMyMoney.Default.Repositories
                     CadUsuarioId = item.CadUsuarioId ?? 0,
                     DataVencimento = item.DataVencimento ?? DateTime.Now,
                     Descricao = item.Titulo,
-                    Valor = item.ValorTotal ?? 0
+                    Valor = item.ValorTotal ?? 0,
+                    Ativo = item.Ativo ?? false,
+                    CadGrupoFamiliarId = item.CadGrupoFamiliarId ?? 0,
+                    CadFaturaCartaoCreditoId = item.CadFaturaCartaoCreditoId ?? 0,
+                    CadParticipanteId = item.CadParticipanteId ?? 0,
+                    CodigoTabTipoDespesa = item.CodigoTabTipoDespesa ?? 0,
+                    DataCriacao = item.DataCriacao ?? DateTime.Now,
+                    DataFixaVencimento = item.DataFixaVencimento ?? 0,
+                    DataPagamento = item.DataPagamento ?? DateTime.Now,
+                    Descontos = item.Descontos ?? 0,
+                    Imposto = item.Imposto ?? 0,
+                    IsFixo = item.IsFixo ?? false,
+                    IsParcelado = item.IsParcelado ??  false,
+                    MultasJuros = item.MultasJuros ?? 0,
+                    Pago = item.Pago ?? false,
+                    QdteParcelas = item.QdteParcelas ?? 0,
+                    Titulo = item.Titulo,
+                    ValorTotal = item.ValorTotal ?? 0
+
                 });
             }
 

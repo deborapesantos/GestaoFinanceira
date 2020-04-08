@@ -32,16 +32,17 @@ export default class ContaDespesa extends React.Component {
 
   const { filtro }  = this.props.route.params;
   filtroDespesa = filtro;
-
+console.log(filtro);
   var listRequest ={
-    mes:3,
+    mes:4,
     tipo:filtro
   };
 
-  listarDespesa(listRequest);
+  this.listarDespesa(listRequest);
  }
 
  listarDespesa(filtroRequest){
+   console.log(filtroRequest);
   CadDespesaServiceInstance.listar(filtroRequest)
   .then(x=>{
     this.setState({ model: x })
@@ -52,15 +53,7 @@ export default class ContaDespesa extends React.Component {
   return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
-aparece(){
-  
-}
-  
 render() {
-  
-  
-  
-
     return (
       <Container style={[Style.container]}>
       <ScrollView style={Style.body}>              
@@ -93,7 +86,7 @@ render() {
                        style={Style.flatList}
                        renderItem={({ item }) => (
                            <TouchableOpacity style={Style.itemsInfoflatList} underlayColor='transparent' onPress={()=>{
-                            this.aparece()
+                            this.props.navigation.navigate('ContaDespesaDetail', { filtro: item})
                           }}>
                                {/* onPress={() => this.onDetails(item)} */}
                          

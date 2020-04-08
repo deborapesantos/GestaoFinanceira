@@ -7,6 +7,7 @@ namespace WebMyMoney.Default.Endpoints
     using System.Data;
     using System.Web.Mvc;
     using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Default.CadDespesa;
     using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadDespesaRepository;
     using MyRow = Entities.CadDespesaRow;
@@ -51,6 +52,13 @@ namespace WebMyMoney.Default.Endpoints
             return new MyRepository().ListCadDespesa(connection, request);
         }
 
-        
+        [HttpPost]
+        public MyRow PagarDespesa(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().PagarDespesa(connection, request);
+        }
+
+
+
     }
 }

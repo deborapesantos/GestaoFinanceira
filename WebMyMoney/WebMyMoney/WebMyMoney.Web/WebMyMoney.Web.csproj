@@ -1965,6 +1965,7 @@
     <Compile Include="Modules\Common\UserPreference\UserPreferenceModels.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceEndpoint.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceRepository.cs" />
+    <Compile Include="Modules\Default\CadDespesa\CadDespesaRetrieveRequest.cs" />
     <Compile Include="Modules\Default\CadReceita\CadReceitaViewModel.cs" />
     <Compile Include="Modules\Default\DefaultListRequest.cs" />
     <Compile Include="Modules\Default\DefaultRetrieveRequest.cs" />

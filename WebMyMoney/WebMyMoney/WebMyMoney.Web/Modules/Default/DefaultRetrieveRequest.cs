@@ -8,5 +8,6 @@ namespace WebMyMoney.Modules.Default
 {
     public class DefaultRetrieveRequest : RetrieveRequest
     {
+
     }
 }

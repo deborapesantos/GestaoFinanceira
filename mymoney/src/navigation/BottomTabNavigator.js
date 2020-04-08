@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { Container,Right,Fab,Button,View} from 'native-base';
 import TabBarIcon from '../components/TabBarIcon';
 import MyHome from '../screens/Home/index';
 import Operacional from '../screens/Operacional/index';
@@ -14,12 +14,14 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions(getHeader(route));
   
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} headerMode="screen">
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME} headerMode="screen"
+    style={{ borderTopColor: 'red' }}>
       <BottomTab.Screen
         name="Carteira"
         component={MyHome}
         options={{
           title: 'Carteira',
+
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
         }}
         
@@ -33,6 +35,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
         
       /> */}
+      
       <BottomTab.Screen
         name="Operacional"
         component={Operacional}
@@ -50,7 +53,15 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
+       <BottomTab.Screen
+        name="."
+        component={Operacional}
+        options={{
+          title: '.'
+        }}
+      />
     </BottomTab.Navigator>
+   
   );
 }
 

@@ -75,7 +75,10 @@ namespace WebMyMoney.Default.Repositories
                             this.Connection.UpdateById<CadDespesaRow>(item);
                         }
 
-                    var conta = this.Connection.First<CadContaRow>(CadContaRow.Fields.CadContaId ==  (int)Row.CadCartaoCreditoCadContaId);
+                        var cartao = this.Connection.First<CadCartaoCreditoRow>(CadCartaoCreditoRow.Fields.CadCartaoCreditoId == (int)Row.CadCartaoCreditoId);
+
+
+                    var conta = this.Connection.First<CadContaRow>(CadContaRow.Fields.CadContaId ==  (int)cartao.CadContaId);
 
                     conta.SaldoAtual = conta.SaldoAtual - listaDespesas.Sum(x => x.ValorTotal);
 

@@ -12,6 +12,7 @@ namespace WebMyMoney.Default.Repositories
     using System.Linq;
     using WebMyMoney.Modules.Utils;
     using System.Collections.Generic;
+    using WebMyMoney.Modules.Default.CadDespesa;
 
     public class CadDespesaRepository
     {
@@ -93,6 +94,19 @@ namespace WebMyMoney.Default.Repositories
         }
 
 
+        public MyRow PagarDespesa(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+          var despesa =  connection.TryFirst<MyRow>(MyRow.Fields.CadDespesaId == request.CadDespesaId);
+            despesa.Pago = true;
+
+            despesa.DataPagamento = DateTime.Now;
+            
+
+            connection.UpdateById<MyRow>(despesa);
+
+            return despesa;
+        }
+
         private class MySaveHandler : SaveRequestHandler<MyRow> {
 
             protected override void BeforeSave()
@@ -125,7 +139,7 @@ namespace WebMyMoney.Default.Repositories
                 }
 
 
-                if (Row.IsParcelado == true && Row.CadFaturaCartaoCreditoId != 0)
+                if (Row.IsParcelado == true && Row.CadFaturaCartaoCreditoId != 0 )
                 {
                     var titulo = Row.Titulo;
                     var valorTotal = Row.ValorTotal;
@@ -236,6 +250,129 @@ namespace WebMyMoney.Default.Repositories
                     Row.NumParcela = 1;
                     Row.QdteParcelas = 0;
                     Row.IsParcelado = false;
+                }
+
+
+                if (Row.IsFixo == true && Row.QdteParcelas > 0 && Row.DataFixaVencimento != null)
+                {
+                    if(Row.CadFaturaCartaoCreditoId != null)
+                    {
+                        //primeiro
+                        var fatura = this.Connection.First<CadFaturaCartaoCreditoRow>(CadFaturaCartaoCreditoRow.Fields.CadFaturaCartaoCreditoId == (int)Row.CadFaturaCartaoCreditoId);
+                        fatura.ValorParcialFaturaAtual = fatura.ValorParcialFaturaAtual + Row.ValorTotal;
+                        this.Connection.UpdateById<CadFaturaCartaoCreditoRow>(fatura);
+
+                    }
+                    
+                    
+                    var proximoMes = DateTime.Now.Month + 1;
+                    var ano = DateTime.Now.Year;
+                    var ajusteQdteVezes = Row.QdteParcelas + 1;
+
+                    for (int i = 2; i < ajusteQdteVezes; i++)
+                    {
+                        int faturaId = 0;
+                        if (Row.CadFaturaCartaoCreditoId != null)
+                        {
+                            var faturaSelecionada = this.Connection.First<CadFaturaCartaoCreditoRow>(CadFaturaCartaoCreditoRow.Fields.CadFaturaCartaoCreditoId == (int)Row.CadFaturaCartaoCreditoId);
+
+                            var faturaProximoMes = new CadFaturaCartaoCreditoRow();
+
+                            faturaProximoMes = this.Connection.List<CadFaturaCartaoCreditoRow>(
+                                CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == (int)proximoMes
+                                ).FirstOrDefault();
+
+                            if (faturaProximoMes == null)
+                            {
+                                if (proximoMes == 1)
+                                {
+                                    ano = ano + 1;
+
+                                    proximoMes = proximoMes + 1;
+
+                                }
+
+                                if (proximoMes > 12)
+                                {
+                                    ano = ano + 1;
+
+                                    proximoMes = 1;
+
+                                }
+
+                                faturaProximoMes = new CadFaturaCartaoCreditoRow()
+                                {
+
+                                    Ativo = true,
+                                    MesFaturaVigente = proximoMes,
+                                    DataFechamentoFatura = new DateTime(ano, proximoMes, DateTime.Now.Day),
+                                    DiaFecharFatura = 16,
+                                    DiaVencimentoFatura = new DateTime(ano, proximoMes, DateTime.Now.Day),
+                                    SaldoAnterior = 0,
+                                    CadCartaoCreditoId = faturaSelecionada.CadCartaoCreditoId,
+                                    ValorParcialFaturaAtual = Row.ValorTotal
+
+
+                                };
+
+                                this.Connection.Insert<CadFaturaCartaoCreditoRow>(faturaProximoMes);
+                            }
+
+                            faturaProximoMes = this.Connection.List<CadFaturaCartaoCreditoRow>(
+                                CadFaturaCartaoCreditoRow.Fields.MesFaturaVigente == (int)proximoMes
+                                ).FirstOrDefault();
+
+                            faturaProximoMes.ValorParcialFaturaAtual = faturaProximoMes.SaldoAnterior + faturaProximoMes.ValorParcialFaturaAtual + Row.ValorTotal;
+
+                            this.Connection.UpdateById<CadFaturaCartaoCreditoRow>(faturaProximoMes);
+
+
+                            faturaId = faturaProximoMes.CadFaturaCartaoCreditoId ?? 1;
+                        }
+
+                        if (proximoMes == 1)
+                        {
+                            ano = ano + 1;
+
+                            proximoMes = proximoMes + 1;
+
+                        }
+
+                        if (proximoMes > 12)
+                        {
+                            ano = ano + 1;
+
+                            proximoMes = 1;
+
+                        }
+
+                        var proximaDespesa = new CadDespesaRow()
+                        {
+                            Ativo = true,
+                            DataVencimento = new DateTime(ano, proximoMes, Row.DataFixaVencimento ?? 1),
+                            CadContaId = Row.CadContaId,
+                            DataCriacao = Row.DataCriacao,
+                            Titulo = Row.Titulo,
+                            CadFaturaCartaoCreditoId = faturaId,
+                            CadUsuarioId = (int)((UserDefinition)Authorization.UserDefinition).UsuarioId,
+                            CadGrupoFamiliarId = (int)((UserDefinition)Authorization.UserDefinition).CadGrupoFamiliarId,
+                            CadParticipanteId = Row.CadParticipanteId,
+                            Descontos = Row.Descontos,
+                            Imposto = Row.Imposto,
+                            ValorTotal = Row.ValorTotal,
+                            IsFixo = Row.IsFixo,
+                            DataFixaVencimento = Row.DataFixaVencimento,
+                            NumParcela = i,
+                            MultasJuros = Row.MultasJuros,
+                            CodigoTabTipoDespesa = Row.CodigoTabTipoDespesa,
+                            Pago = false
+                        };
+
+                        this.Connection.Insert<CadDespesaRow>(proximaDespesa);
+
+                    }
+
+                    Row.NumParcela = 1;
                 }
 
 

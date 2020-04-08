@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } from 'react-native';
-import { Container,Right} from 'native-base';
+import { Container,Right,Fab,Button} from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import Style from './../../theme/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -35,17 +35,33 @@ const data = new Date();
 
   componentDidMount() {
     let listRequest = {
-        mes: 3,
-      }
+      mes: 4,
+    }
+    let isLoad ={};
+    if(this.props.route.params !== undefined){
 
+      isLoad = this.props.route.params;
+
+      if(isLoad != {}){
+        this.getDashboard(listRequest);
+      }
+    }
+
+
+    
+
+    this.getDashboard(listRequest);
+    this.props.navigation.setParams({
+      filtro : filtro
+  })
+   }
+
+   getDashboard(listRequest){
     CadContaServiceInstance.getDashboard(listRequest)
     .then(x=>{
       this.setState({ dashboardRequest: x })
     })
 
-    this.props.navigation.setParams({
-      filtro : filtro
-  })
    }
 
    openCadReceitaList(){
@@ -84,7 +100,7 @@ render() {
                   
               </LinearGradient> */}
 
-                <View style={[Style.col1, {backgroundColor:'#930D72',Color:"#ffffff", height:200,width:'100%',padding:40}]}>
+                <View style={[Style.col1, {backgroundColor:'#930D72',Color:"#ffffff", height:200,width:'100%',padding:40, borderBottomLeftRadius:10,borderBottomRightRadius:10}]}>
                 <Text style={[Style.textCenter, Style.textMedium,{color:"#ffffff"}]}> {'<  '} {Moment(data).format("MMMM")} {'  >'} </Text>
                   <Text style={[Style.textCenter,{color:"#ffffff",fontSize:40}]}>
                     <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
@@ -104,12 +120,15 @@ render() {
                   </View>
                   <View style={[Style.col2,Style.boxInfoflatList,{height:90,marginBottom: 2}]} >
 
-                    <Text style={[Style.textCenter,Style.textRed,Style.textLarge]} onPress={()=> this.openCadDespesaList()}>
+                    <Text style={[Style.textCenter,Style.textRed,Style.textLarge]} 
+                    onPress={()=> {
+                      this.props.navigation.navigate('ContaDespesa', { filtro: null})
+                    }}>
                     <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
                     { this.currencyFormat(this.state.dashboardRequest.TotalDespesas)   }
 
                       </Text>
-                      <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]} onPress={()=> this.openCadDespesaList()}>Despesas</Text>
+                      <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]} >Despesas</Text>
                   </View>
                </View>
                <ScrollView >
@@ -146,7 +165,7 @@ render() {
                                 renderItem={({ item }) => (
                                     <TouchableOpacity style={[Style.boxInfoflatList,{backgroundColor:'#00adb5',height:95}]} underlayColor='transparent' 
                                     onPress={() => {
-                                      this.props.navigation.navigate('ContaDespesa', { name: item})
+                                      this.props.navigation.navigate('ContaDespesa', { filtro: item.Descricao})
                                     }
                                    
                                     }>
@@ -178,6 +197,9 @@ render() {
                         </View>
 
                   </View>
+
+                  
+
                   <View style={[Style.row]}>
                    <View style={Style.sectionGrey}>
                             <View style={Style.headerBg}>
@@ -189,7 +211,8 @@ render() {
                                 showsHorizontalScrollIndicator={false}
                                 style={Style.flatList}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => this.onLearnMoreEvent(item)}>
+                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => 
+                                      this.props.navigation.navigate('ContaDespesaDetail', { filtro: item})}>
 
 
                                         {
@@ -268,7 +291,11 @@ render() {
                                 showsHorizontalScrollIndicator={false}
                                 style={Style.flatList}
                                 renderItem={({ item }) => (
-                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => {}}>
+                                    <TouchableOpacity style={Style.boxInfoflatList} underlayColor='transparent' onPress={() => {
+
+                                      this.props.navigation.navigate('CartaoCredito', {filtro:item});
+
+                                    }}>
 
                                         {
                                         !item.isAdicionar ?
@@ -363,7 +390,34 @@ render() {
                         </View>
                   </View>
                 </View>
+                
               </ScrollView>
+              
+          <Fab
+            active={this.state.active}
+            direction="up"
+            containerStyle={{paddingBottom:0 }}
+            style={{ backgroundColor: '#5067FF' }}
+            position="bottomRight"
+            onPress={() => this.setState({ active: !this.state.active })}>
+            <Icon name="plus" />
+            <Button style={{ backgroundColor: '#34A34F' }}>
+              <Text>Adicionar despesa</Text>
+              <Icon name="plus" />
+            </Button>
+            <View style={{ width:200 }}>
+            <Text>Adicionar receita</Text>
+            <Button style={{ backgroundColor: '#3B5998',width:50 }}>
+              <Icon name="plus" />
+              
+            </Button>
+            </View>
+            
+            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+              <Icon name="plus" />
+            </Button>
+          </Fab> 
+        
           </Container>
 
        )
