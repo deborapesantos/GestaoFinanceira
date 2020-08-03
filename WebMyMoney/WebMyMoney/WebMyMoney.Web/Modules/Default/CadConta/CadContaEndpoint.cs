@@ -7,6 +7,8 @@ namespace WebMyMoney.Default.Endpoints
     using System.Data;
     using System.Web.Mvc;
     using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Default.CadDespesa;
+    using WebMyMoney.Modules.Default.CadReceita;
     using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadContaRepository;
     using MyRow = Entities.CadContaRow;
@@ -50,6 +52,15 @@ namespace WebMyMoney.Default.Endpoints
         {
             return new MyRepository().GetDashboard(connection,request);
         }
-
+        [HttpPost]
+        public MyRow CriarConta(IDbConnection connection, CadContaRetrieveRequest request)
+        {
+            return new MyRepository().CriarConta(connection, request);
+        }
+        [HttpPost]
+        public TabelasAuxiliaresViewModel GetTabelasAuxiliares(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().GetTabelasAuxiliares(connection, request);
+        }
     }
 }

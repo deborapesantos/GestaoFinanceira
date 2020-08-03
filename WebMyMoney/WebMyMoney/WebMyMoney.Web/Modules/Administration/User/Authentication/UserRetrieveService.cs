@@ -15,30 +15,54 @@
         {
             var user = connection.TrySingle<Entities.UserRow>(criteria);
 
-            var cadUsuario = connection.TrySingle<Default.Entities.CadUsuarioRow>(Default.Entities.CadUsuarioRow.Fields.CadUsuarioId == (int)user.UsuarioId);
-
-            var grupoFamiliar = connection.TrySingle<Default.Entities.CadGrupoFamiliarRow>(Default.Entities.CadGrupoFamiliarRow.Fields.CadGrupoFamiliarId == (int)cadUsuario.CadGrupoFamiliarId);
-
-
             if (user != null)
-                return new UserDefinition
+            {
+                if (user.Username != "Admin")
                 {
-                    UserId = user.UserId.Value,
-                    Username = user.Username,
-                    Email = user.Email,
-                    UserImage = user.UserImage,
-                    DisplayName = user.DisplayName,
-                    IsActive = user.IsActive.Value,
-                    Source = user.Source,
-                    PasswordHash = user.PasswordHash,
-                    PasswordSalt = user.PasswordSalt,
-                    UpdateDate = user.UpdateDate,
-                    LastDirectoryUpdate = user.LastDirectoryUpdate,
-                    UsuarioId = user.UsuarioId ?? 0,
-                    CadGrupoFamiliarId = grupoFamiliar.CadGrupoFamiliarId,
-                    CaAssinanteId = grupoFamiliar.CadAssinanteId
+                    var cadUsuario = connection.TrySingle<Default.Entities.CadUsuarioRow>(Default.Entities.CadUsuarioRow.Fields.CadUsuarioId == (int)user.UsuarioId);
+                    var grupoFamiliar = connection.TrySingle<Default.Entities.CadGrupoFamiliarRow>(Default.Entities.CadGrupoFamiliarRow.Fields.CadGrupoFamiliarId == (int)cadUsuario.CadGrupoFamiliarId);
 
-                };
+                    return new UserDefinition
+                    {
+                        UserId = user.UserId.Value,
+                        Username = user.Username,
+                        Email = user.Email,
+                        UserImage = user.UserImage,
+                        DisplayName = user.DisplayName,
+                        IsActive = user.IsActive.Value,
+                        Source = user.Source,
+                        PasswordHash = user.PasswordHash,
+                        PasswordSalt = user.PasswordSalt,
+                        UpdateDate = user.UpdateDate,
+                        LastDirectoryUpdate = user.LastDirectoryUpdate,
+                        UsuarioId = user.UsuarioId ?? 0,
+                        CadGrupoFamiliarId = grupoFamiliar.CadGrupoFamiliarId,
+                        CaAssinanteId = grupoFamiliar.CadAssinanteId
+
+                    };
+
+                }
+                else
+                {
+                    return new UserDefinition
+                    {
+                        UserId = user.UserId.Value,
+                        Username = user.Username,
+                        Email = user.Email,
+                        UserImage = user.UserImage,
+                        DisplayName = user.DisplayName,
+                        IsActive = user.IsActive.Value,
+                        Source = user.Source,
+                        PasswordHash = user.PasswordHash,
+                        PasswordSalt = user.PasswordSalt,
+                        UpdateDate = user.UpdateDate,
+                        LastDirectoryUpdate = user.LastDirectoryUpdate
+
+                    };
+                }
+
+            }
+                
 
             return null;
         }

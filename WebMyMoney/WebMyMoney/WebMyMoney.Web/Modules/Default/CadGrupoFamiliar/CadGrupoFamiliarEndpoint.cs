@@ -6,6 +6,8 @@ namespace WebMyMoney.Default.Endpoints
     using Serenity.Services;
     using System.Data;
     using System.Web.Mvc;
+    using WebMyMoney.Modules.Default.CadDespesa;
+    using WebMyMoney.Modules.Default.CadUsuario;
     using MyRepository = Repositories.CadGrupoFamiliarRepository;
     using MyRow = Entities.CadGrupoFamiliarRow;
 
@@ -42,5 +44,17 @@ namespace WebMyMoney.Default.Endpoints
         {
             return new MyRepository().List(connection, request);
         }
+        [HttpPost]
+        public MyRow CriarGrupo(IDbConnection connection, SaveRequest<MyRow> request)
+        {
+            return new MyRepository().CriarGrupo(connection, request);
+        }
+
+        [HttpPost]
+        public UsuarioRequest AlterarGrupo(IUnitOfWork uow, MyRow request)
+        {
+            return new MyRepository().AlterarGrupo(uow, request);
+        }
+
     }
 }

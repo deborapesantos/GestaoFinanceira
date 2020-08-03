@@ -104,3 +104,4 @@ D:\AppRepositorio\_GitHubRepository\GestaoFinanceira\WebMyMoney\WebMyMoney\WebMy
 D:\AppRepositorio\_GitHubRepository\GestaoFinanceira\WebMyMoney\WebMyMoney\WebMyMoney.Web\obj\Debug\WebMyMoney.Web.csproj.CopyComplete
 D:\AppRepositorio\_GitHubRepository\GestaoFinanceira\WebMyMoney\WebMyMoney\WebMyMoney.Web\obj\Debug\WebMyMoney.Web.dll
 D:\AppRepositorio\_GitHubRepository\GestaoFinanceira\WebMyMoney\WebMyMoney\WebMyMoney.Web\obj\Debug\WebMyMoney.Web.pdb
+D:\AppRepositorio\_GitHubRepository\GestaoFinanceira\WebMyMoney\WebMyMoney\WebMyMoney.Web\obj\Debug\WebMyMoney.Web.csproj.CoreCompileInputs.cache

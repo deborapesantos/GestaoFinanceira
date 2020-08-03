@@ -49,7 +49,7 @@ export default class Login extends React.Component {
 
             LoginServiceInstance.logar(usuario.Username,usuario.Password)
             .then(x=>{
-              this.props.navigation.navigate('Root')
+              this.props.navigation.navigate('HomeIndex')
             })
            
           }
@@ -71,7 +71,7 @@ export default class Login extends React.Component {
 
     LoginServiceInstance.logar(username,password)
     .then(res=>{
-
+      this.props.navigation.navigate('HomeIndex')
     })
   }
 
@@ -80,7 +80,7 @@ export default class Login extends React.Component {
 render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>mY moNEY</Text>
+        <Text style={styles.logo}>Saldo Positivo</Text>
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}

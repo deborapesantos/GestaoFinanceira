@@ -7,6 +7,8 @@ namespace WebMyMoney.Default.Endpoints
     using System.Data;
     using System.Web.Mvc;
     using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Default.CadDespesa;
+    using WebMyMoney.Modules.Default.CadReceita;
     using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadCartaoCreditoRepository;
     using MyRow = Entities.CadCartaoCreditoRow;
@@ -50,6 +52,18 @@ namespace WebMyMoney.Default.Endpoints
         public CartaoCreditoModel ListarCartaoCreditoDepesas(IDbConnection connection, DefaultListRequest request)
         {
             return new MyRepository().ListarCartaoCreditoDepesas(connection, request);
+        }
+
+        [HttpPost]
+        public MyRow CriarCartaoCredito(IDbConnection connection, CadCartaoCreditoRetrieveRequest request)
+        {
+            return new MyRepository().CriarCartaoCredito(connection, request);
+        }
+
+        [HttpPost]
+        public TabelasAuxiliaresViewModel GetTabelasAuxiliares(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().GetTabelasAuxiliares(connection, request);
         }
     }
 }

@@ -38,6 +38,12 @@ namespace WebMyMoney.Default.Entities
             set { Fields.UserId[this] = value; }
         }
 
+        public Int32? GrupoPessoalId
+        {
+            get { return Fields.GrupoPessoalId[this]; }
+            set { Fields.GrupoPessoalId[this] = value; }
+        }
+
         [DisplayName("Nome"), Size(255), NotNull, QuickSearch]
         public String Nome
         {
@@ -228,6 +234,7 @@ namespace WebMyMoney.Default.Entities
             public Int32Field CadUsuarioId;
             public Int32Field CadGrupoFamiliarId;
             public Int32Field UserId;
+            public Int32Field GrupoPessoalId;
             public StringField Nome;
             public StringField Telefone;
             public DateTimeField DataCriacao;

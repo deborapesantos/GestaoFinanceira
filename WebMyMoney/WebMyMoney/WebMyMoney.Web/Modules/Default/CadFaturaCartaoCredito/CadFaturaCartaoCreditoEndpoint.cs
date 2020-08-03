@@ -43,5 +43,11 @@ namespace WebMyMoney.Default.Endpoints
             return new MyRepository().List(connection, request);
         }
 
+        [HttpPost]
+        public MyRow PagarFatura(IDbConnection connection, SaveRequest<MyRow> request)
+        {
+            return new MyRepository().PagarFatura(connection, request);
+        }
+
     }
 }

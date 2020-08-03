@@ -37,6 +37,13 @@ namespace WebMyMoney.Default.Entities
             set { Fields.Ativo[this] = value; }
         }
 
+        [DisplayName("IsGrupoPessoal")]
+        public Boolean? IsGrupoPessoal
+        {
+            get { return Fields.IsGrupoPessoal[this]; }
+            set { Fields.IsGrupoPessoal[this] = value; }
+        }
+
         [DisplayName("Data Criacao")]
         public DateTime? DataCriacao
         {
@@ -49,6 +56,13 @@ namespace WebMyMoney.Default.Entities
         {
             get { return Fields.CodigoAcesso[this]; }
             set { Fields.CodigoAcesso[this] = value; }
+        }
+
+        [DisplayName("Titulo"), Size(255), QuickSearch]
+        public String Titulo
+        {
+            get { return Fields.Titulo[this]; }
+            set { Fields.Titulo[this] = value; }
         }
 
         [DisplayName("Qdte Usuarios")]
@@ -122,9 +136,11 @@ namespace WebMyMoney.Default.Entities
             public Int32Field CadGrupoFamiliarId;
             public Int32Field CadAssinanteId;
             public BooleanField Ativo;
+            public BooleanField IsGrupoPessoal;
             public DateTimeField DataCriacao;
             public StringField CodigoAcesso;
             public Int32Field QdteUsuarios;
+            public StringField Titulo;
 
             public DateTimeField CadAssinanteDataCriacao;
             public Int32Field CadAssinanteUsuarioAdminId;

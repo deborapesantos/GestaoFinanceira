@@ -1,0 +1,46 @@
+tela de login
+	- Logar  ok
+	- Entrar com um código
+	- Cadastrar
+
+criar uma tela de visualizar perfil
+	- Nome
+	- Email
+	- Grupo Familiar (gerar codigo para um usuario entrar no grupo familiar)
+
+criar uma tela de listagem de cadastros
+	 Contas
+	 Cartão de crédito
+	 Participante
+	 Grupo Familiar
+	 Objetivos
+
+- Contas
+	- listagem
+	- Cadastro
+
+- Cartão de crédito
+	- listagem  
+	- Cadastro
+
+- Grupo Familiar
+	- listagem
+	- Cadastro
+	- Edição
+
+- Despesa
+	- listagem  ok
+	- Cadastro  ok
+	- Edição
+	- Pagamento
+
+- Despesa com cartão de credito
+	- listagem  ok
+	- Cadastro  ok
+	- Edição
+	- Pagamento
+
+- Receita
+	- listagem ok
+	- Cadastro
+	- Edição

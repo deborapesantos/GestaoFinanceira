@@ -39,6 +39,41 @@ namespace WebMyMoney.Default.Repositories
             return new MyListHandler().Process(connection, request);
         }
 
+        public CadFaturaCartaoCreditoRow PagarFatura(IDbConnection connection, SaveRequest<MyRow> request)
+        {
+            var fatura = connection.ById<CadFaturaCartaoCreditoRow>(request.EntityId);
+
+            fatura.Pago = true;
+            fatura.DataPagamentoFatura = DateTime.Now;
+
+            connection.UpdateById(fatura);
+
+
+            if (fatura.Pago == true)
+            {
+                var listaDespesas = connection.List<CadDespesaRow>(CadDespesaRow.Fields.CadFaturaCartaoCreditoId == (int)fatura.CadFaturaCartaoCreditoId).ToList();
+
+                foreach (var item in listaDespesas)
+                {
+                    item.Pago = true;
+                    item.DataPagamento = fatura.DataPagamentoFatura;
+                   connection.UpdateById<CadDespesaRow>(item);
+                }
+
+                var cartao = connection.ById<CadCartaoCreditoRow>((int)fatura.CadCartaoCreditoId);
+
+                var conta = connection.ById<CadContaRow>((int)cartao.CadContaId);
+
+                conta.SaldoAtual = conta.SaldoAtual - listaDespesas.Sum(x => x.ValorTotal);
+
+                connection.UpdateById<CadContaRow>(conta);
+
+            }
+
+            return fatura;
+
+        }
+
         private class MySaveHandler : SaveRequestHandler<MyRow> {
 
 

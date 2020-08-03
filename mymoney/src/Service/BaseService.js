@@ -20,32 +20,15 @@ export class BaseService {
             this.axioInstance = Axios.create();
     }
 
-    async list(listRequest) {
-        return await this.post(this.api_url + 'List/', listRequest)
-    };
-    async retrieve(id) {
-        return await this.post(this.api_url + 'Retrieve/',{EntityId: id} )
-    };
     
-    /**
-    * ShortHand for post requests
-    * @param {string} url 
-    * @param {Object} data post data
-    * @param {Object} axiosConfig Optional - custom object to axios request configuration
-    * @returns {Promise<Response>} promise with json data
-    */
     async post(url, data, axiosConfig){
         return this.doRequest("POST",url,data, axiosConfig);
     }
 
-    /**
-    * ShortHand for GET requests
-    * @param {string} url 
-    * @returns {Promise<Response>} promise with json data
-    */
     async get(url) {
         return await this.doRequest("GET", url, null)
     }
+    
     async doRequest(method, url, data, axiosConfig) {
         var request = this.baseRequest;
         request.method = method || request.method;
@@ -53,6 +36,13 @@ export class BaseService {
         request.url = url;
         return this.axioInstance.request(request).then((response) => response.data);
     }
+
+    async list(listRequest) {
+        return await this.post(this.api_url + 'List/', listRequest)
+    };
+    async retrieve(id) {
+        return await this.post(this.api_url + 'Retrieve/',{EntityId: id} )
+    };
        
 
  };

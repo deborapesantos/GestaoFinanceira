@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using WebMyMoney.Default.Entities;
+using WebMyMoney.Modules.Default.CadDespesa;
 
 namespace WebMyMoney.Modules.Utils
 {
@@ -13,10 +14,16 @@ namespace WebMyMoney.Modules.Utils
 
         public List<DespesaMesModel> ListaTodasReceitasDoMes { get; set; }
         public List<DespesaMesModel> ListaProximosVencimentos { get; set; }
+
+        public List<DespesaMesModel> ListaDespesaCategoria { get; set; }
         public List<CartaoCreditoModel> ListaCartaoCredito { get; set; }
+
+        public List<ActionSelect> ListaGrupo { get; set; }
         public decimal SaldoAtual { get; set; }
         public decimal TotalReceitas { get; set; }
         public decimal TotalDespesas { get; set; }
+
+        public string NomeGrupoAtivo { get; set; }
 
         public int MesVigente { get; set; }
         public int Skip { get; set; }
@@ -52,6 +59,8 @@ namespace WebMyMoney.Modules.Utils
         public Decimal MultasJuros { get; set; }
         public Boolean Pago { get; set; }
 
+        public string Icon { get; set; }
+
         public Boolean Ativo { get; set; }
         public Decimal Imposto { get; set; }
         public Decimal Descontos { get; set; }
@@ -85,5 +94,7 @@ namespace WebMyMoney.Modules.Utils
         public bool FaturaAberta { get; set; }
 
         public int Tipo { get; set; }
+
+        public bool Pago { get; set; }
     }
 }

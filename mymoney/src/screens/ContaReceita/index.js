@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } from 'react-native';
-import { Container,Right} from 'native-base';
+import { Container,Right,ActionSheet} from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import Style from './../../theme/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -68,9 +68,9 @@ render() {
                    </View>
                    <FlatList
                        data={this.state.model.Lista}
-                       style={Style.flatList}
+                       
                        renderItem={({ item }) => (
-                           <TouchableOpacity style={Style.itemsInfoflatList} underlayColor='transparent' onPress={() => this.onDetails(item)}>
+                           <TouchableOpacity style={Style.itemsBox} underlayColor='transparent' onPress={() => this.onDetails(item)}>
                                
                          
                                <View style={[{padding:5}]}>

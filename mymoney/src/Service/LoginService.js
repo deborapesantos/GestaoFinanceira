@@ -9,14 +9,7 @@ import { AsyncStorage } from 'react-native';
 
 export default class LoginService extends BaseService {  
   
-  async publicLogin() {
-    return await this.login({
-      Username: "deboraps",
-      Password: "e4b65bb"
-    })
-  }
-
-
+ 
   async logar(username,password) {
 console.log(username +" "+ password);
     return await this.login({
@@ -107,9 +100,9 @@ console.log(username +" "+ password);
     return await  store.save("@UsuarioLogado",JSON.stringify(user));
   };
 
-
-
-
+  async Signout(){
+    return await this.post(this.baseUrl + 'Account/SignoutExt/');
+  }
   
 
   async getUsuarioAutenticado(){
@@ -118,6 +111,10 @@ console.log(username +" "+ password);
 
   async getUsuarioLogado(){
     return store.get("@UsuarioLogado");
+  };
+
+  async getUsuarioLogadoId(){
+    return store.get("@UsuarioId");
   };
 
   async getUid(){

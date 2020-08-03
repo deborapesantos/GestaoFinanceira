@@ -463,13 +463,13 @@ export default {
 
    sectionGrey: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 5,
     backgroundColor: 'transparent',
 },
 headerBg: {
     flexDirection: 'row',
-    marginBottom: 10,
-    paddingHorizontal: 20,
+    marginBottom: 5,
+    paddingHorizontal: 10,
 },
 sHeader: {
     color: '#333',
@@ -478,7 +478,7 @@ sHeader: {
     marginTop: 5,
 },
 flatList: {
-    paddingLeft: 10,
+    paddingLeft: 5,
 },
 boxInfo:{
     backgroundColor: '#fff',
@@ -511,6 +511,7 @@ boxInfoflatList: {
     width: 250,
     height: 150,
 },
+
 itemsInfoflatList: {
     
     backgroundColor: '#FFF',
@@ -529,6 +530,28 @@ itemsInfoflatList: {
     width: '94%',
     height: 90,
 },
+itemsBox:{
+    backgroundColor: '#FFF',
+    borderRadius: 2,
+    elevation: 2,
+    margin: 0,
+    marginHorizontal:2,
+    marginBottom: 5,
+    padding:10,
+    width: '99%',
+    height: 70,
+},
+itemsNormal:{
+    backgroundColor: '#FFF',
+    borderRadius: 0,
+    elevation: 0,
+    margin: 0,
+    marginHorizontal:2,
+    marginBottom: 5,
+    padding:10,
+    width: '99%',
+    height: 55,
+},
 boxInfoflatListTitle:{
     color:"#000000",
     
@@ -545,6 +568,18 @@ boxInfoflatListFooter:{
 boxInfoflatListValue:{
     color:"#008fb5",
     
-}
+},
+footer: {
+    position: 'absolute',
+    flex:0.1,
+    left: 0,
+    right: 0,
+    bottom: -10,
+    backgroundColor:'transparent',
+    flexDirection:'row',
+    height:80,
+    alignItems:'center',
+    paddingHorizontal:40
+  },
 
 }

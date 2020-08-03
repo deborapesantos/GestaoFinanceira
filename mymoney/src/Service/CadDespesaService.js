@@ -21,7 +21,61 @@ export  default class CadDespesaService extends BaseService {
   async pagar(model) {
     return await this.post(this.api_url + 'PagarDespesa/',
     {
-        CadDespesaId:model.CadDespesaId,
+      CadDespesaId:model.CadDespesaId,
+    })
+  };
+
+  async criarNovo(model) {
+    return await this.post(this.api_url + 'CriarDespesa/',
+    {
+       
+      Titulo:model.Titulo,
+      DataPagamento:model.DataPagamento,
+      DataCriacao:model.DataCriacao,
+      IsFixo:model.IsFixo,
+      DataFixaVencimento: model.DataFixaVencimento,
+      IsParcelado:model.IsParcelado,
+      QdteParcelas:model.QdteParcelas,
+      DataVencimento:model.DataVencimento,
+      ValorTotal:model.ValorTotal,
+      MultasJuros:model.MultasJuros,
+      Pago:model.Pago,
+      Ativo:model.Ativo,
+      Imposto:model.Imposto,
+      Descontos:model.Descontos,
+      CadContaId:model.CadContaId,
+      CadGrupoFamiliarId:model.CadGrupoFamiliarId,
+      CadUsuarioId:0,
+      CadFaturaCartaoCreditoId:model.CadFaturaCartaoCreditoId,
+      CodigoTabTipoDespesa:model.CodigoTabTipoDespesa,
+      CadParticipanteId:0,
+    })
+  };
+
+  async editar(model) {
+    return await this.post(this.api_url + 'EditarDespesa/',
+    {
+       
+      Titulo:model.Titulo,
+      DataPagamento:model.DataPagamento,
+      CadDespesaId : model.CadDespesaId,
+      //IsFixo:model.IsFixo,
+      //DataFixaVencimento: model.DataFixaVencimento,
+      //IsParcelado:model.IsParcelado,
+      //QdteParcelas:model.QdteParcelas,
+      DataVencimento:model.DataVencimento,
+      ValorTotal:model.ValorTotal,
+     // MultasJuros:model.MultasJuros,
+      Pago:model.Pago,
+      //Ativo:model.Ativo,
+      //Imposto:model.Imposto,
+      //Descontos:model.Descontos,
+      CadContaId:model.CadContaId,
+      //CadGrupoFamiliarId:0,
+      //CadUsuarioId:0,
+      //CadFaturaCartaoCreditoId:model.CadFaturaCartaoCreditoId,
+      CodigoTabTipoDespesa:model.CodigoTabTipoDespesa,
+      //CadParticipanteId:0,
     })
   };
 
@@ -29,6 +83,14 @@ export  default class CadDespesaService extends BaseService {
     return await this.post(this.api_url + 'ListCadDespesa/',listRequest)
   };
 
+  async GetTabelasAuxiliares(listRequest) {
+    return await this.post(this.api_url + 'GetTabelasAuxiliares/',{ CadDespesaId:listRequest})
+  };
+  async GetById(listRequest) {
+    return await this.post(this.api_url + 'GetById/',{ CadDespesaId:listRequest})
+  };
+  
+  
   
 
 }

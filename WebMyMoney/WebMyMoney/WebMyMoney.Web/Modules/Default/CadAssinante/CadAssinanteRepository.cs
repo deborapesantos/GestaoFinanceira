@@ -71,7 +71,7 @@ namespace WebMyMoney.Default.Repositories
 
 
 
-                    new UserRoleRepository().Update(UnitOfWork, new UserRoleUpdateRequest() { UserID = ultimo.UserId, Roles = new List<int>(new int[] { 2 }) });
+                       new UserRoleRepository().Update(UnitOfWork, new UserRoleUpdateRequest() { UserID = ultimo.UserId, Roles = new List<int>(new int[] { 2 }) });
 
 
                         /*insere o grupo familiar vinculado ao assinante*/
@@ -80,7 +80,8 @@ namespace WebMyMoney.Default.Repositories
                         grupoFamiliar.Entity.CadAssinanteId = Row.CadAssinanteId;
                         grupoFamiliar.Entity.Ativo = true;
                         grupoFamiliar.Entity.DataCriacao = DateTime.Now;
-                        grupoFamiliar.Entity.CodigoAcesso = "E4B65B";
+                        grupoFamiliar.Entity.Titulo = Row.Username;
+                        grupoFamiliar.Entity.IsGrupoPessoal = true;
                         grupoFamiliar.Entity.QdteUsuarios = 5;
                   
                         SaveResponse savegrupoResponse = new CadGrupoFamiliarRepository().Create(UnitOfWork, grupoFamiliar);
@@ -94,6 +95,7 @@ namespace WebMyMoney.Default.Repositories
                         usuarioSis.Entity.UserId = ultimo.UserId;
                         usuarioSis.Entity.Nome = Row.UsarioAdminNome;
                         usuarioSis.Entity.Email = Row.UsuarioAdminEmail;
+                        usuarioSis.Entity.GrupoPessoalId = Int32.Parse(savegrupoResponse.EntityId.ToString());
                         usuarioSis.Entity.Ativo = true;
                         usuarioSis.Entity.Telefone = Row.Telefone;
                         usuarioSis.Entity.DataCriacao = DateTime.Now;

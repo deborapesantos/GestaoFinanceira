@@ -1,0 +1,291 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    ViewData["PageId"] = "Login";
+    Layout = MVC.Views.Shared._LayoutSlim;
+}
+
+@section Head {
+    @Html.Script("~/Scripts/vegas/vegas.js")
+    <script type="text/javascript">@Html.Raw(DynamicScriptManager.GetScriptText("Form.Membership.Login"))</script>
+    <script type="text/javascript">@Html.Raw(Html.GetLocalTextContent("Login"))</script>
+    @Html.Stylesheet("~/Scripts/vegas/vegas.css")
+
+    <style type="text/css">
+        body {
+          font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-size: 13px;
+          color: #fff;
+    background-color: rgb(0,188,201);
+          -ms-overflow-style: scrollbar;
+        }
+
+       #LoginPanel {
+    padding: 30px 20px;
+    width: 400px;
+    margin: 90px auto auto auto;
+    border-radius: 5px;
+    font-weight: 700;
+    /* background: #fff; */
+    border: 2px solid rgb(0,188,201);
+}
+
+        #LoginPanel .caption {
+            width: 180px;
+        }
+
+        #LoginPanel .logo {
+            margin: 0 auto 20px auto;
+            width: 128px;
+            height: 128px;
+            background-image: url('logo_airLife.png');
+
+        }
+
+      #LoginPanel h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 16px 0 24px;
+    color: #fff;
+    text-align: center;
+    text-shadow: none;
+}
+
+       #LoginPanel .buttons {
+              text-align: right;
+    margin-right: 28px;
+    margin-left: 8px;
+        }
+
+        #LoginPanel .btn {
+                padding: 8px 24px;
+                font-weight: 700;
+        }
+
+       #LoginPanel .caption {
+            color: #ececec;
+            font-weight: 700;
+            text-shadow: 0 1px 1px #333;
+        }
+
+       #LoginPanel .actions {
+            padding-right: 28px;
+        }
+
+        #LoginPanel .actions a {
+            color: #ececec;
+            padding: 2px 2px 2px 2px;
+            margin-top: 5px;
+            display: block;
+            float: right;
+            clear: both;
+            border-bottom: 1px dashed #999;
+            text-shadow: 0 1px 1px #333;
+        }
+
+        #LoginPanel .actions a i {
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        #LoginPanel .s-Form label.error {
+            background-image: url(@Url.Content("~/Content/serenity/images/cross.png"));
+            padding: 26px 0 0 22px;
+        }
+
+        #LoginPanel .s-Form label.error.checked {
+            background-image: none;
+        }
+
+        #LoginPanel .s-Form .field {
+            padding: 8px;
+        }
+
+        .btn-primary {
+    color: #fff;
+    border-radius: 20px;
+    background-color: #007880;
+    border-color: #007880;
+}
+
+        #LoginPanel .s-Form input {
+                padding: 6px 10px;
+    border: none;
+    background: #fff;
+    height: 40px;
+    color: #333333;
+    border-radius: 20px;
+        }
+
+        #LoginPanel .s-Form .caption {
+            padding: 6px 10px;
+            color: #fff;
+        }
+
+        #LoginPanel a {
+            color: aqua;
+        }
+
+        #LoginPanel .s-PropertyGrid .categories {
+            height: auto;
+        }
+
+        #LoginPanel .flex-layout .s-PropertyGrid {
+            display: block;
+        }
+
+        @@media(max-width: 550px), (max-height: 500px) {
+            #LoginPanel {
+                padding: 16px 4px 16px 4px;
+                position: absolute;
+                margin: 0;
+                width: auto;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+}
+
+<script id="Template_LoginPanel" type="text/template">
+    <div class="flex-layout">
+        <center>
+            @*<img src="/Modules/Membership/Account/logo_airLife.png" height="128" />*@
+        </center>
+        <h3>Bem vindo à melhor plataforma de Gestão Financeira</h3>
+        <form id="~_Form" action="">
+            <div class="s-Form">
+                <div class="fieldset ui-widget ui-widget-content ui-corner-all">
+                    <div id="~_PropertyGrid"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="actions">
+                    
+                        <a href="@Url.Content("~/Account/ForgotPassword")">
+                            <center>
+                                @Texts.Forms.Membership.Login.ForgotPassword
+                                                    </center>
+                        </a>
+                
+                
+                    <div class="clear"></div>
+                </div>
+                <div class="buttons">
+                    <button id="LoginButton" type="submit" class="btn btn-primary btn-block">
+                        @Texts.Forms.Membership.Login.SignInButton
+                    </button>
+                </div>
+                <div class="actions">
+                    <center>
+                        <a href="@Url.Content("~/Account/SignUp")">
+                            <center>
+                                @Texts.Forms.Membership.Login.SignUpButton
+                                                    </center>
+                        </a>
+                    </center>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+
+@if (SiteInitialization.SkippedMigrations)
+{
+    <div class="alert alert-error alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-warning"></i> Warning!</h4>
+        SistemaOrdemServico skipped running migrations to avoid modifying an arbitrary database.
+        If you'd like to run migrations on this database, remove the safety check
+        in SiteInitialization.RunMigrations method.
+    </div>
+}
+
+@if (ViewData["Activated"] != null)
+{
+    <div class="alert alert-info alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-info"></i>@LocalText.Get("Dialogs.InformationTitle")</h4>
+        @Texts.Forms.Membership.SignUp.ActivationCompleteMessage
+    </div>
+}
+
+<div class="page-content">
+    <div id="LoginPanel">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+var LoginPanel = (function (_super) {
+    __extends(LoginPanel, _super);
+    function LoginPanel(container) {
+        var _this = _super.call(this, container) || this;
+        $(function () {
+
+            $("#LoginPanel0_Username").attr("placeholder", "Username");
+            $("input.s-PasswordEditor").attr("placeholder", "Senha");
+
+            $(".field.Username > .caption").css("display","none");
+        $(".field.Password > .caption").css("display","none");
+
+            $('#LoginButton').click(function (e) {
+                e.preventDefault();
+                if (!_this.validateForm()) {
+                    return;
+                }
+                var request = _this.getSaveEntity();
+                Q.serviceCall({
+                    url: Q.resolveUrl('~/Account/Login'),
+                    request: request,
+                    onSuccess: function (response) {
+                        var q = Q.parseQueryString();
+                        var returnUrl = q['returnUrl'] || q['ReturnUrl'];
+                        if (returnUrl) {
+                            var hash = window.location.hash;
+                            if (hash != null && hash != '#')
+                                returnUrl += hash;
+                            window.location.href = returnUrl;
+                        }
+                        else {
+                            window.location.href = Q.resolveUrl('~/');
+                        }
+                    }
+                });
+            });
+        });
+        return _this;
+    }
+    LoginPanel.prototype.getTemplateName = function () { return 'LoginPanel'; };
+    LoginPanel.prototype.getFormKey = function () { return "Membership.Login"; };
+    return LoginPanel;
+}(Serenity.PropertyPanel));
+
+
+
+
+jQuery(function() {
+    new LoginPanel($('#LoginPanel')).init();
+
+@if (ViewData["Activated"] != null)
+{
+    <text>
+    $(function() {
+        $('#Username').val(@Html.Raw(Serenity.JSON.Stringify(ViewData["Activated"])));
+        $('#Password').focus();
+
+         $( document ).ready(function() {
+
+
+        });
+
+
+
+    });
+    </text>
+
+
+}
+});
+</script>

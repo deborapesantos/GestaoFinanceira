@@ -27,10 +27,13 @@ namespace WebMyMoney.Modules.Default.CadDespesa
 
         public Int32 QdteParcelas { get; set; }
         public DateTime DataVencimento { get; set; }
-        public Decimal ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
+
+        public string CodigoTabTipoDespesaDescricao { get; set; }
+        public string CadContaTitulo { get; set; }
+        
         public Decimal MultasJuros { get; set; }
         public Boolean Pago { get; set; }
-
         public Boolean Ativo { get; set; }
         public Decimal Imposto { get; set; }
         public Decimal Descontos { get; set; }

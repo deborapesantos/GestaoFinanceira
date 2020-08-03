@@ -58,7 +58,30 @@ namespace WebMyMoney.Default.Endpoints
             return new MyRepository().PagarDespesa(connection, request);
         }
 
+        [HttpPost]
+        public MyRow CriarDespesa(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().CriarDespesa(connection, request);
+        }
+
+        [HttpPost]
+        public TabelasAuxiliaresViewModel GetTabelasAuxiliares(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().GetTabelasAuxiliares(connection, request);
+        }
+
+        [HttpPost]
+        public MyRow EditarDespesa(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            return new MyRepository().EditarDespesa(connection, request);
+        }
+        [HttpPost]
+        public MyRow GetById(IDbConnection connection, MyRow request)
+        {
+            return new MyRepository().GetById(connection, request);
+        }
 
 
+        
     }
 }

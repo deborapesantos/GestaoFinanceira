@@ -3,12 +3,15 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } fr
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 import CadCartaCreditoService from '@Service/CadCartaCreditoService';
-import { Container,Right} from 'native-base';
+import CadFaturaCartaoCreditoService from '@Service/CadFaturaCartaoCreditoService';
+import { Container,Right,Button} from 'native-base';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Style from './../../theme/style';
 import {Collapse,CollapseHeader, CollapseBody, AccordionList} from 'accordion-collapse-react-native';
 import Moment from 'moment';
 let CadCartaCreditoServiceInstance = new CadCartaCreditoService();
-
+let CadFaturaCartaoCreditoServiceInstance = new CadFaturaCartaoCreditoService();
 export default class CartaoCredito extends React.Component {
   //Este método é usado para inicializar nosso componente com estado inicial, nenhum elemento de UI nativo foi renderizado
   constructor(props) {
@@ -48,6 +51,13 @@ export default class CartaoCredito extends React.Component {
   }
 }
 
+pagarFatura(request){
+  CadFaturaCartaoCreditoServiceInstance.pagar(request.CadFaturaId)
+  .then(x=>{
+    this.props.navigation.navigate('HomeIndex')
+  })
+}
+
   listarCartaoCredito(request){
     CadCartaCreditoServiceInstance.listar(request)
     .then(x=>{
@@ -85,34 +95,27 @@ render() {
               <View style={[Style.row, Style.col2]}>
                   <Text style={[{ color:"#ffffff" },Style.textRight]}>Limite Total: {this.state.model.LimiteTotal}</Text>
               </View>
-           
+           {/* <View style={Style.row}>
+              <Button  iconRight light style={[Style.btnPrimary,Style.positionRight]}>
+                <Icon name='edit' />
+              </Button>
+           </View> */}
             </View>
+
           </View>
+        
           
-          <Collapse>
-            <CollapseHeader>
-            <View style={[Style.row, Style.col1,{ height:50,  backgroundColor:"#ffffff",padding:11 }]}>
-                <View style={[Style.col2]}>
-                  <Text style={[Style.textLeft,Style.textMedium]}>Total</Text>
-                </View>
-                <View style={[Style.col2]}>
-                      <Text style={[Style.textRight,Style.textMedium]}>{this.state.model.ValorFatura}</Text>
-                </View>
-              </View>
-              </CollapseHeader>
-              <CollapseBody>
               <FlatList
                 data={this.state.model.listaDespesaCartaoCredito}
-                style={Style.flatList}
+                
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={Style.itemsInfoflatList} underlayColor='transparent' onPress={() => this.onDetails(item)}>
+                    <TouchableOpacity style={Style.itemsBox} underlayColor='transparent' onPress={() => this.onDetails(item)}>
                       <View style={[{padding:5}]}>
+                          
                           <View style={[Style.row]}>
-                            <View style={[Style.col1]}>
+                          <View style={[Style.col1]}>
                               <Text style={[Style.boxInfoflatListTitle,Style.textMedium]}>{Moment(item.DataVencimento).format("d MMM")}</Text>
                             </View>
-                          </View>
-                          <View style={[Style.row]}>
                               <View style={[Style.col3]}>
                                 <Text style={[Style.boxInfoflatListTitle,Style.textMedium]}>{item.Titulo}</Text>
                               </View>
@@ -125,9 +128,22 @@ render() {
                   </TouchableOpacity>
                        )}
                    />
-            </CollapseBody>
-        </Collapse>
+          
+        
      </ScrollView>
+     {
+        !this.state.model.Pago? 
+        <View style={[Style.footer,Style.row]}>
+        <Button rounded warning style={[Style.col1]} onPress={() => {
+            this.pagarFatura(this.state.model)
+          }}>
+          <Text >Pagar Fatura</Text>
+        </Button> 
+      </View>
+      :
+      <View></View>
+     }
+      
  </Container>
       )
   }

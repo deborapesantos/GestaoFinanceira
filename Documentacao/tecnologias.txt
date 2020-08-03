@@ -1,0 +1,19 @@
+Desenvolvimento do aplicativo:
+técnologias: ReactNative e Expo
+ambiente de desenvolvimento: Visual Code
+
+Desenvolvimento do backend (serviço de API):
+técnologias: C#, Serenity (Asp Net MVC), Typescript
+ambiente de desenvolvimento: Visual Studio 2019
+
+Banco de dados:
+Relacional, SQL utilizando ambiente SQL Server 2014
+
+Versionamento da aplicação inteira (APP e API):
+Git usando Git Lab
+
+Acompanhamento de projeto:
+Vivify Scrum
+
+Metodologia de projeto utilizada:
+SCRUM

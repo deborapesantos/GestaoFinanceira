@@ -1,20 +1,26 @@
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } from 'react-native';
-import { Container,Right,Fab,Button} from 'native-base';
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList ,
+  ActivityIndicator,
+  RefreshControl} from 'react-native';
+import { Container,Right,Fab,Button,FooterTab,Footer,ActionSheet} from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import Style from './../../theme/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CadContaService from '@Service/CadContaService';
 import LoginService from "@Service/LoginService";
 import Moment from 'moment';
+import ActionButton from 'react-native-action-button';
+import {Root} from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import NavigationService from '@Service/Navigation';
-
 let LoginServiceInstance = new LoginService();
 let CadContaServiceInstance = new CadContaService();
 
 const filtro = {};
 const data = new Date();
+
+
+
  class HomeIndex extends React.Component {
 
   constructor(props) {
@@ -24,46 +30,76 @@ const data = new Date();
      dashboardRequest:{
       ListaTodasReceitasDoMes:[],
       ListaProximosVencimentos:[],
+      ListaDespesaCategoria:[],
       ListaCartaoCredito:[],
       SaldoAtual:0,
       TotalReceitas:0,
       TotalDespesas:0,
-      MesVigente:3
-     }
+      NomeGrupoAtivo:"",
+      MesVigente:Number(Moment(new Date()).format('MM'))
+     },
+     meses:[
+        {text:'Janeiro', id: 1},
+        {text:'Fevereiro',id: 2},
+        {text:'Março',id: 3},
+        {text:'Abril',id: 4},
+        {text:'Maio',id: 5},
+        {text:'Junho',id: 6},
+        {text:'Julho',id: 7},
+        {text:'Agosto',id: 8},
+        {text:'Setembro',id: 9},
+        {text:'Outubro',id: 10},
+        {text:'Novembro',id: 11},
+        {text:'Dezembro',id: 12},
+      ],
+      mesSelecionado:{
+        text:'',
+        id:''
+      },
+      refreshing: true
+      
     }
+    let mesativo= Number(Moment(new Date()).format('MM'));
+    var listRequest = {
+      mes:mesativo
+    }
+   this.getDashboard(listRequest);
   }
 
   componentDidMount() {
-    let listRequest = {
-      mes: 4,
+    let mesativo= Number(Moment(new Date()).format('MM'));
+  
+    var mesSel = this.state.meses.filter(x=>x.id == mesativo);
+    this.state.mesSelecionado.text = mesSel[0].text;
+    this.state.mesSelecionado.id = mesSel[0].id;
+    console.log(this.state.mesSelecionado)
+
+    var listRequest = {
+      mes:mesativo
     }
-    let isLoad ={};
-    if(this.props.route.params !== undefined){
-
-      isLoad = this.props.route.params;
-
-      if(isLoad != {}){
-        this.getDashboard(listRequest);
-      }
-    }
-
-
-    
-
-    this.getDashboard(listRequest);
-    this.props.navigation.setParams({
-      filtro : filtro
-  })
-   }
+   this.getDashboard(listRequest);
+   
+ }
 
    getDashboard(listRequest){
     CadContaServiceInstance.getDashboard(listRequest)
     .then(x=>{
       this.setState({ dashboardRequest: x })
+      this.setState({
+        refreshing: false,
+      });
+
     })
 
    }
 
+   onRefresh() {
+    let mesativo= Number(Moment(new Date()).format('MM'));
+    var listRequest = {
+      mes:mesativo
+    }
+   this.getDashboard(listRequest);
+  }
    openCadReceitaList(){
     this.props.navigation.navigate('ContaReceita')
    }
@@ -86,27 +122,61 @@ const data = new Date();
      this.props.navigation.navigation('CartaoCredito', {filtro:item});
    }
 
-render() {
-  
-    return (
+   selecionarMes(param,index){
+    if(param){
+      var indexi = index+1;
+      if(indexi != this.state.meses.length){
+        this.setState({ mesSelecionado: param})
+        this.setState({ MesVigente: param.id})
 
+        var listRequest= {
+          mes:param.id
+        }
+       
+        this.getDashboard(listRequest)
+      }
+    }
+        
+  }
+
+render() {
+  if (this.state.refreshing) {
+    return (
+      //loading view while data is loading
+      <View style={{ flex: 1,  backgroundColor: "#C2185B", paddingTop: 20 }}>
+      <Text> Carregando!</Text>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+    return (
+        <Root >
             <Container style={[Style.container]}>
               <View style={Style.row}>
-
-
-              {/* <LinearGradient
-                colors={['#4c669f', '#3b5998', '#192f6a']}
-                style={[Style.col1,{ padding: 40, alignItems: 'center', borderRadius: 5 ,height:200,}]}>
-                  
-              </LinearGradient> */}
-
-                <View style={[Style.col1, {backgroundColor:'#930D72',Color:"#ffffff", height:200,width:'100%',padding:40, borderBottomLeftRadius:10,borderBottomRightRadius:10}]}>
-                <Text style={[Style.textCenter, Style.textMedium,{color:"#ffffff"}]}> {'<  '} {Moment(data).format("MMMM")} {'  >'} </Text>
+                <View style={[Style.col1, {backgroundColor:'#930D72',Color:"#ffffff", height:200,padding:40, borderBottomLeftRadius:10,borderBottomRightRadius:10}]}
+                onPress={this.onRefresh.bind(this)}>
+                <Text style={[Style.textCenter, Style.textMedium,{color:"#ffffff"}]}
+                onPress={() =>
+                  ActionSheet.show(
+                    {
+                      options: this.state.meses,
+                      cancelButtonIndex: this.state.meses,
+                      destructiveButtonIndex: this.state.meses,
+                      title: "Escolha uma categoria"
+                    },
+                    buttonIndex => {
+                      this.selecionarMes(this.state.meses[buttonIndex],buttonIndex);
+                    }
+                  )}
+                > 
+                 {this.state.mesSelecionado.text} 
+                </Text>
                   <Text style={[Style.textCenter,{color:"#ffffff",fontSize:40}]}>
                     <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
                     { this.currencyFormat(this.state.dashboardRequest.SaldoAtual)   }
                   </Text>
-                  <Text style={[{color:"#ffffff"},Style.textCenter,Style.textSmall]}>Saldo em Contas</Text>
+                  <Text style={[{color:"#ffffff"},Style.textCenter,Style.textSmall]}>
+                    Saldo em conta do grupo {this.state.dashboardRequest.NomeGrupoAtivo}</Text>
                 </View>
               </View>
               <View style={[Style.body,{marginTop:-60},Style.row]}>
@@ -131,7 +201,13 @@ render() {
                       <Text style={[{color:"#414a4c"},Style.textCenter,Style.textSmall]} >Despesas</Text>
                   </View>
                </View>
-               <ScrollView >
+               <ScrollView refreshControl={
+            <RefreshControl
+              //refresh control used for the Pull to Refresh
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }>
                
                     {/* <View style={[Style.row]}>
                         <Text style={[Style.col1,Style.textCenter, Style.textMedium,{padding:10}]}>{Moment(data).format("MMMM")} </Text>
@@ -150,7 +226,7 @@ render() {
                    
              
 
-                <View style={[{paddingHorizontal:10}]}>
+                <View style={[{paddingHorizontal:5}]}>
                   <View style={[Style.row]}>
 
                    <View style={Style.sectionGrey}>
@@ -198,7 +274,51 @@ render() {
 
                   </View>
 
-                  
+                  <View style={[Style.row]}>
+
+                   <View style={Style.sectionGrey}>
+                            <View style={Style.headerBg}>
+                                <Text style={Style.sHeader}>{'Por categoria'.toUpperCase()}</Text>
+                            </View>
+                            <FlatList
+                                data={this.state.dashboardRequest.ListaDespesaCategoria}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                                style={Style.flatList}
+                                renderItem={({ item }) => (
+                                    <TouchableOpacity style={[Style.boxInfoflatList,{backgroundColor:'#fff',height:80}]}
+                                    underlayColor='transparent' 
+                                    >
+
+                                        <View style={[Style.row,{padding:5}]}>
+                                           <View style={[Style.col1]}>
+                                             
+                                           <Image
+                                              style={{width: 50, height: 50}}
+                                              source={{ uri: item.Icon}}
+                                            />
+                                                
+                                            </View>
+                                              <View style={[Style.col3]}>
+                                                <Text style={[Style.textMedium,Style.textRight,Style.boxInfoflatListTitle,Style.textGreyDark]}>
+                                                  {item.Descricao}
+                                              </Text>
+                                              <Text style={[Style.textMedium,Style.textRight,Style.boxInfoflatListTitle,Style.textGreyDark]}>
+                                                <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
+                                                { this.currencyFormat(item.Valor) }
+                                                </Text>
+                                            </View>
+
+                                        </View>
+                                     
+
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        </View>
+
+                  </View>
+
 
                   <View style={[Style.row]}>
                    <View style={Style.sectionGrey}>
@@ -277,6 +397,9 @@ render() {
                                     </TouchableOpacity>
                                 )}
                             />
+
+                                
+
                         </View>
 
                   </View>
@@ -393,34 +516,51 @@ render() {
                 
               </ScrollView>
               
-          <Fab
-            active={this.state.active}
-            direction="up"
-            containerStyle={{paddingBottom:0 }}
-            style={{ backgroundColor: '#5067FF' }}
-            position="bottomRight"
-            onPress={() => this.setState({ active: !this.state.active })}>
-            <Icon name="plus" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
-              <Text>Adicionar despesa</Text>
-              <Icon name="plus" />
-            </Button>
-            <View style={{ width:200 }}>
-            <Text>Adicionar receita</Text>
-            <Button style={{ backgroundColor: '#3B5998',width:50 }}>
-              <Icon name="plus" />
-              
-            </Button>
-            </View>
-            
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
-              <Icon name="plus" />
-            </Button>
-          </Fab> 
-        
+              <ActionButton buttonColor="#9b59b6">
+              <ActionButton.Item buttonColor='#1abc9c' title="Adicionar receita" 
+              onPress={() => this.props.navigation.navigate('ContaReceitaForm')}>
+                  <Icon name="level-up" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='rgba(231,76,60,1)' title="Adicionar despesa" 
+                onPress={() => this.props.navigation.navigate('ContaDespesaForm')}>
+                  <Icon name="level-down" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                
+                <ActionButton.Item buttonColor='rgba(231,76,60,1)' title="Adicionar despesa de cartão de crédito" 
+                onPress={() => this.props.navigation.navigate('ContaDespesaCartaoCreditoForm')}>
+                  <Icon name="credit-card" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+              </ActionButton>
+              <Footer style={{backgroundColor:'transparent'}}>
+                <FooterTab style={{backgroundColor:'transparent'}}>
+                  <Button style={{backgroundColor:'#ffffff'}}
+                   onPress={()=> this.props.navigation.navigate('HomeIndex')}>
+                    <Text>Carteira</Text>
+                  </Button>
+                  <Button style={{backgroundColor:'#ffffff'}}
+                  onPress={()=> this.props.navigation.navigate('Cadastros')}>
+                    <Text>Cadastros</Text>
+                  </Button>
+                  <Button active style={{backgroundColor:'#ffffff',width:100, borderTopRightRadius:80, borderRightWidth:2,borderRightColor:'#cccccc'}}
+                  onPress={()=> this.props.navigation.navigate('Perfil')}>
+                    <Text>Perfil</Text>
+                  </Button>
+                  <Button style={{backgroundColor:'transparent'}}>
+                    
+                  </Button>
+                </FooterTab>
+              </Footer>
           </Container>
-
+          </Root>
        )
   }
 }
+
+const styles = StyleSheet.create({
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
+});
 export default HomeIndex;

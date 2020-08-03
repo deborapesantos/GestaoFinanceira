@@ -827,6 +827,9 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="wkhtmltopdf-license.txt" />
     <Content Include="Modules\Utils\Contato.cshtml" />
+    <None Include="Properties\PublishProfiles\lancai - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\lancai - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\lancai - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1965,10 +1968,17 @@
     <Compile Include="Modules\Common\UserPreference\UserPreferenceModels.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceEndpoint.cs" />
     <Compile Include="Modules\Common\UserPreference\UserPreferenceRepository.cs" />
+    <Compile Include="Modules\Default\CadCartaoCredito\CadCartaoCreditoRetrieveRequest.cs" />
+    <Compile Include="Modules\Default\CadConta\CadContaRetrieveRequest.cs" />
     <Compile Include="Modules\Default\CadDespesa\CadDespesaRetrieveRequest.cs" />
+    <Compile Include="Modules\Default\CadDespesa\TabelasAuxiliaresViewModel.cs" />
+    <Compile Include="Modules\Default\CadReceita\CadReceitaRetrieveRequest.cs" />
     <Compile Include="Modules\Default\CadReceita\CadReceitaViewModel.cs" />
+    <Compile Include="Modules\Default\CadUsuario\UsuarioRequest.cs" />
     <Compile Include="Modules\Default\DefaultListRequest.cs" />
     <Compile Include="Modules\Default\DefaultRetrieveRequest.cs" />
+    <Compile Include="Modules\Default\PermissaoUserVisualizarGrupo\PermissaoUserVisualizarGrupoRow.cs" />
+    <Compile Include="Modules\Default\PermissaoUserVisualizarGrupo\TelaPermissaoUsuarioRequest.cs" />
     <Compile Include="Modules\Membership\Account\ChangePassword\AccountPage.ChangePassword.cs" />
     <Compile Include="Modules\Membership\Account\EnvironmentSettings.cs" />
     <Compile Include="Modules\Membership\Account\ForgotPassword\AccountPage.ForgotPassword.cs" />

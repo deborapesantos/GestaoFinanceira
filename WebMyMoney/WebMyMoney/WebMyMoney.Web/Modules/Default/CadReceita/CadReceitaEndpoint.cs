@@ -7,6 +7,8 @@ namespace WebMyMoney.Default.Endpoints
     using System.Data;
     using System.Web.Mvc;
     using WebMyMoney.Modules.Default;
+    using WebMyMoney.Modules.Default.CadDespesa;
+    using WebMyMoney.Modules.Default.CadReceita;
     using WebMyMoney.Modules.Utils;
     using MyRepository = Repositories.CadReceitaRepository;
     using MyRow = Entities.CadReceitaRow;
@@ -51,6 +53,23 @@ namespace WebMyMoney.Default.Endpoints
             return new MyRepository().ListCadReceita(connection, request);
         }
 
-        
+        [HttpPost]
+        public MyRow CriarReceita(IDbConnection connection, CadReceitaRetrieveRequest request)
+        {
+            return new MyRepository().CriarReceita(connection, request);
+        }
+
+        [HttpPost]
+        public TabelasAuxiliaresViewModel GetTabelasAuxiliares(IDbConnection connection, CadReceitaRetrieveRequest request)
+        {
+            return new MyRepository().GetTabelasAuxiliares(connection, request);
+        }
+
+        //[HttpPost]
+        //public MyRow EditarReceita(IDbConnection connection, CadReceitaRetrieveRequest request)
+        //{
+        //    return new MyRepository().EditarReceita(connection, request);
+        //}
+
     }
 }

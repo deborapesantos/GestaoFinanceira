@@ -1,0 +1,46 @@
+Para o desenvolvimento dessa aplicação, foi feito uma seleção de técnologias com base na
+complexidade e o tempo de desenvolvimento.
+Buscamos escolher as tecnologias que mais atendia ao nossos requisitos:
+- Desenvolvimento agil
+- Baixa complexidade 
+- Seguro
+
+Com base nesses requisitos partimos a procura de algumas técnologias, são Elas: Serenity (c# MVC), 
+React native e banco de dados SQL. 
+
+Banco de dados
+A aplicação foi desenvolvida de forma a ser escalonavel e ter autonomia para crescer, desta forma 
+foi escolhido utilizar banco de dados relacional, pois dado a complexidade e as chances da aplicação crescer 
+esse tipo de banco é o melhor que se encaixaria.
+
+As entidades foram criadas com base no protótipo inicial
+A principio a aplicação teria funcionalidades principais e secundarias.
+
+As entidades principais, onde são feito "CRUD" foram separadas no grupo "CAD", são elas:
+CadReceita
+CadDespesa
+CadConta
+CadCartaoCredito
+CadFaturaCartaoCredito 
+
+As entidades secundarias, onde são padrões do sistema, foram separadas no grupo "TAB", são elas:
+TabTipoReceita
+TabTipoDespesa
+TabTipoConta
+TabTipoCartaoCredito
+
+Para formar a relação de dados, foi analisado qual seria a entidade principal
+que ligaria todas as tabelas ao usuário, e assim poderia compartilhar informações de usuário para usuário,- funcionalidade diferencial da aplicação.
+Foi pensado em uma piramide, onde teria uma herarquia de visualização de conteúdo, desta forma:
+CadAssinante > CadGrupoFamiliar > CadUsuario
+
+Quem cria um login no aplicativo pode incluir usuarios já logados ou criar usuarios para o seu grupo familiar.
+Desta forma, é possivel compartilhar informações de despesas e receitas de um grupo familiar.
+Por exemplo, um casal pode ter uma conta em conjunto, cada um continua tendo suas 
+proprias contas e pode compartilhar contas que são do casal, como despesas: água, energia, TV a cabo, etc. 
+
+As outras tabelas do sistema fazem parte da autenticação do usuario na aplicação, são tabelas padrões do Serenity,
+são elas:
+
+
+   

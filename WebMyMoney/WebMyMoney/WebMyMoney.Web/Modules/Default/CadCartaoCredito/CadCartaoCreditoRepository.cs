@@ -11,6 +11,9 @@ namespace WebMyMoney.Default.Repositories
     using System.Linq;
     using MyRow = Entities.CadCartaoCreditoRow;
     using WebMyMoney.Default.Entities;
+    using WebMyMoney.Modules.Default.CadDespesa;
+    using System.Collections.Generic;
+    using WebMyMoney.Modules.Default.CadReceita;
 
     public class CadCartaoCreditoRepository
     {
@@ -79,7 +82,98 @@ namespace WebMyMoney.Default.Repositories
 
         }
 
+        public MyRow CriarCartaoCredito(IDbConnection connection, CadCartaoCreditoRetrieveRequest request)
+        {
+            var diaVencimento = new DateTime(DateTime.Now.Year, DateTime.Now.Month, request.DiaVencimentofatura);
+            System.Globalization.CultureInfo cultureinfo = new System.Globalization.CultureInfo("en-US");
+            var cartaoCredito = new CadCartaoCreditoRow()
+            {
+                Ativo = true,
+                CadContaId = request.CadContaId,
+                Descricao = request.Descricao,
+                DiaFecharFatura = request.DiaFecharFatura,
+                DiaPagarFatura = request.DiaPagarFatura,
+                DiaVencimentofatura = diaVencimento,
+                Saldo = 0,
+                ValorLimiteTotal = Convert.ToDecimal(request.ValorLimiteTotal.Replace("R$", ""), new System.Globalization.CultureInfo("pt-Br")),
+                ValorLimiteAtual = Convert.ToDecimal(request.ValorLimiteAtual.Replace("R$", ""), new System.Globalization.CultureInfo("pt-Br")),
+                Titulo = request.Titulo,
+                CodigoTabTipoCartaoCredito = request.CodigoTabTipoCartaoCredito,
+                CadGrupoFamiliarId = request.CadGrupoFamiliarId,
+                CadUsuarioId = (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+            };
 
+            connection.Insert<CadCartaoCreditoRow>(cartaoCredito);
+
+            return cartaoCredito;
+
+        }
+
+        public TabelasAuxiliaresViewModel GetTabelasAuxiliares(IDbConnection connection, CadDespesaRetrieveRequest request)
+        {
+            var hoje = DateTime.Now;
+            var proximoMes = new DateTime(hoje.Year, hoje.Month + 1, 28);
+            var tabelasAux = new TabelasAuxiliaresViewModel();
+            tabelasAux.ListaConta = new List<ActionSelect>();
+            tabelasAux.ListaTipCartaoCredito = new List<ActionSelect>();
+            tabelasAux.ListaGrupo = new List<ActionSelect>();
+
+            var close = new ActionSelect()
+            {
+                id = 0,
+                text = "Cancelar",
+                icon = "",
+                iconColor = ""
+            };
+       
+            var conta = connection.List<CadContaRow>(
+                CadContaRow.Fields.CadUsuarioId == (int)((UserDefinition)Authorization.UserDefinition).UsuarioId
+                ).ToList();
+
+            foreach (var item in conta)
+            {
+                tabelasAux.ListaConta.Add(new ActionSelect()
+                {
+                    id = item.CadContaId ?? 0,
+                    text = item.Titulo,
+                    icon = "",
+                    iconColor = "",
+                    idFilter = item.CadGrupoFamiliarId ?? 0
+                });
+            }
+            tabelasAux.ListaConta.Add(close);
+
+            var tipoCartao = connection.List<TabTipoCartaoCreditoRow>().ToList();
+
+            foreach (var item in tipoCartao)
+            {
+                tabelasAux.ListaTipCartaoCredito.Add(new ActionSelect()
+                {
+                    id = item.CodigoTabTipoCartaoCredito ?? 0,
+                    text = item.Descricao,
+                    icon = "",
+                    iconColor = ""
+                });
+            }
+            tabelasAux.ListaTipCartaoCredito.Add(close);
+
+
+            var grupos = connection.List<CadGrupoFamiliarRow>().ToList();
+
+            foreach (var item in grupos)
+            {
+                tabelasAux.ListaGrupo.Add(new ActionSelect()
+                {
+                    id = item.CadGrupoFamiliarId ?? 0,
+                    text = item.Titulo,
+                    icon = "",
+                    iconColor = ""
+                });
+            }
+            tabelasAux.ListaGrupo.Add(close);
+
+            return tabelasAux;
+        }
         private class MySaveHandler : SaveRequestHandler<MyRow> { }
         private class MyDeleteHandler : DeleteRequestHandler<MyRow> { }
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View,FlatList } from 'react-native';
-import { Container,Right} from 'native-base';
+import { Container,Right,Button} from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import Style from '../../theme/style';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -52,7 +52,7 @@ pagarDespesa(model){
   console.log("pagar");
   CadDespesaServiceInstance.pagar(model)
   .then(x=>{
-    this.props.navigation.navigate('HomeIndex', { isload: true})
+    this.props.navigation.navigate('HomeIndex')
   })
 }
 
@@ -71,26 +71,57 @@ render() {
       <Container style={[Style.container]}>
       <ScrollView style={Style.body}>              
       <View style={Style.row}>
-          <View style={[Style.col1, {backgroundColor:'red',Color:"#ffffff", height:200,width:'100%',padding:40, borderBottomLeftRadius:10,borderBottomRightRadius:10}]}>
-                <Text style={[Style.textCenter, Style.textMedium,{color:"#ffffff"}]}> {this.state.model.Titulo} </Text>
-                  <Text style={[Style.textCenter,{color:"#ffffff",fontSize:40}]}>
+          <View style={[Style.col1, {Color:"#000000", height:200,width:'100%',padding:40, borderBottomLeftRadius:10,borderBottomRightRadius:10}]}>
+                <Text style={[Style.textCenter, Style.textMedium,{color:"#000000"}]}> {this.state.model.Titulo} </Text>
+                  <Text style={[Style.textCenter,{color:"#000000",fontSize:40}]}>
                     <Text style={[Style.textCenter,Style.textMedium]}  >R$</Text>
                     {  
                     
                     this.currencyFormat(this.state.model.ValorTotal)
                     }
                   </Text>
-                <Text style={[{color:"#ffffff"},Style.textCenter,Style.textSmall]}>Data Vencimento {Moment(this.state.model.DataVencimento).format('d MMM')}</Text>
+               
             </View>
       </View>
-      <View style={Style.row}>
-      <TouchableOpacity style={[Style.BtnAction,Style.bgPink]} underlayColor='transparent' onPress={() => {
+     <View style={Style.row}>
+       <View style={Style.col1}>
+         
+           <View style={[Style.row,Style.itemsBox]}>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>Data de vencimento:</Text>
+              </View>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>{Moment(this.state.model.DataVencimento).format('d MMM')}</Text>
+              </View>
+           </View>
+           <View style={[Style.row,Style.itemsBox]}>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>Data de criação:</Text>
+              </View>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>{Moment(this.state.model.DataCriacao).format('d MMM')}</Text>
+              </View>
+           </View>
+           <View style={[Style.row,Style.itemsBox]}>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>Categoria:</Text>
+              </View>
+              <View style={Style.col2}>
+                  <Text style={Style.textMedium}>{this.state.model.TipoDespesa}</Text>
+              </View>
+           </View>
+       </View>
+     </View>
+     
+      
+     </ScrollView>
+     <View style={[Style.footer,Style.row]}>
+          <Button rounded warning style={[Style.col1]} onPress={() => {
         this.pagarDespesa(this.state.model)
       }}>
-        <Text>Pagar</Text>
-      </TouchableOpacity>
-      </View>
-     </ScrollView>
+            <Text >Pagar</Text>
+          </Button> 
+          </View>
  </Container>
       )
   }

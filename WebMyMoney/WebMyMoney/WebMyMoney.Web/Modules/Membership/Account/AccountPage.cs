@@ -58,10 +58,11 @@ namespace WebMyMoney.Membership.Pages
         [HttpPost, JsonFilter]
         public Result<LoginResponse> LoginExt(LoginRequest request)
         {
+            
+
             return this.ExecuteMethod(() =>
             {
                 request.CheckNotNull();
-
 
                 if (string.IsNullOrEmpty(request.Username))
                     throw new ArgumentNullException($"username - Username:{request.Username}");
@@ -69,7 +70,6 @@ namespace WebMyMoney.Membership.Pages
                 var username = request.Username;
 
                 CadUsuarioRow usuario = new CadUsuarioRow();
-
                 if (WebSecurityHelper.Authenticate(ref username, request.Password, false))
                 {
                     using (var connection = SqlConnections.NewFor<CadUsuarioRow>())
@@ -77,7 +77,6 @@ namespace WebMyMoney.Membership.Pages
                         usuario = new CadUsuarioRepository().Retrieve(connection, new RetrieveRequest() { EntityId = (int)((UserDefinition)Authorization.UserDefinition).UsuarioId }).Entity;
                         connection.Close();
                     }
-
                     if (usuario.CadUsuarioId == null)
                     {
                         ErrorStore.LogException((new Exception($" Usuário não encontrado - username:{request.Username}")), System.Web.HttpContext.Current, false, false);
@@ -87,21 +86,24 @@ namespace WebMyMoney.Membership.Pages
                             Mensagem = "Usuário não encontrado"
                         };
                     }
-
                     return new LoginResponse()
                     {
                         Sucesso = true,
                         Usuario = usuario,
                         Username = request.Username,
                         Senha = request.Password
-                       
                     };
                 }
-
-                    
-
                 throw new ValidationError("AuthenticationError", Texts.Validation.AuthenticationError);
             });
+        }
+
+        [HttpPost, JsonFilter]
+        public Result<LoginResponse> SignoutExt()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return null;
         }
 
         private ActionResult Error(string message)

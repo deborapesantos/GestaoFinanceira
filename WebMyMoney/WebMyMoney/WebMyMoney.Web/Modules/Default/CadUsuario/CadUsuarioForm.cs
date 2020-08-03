@@ -19,8 +19,6 @@ namespace WebMyMoney.Default.Forms
         public String Telefone { get; set; }
         public DateTime DataCriacao { get; set; }
         public String Email { get; set; }
-
-
         public Boolean Ativo { get; set; }
     }
 }
