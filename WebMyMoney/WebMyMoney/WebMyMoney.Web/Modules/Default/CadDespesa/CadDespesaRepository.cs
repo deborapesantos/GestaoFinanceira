@@ -413,7 +413,7 @@ namespace WebMyMoney.Default.Repositories
             despesa.IsFixo = request.IsFixo;
             //despesa.DataFixaVencimento = request.DataFixaVencimento;
             despesa.DataVencimento = DateTime.Parse(request.DataVencimento.ToString(), cultureinfo);
-            despesa.ValorTotal = Convert.ToDecimal(request.ValorTotal.Replace("R$", ""), new System.Globalization.CultureInfo("pt-Br"));
+            despesa.ValorTotal = Convert.ToDecimal(request.ValorTotal.Replace("R$.", "").Replace("R$", "").ToString());
             despesa.Pago = request.Pago;
     
 

@@ -72,7 +72,6 @@ const data = new Date();
     var mesSel = this.state.meses.filter(x=>x.id == mesativo);
     this.state.mesSelecionado.text = mesSel[0].text;
     this.state.mesSelecionado.id = mesSel[0].id;
-    console.log(this.state.mesSelecionado)
 
     var listRequest = {
       mes:mesativo
@@ -144,7 +143,7 @@ render() {
     return (
       //loading view while data is loading
       <View style={{ flex: 1,  backgroundColor: "#C2185B", paddingTop: 20 }}>
-      <Text> Carregando!</Text>
+      <Text> Carregando...</Text>
         <ActivityIndicator />
       </View>
     );
