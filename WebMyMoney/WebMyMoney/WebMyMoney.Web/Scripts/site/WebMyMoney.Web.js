@@ -516,7 +516,9 @@ var WebMyMoney;
                 'Delete',
                 'Retrieve',
                 'List',
-                'ListarCartaoCreditoDepesas'
+                'ListarCartaoCreditoDepesas',
+                'CriarCartaoCredito',
+                'GetTabelasAuxiliares'
             ].forEach(function (x) {
                 CadCartaoCreditoService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadCartaoCreditoService.baseUrl + '/' + x, r, s, o);
@@ -594,7 +596,9 @@ var WebMyMoney;
                 'Delete',
                 'Retrieve',
                 'List',
-                'GetDashboard'
+                'GetDashboard',
+                'CriarConta',
+                'GetTabelasAuxiliares'
             ].forEach(function (x) {
                 CadContaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadContaService.baseUrl + '/' + x, r, s, o);
@@ -680,7 +684,12 @@ var WebMyMoney;
                 'Delete',
                 'Retrieve',
                 'List',
-                'ListCadDespesa'
+                'ListCadDespesa',
+                'PagarDespesa',
+                'CriarDespesa',
+                'GetTabelasAuxiliares',
+                'EditarDespesa',
+                'GetById'
             ].forEach(function (x) {
                 CadDespesaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadDespesaService.baseUrl + '/' + x, r, s, o);
@@ -716,7 +725,8 @@ var WebMyMoney;
                         'IsParcelarFatura', w4,
                         'NumParcelasFatura', w1,
                         'SaldoAnterior', w3,
-                        'Ativo', w4
+                        'Ativo', w4,
+                        'Pago', w4
                     ]);
                 }
                 return _this;
@@ -760,7 +770,8 @@ var WebMyMoney;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'PagarFatura'
             ].forEach(function (x) {
                 CadFaturaCartaoCreditoService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadFaturaCartaoCreditoService.baseUrl + '/' + x, r, s, o);
@@ -833,7 +844,9 @@ var WebMyMoney;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'CriarGrupo',
+                'AlterarGrupo'
             ].forEach(function (x) {
                 CadGrupoFamiliarService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadGrupoFamiliarService.baseUrl + '/' + x, r, s, o);
@@ -1059,7 +1072,9 @@ var WebMyMoney;
                 'Delete',
                 'Retrieve',
                 'List',
-                'ListCadReceita'
+                'ListCadReceita',
+                'CriarReceita',
+                'GetTabelasAuxiliares'
             ].forEach(function (x) {
                 CadReceitaService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadReceitaService.baseUrl + '/' + x, r, s, o);
@@ -1134,13 +1149,42 @@ var WebMyMoney;
                 'Update',
                 'Delete',
                 'Retrieve',
-                'List'
+                'List',
+                'GetPerfil',
+                'CriarUsuarioByOtherUser',
+                'UsuarioIsAdmin',
+                'GetUsuarioGerenciamento',
+                'AdicionarGrupoPermissao',
+                'RemoverGrupoPermissao',
+                'ListarUsuarios',
+                'GetTabelasAuxiliares'
             ].forEach(function (x) {
                 CadUsuarioService[x] = function (r, s, o) {
                     return Q.serviceRequest(CadUsuarioService.baseUrl + '/' + x, r, s, o);
                 };
             });
         })(CadUsuarioService = Default.CadUsuarioService || (Default.CadUsuarioService = {}));
+    })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
+})(WebMyMoney || (WebMyMoney = {}));
+var WebMyMoney;
+(function (WebMyMoney) {
+    var Default;
+    (function (Default) {
+        var PermissaoUserVisualizarGrupoRow;
+        (function (PermissaoUserVisualizarGrupoRow) {
+            PermissaoUserVisualizarGrupoRow.idProperty = 'PermissaoVisualizar';
+            PermissaoUserVisualizarGrupoRow.nameProperty = 'NomeGrupo';
+            PermissaoUserVisualizarGrupoRow.localTextPrefix = 'Default.PermissaoUserVisualizarGrupo';
+            PermissaoUserVisualizarGrupoRow.lookupKey = 'Default.PermissaoUserVisualizarGrupo';
+            function getLookup() {
+                return Q.getLookup('Default.PermissaoUserVisualizarGrupo');
+            }
+            PermissaoUserVisualizarGrupoRow.getLookup = getLookup;
+            PermissaoUserVisualizarGrupoRow.deletePermission = 'Usuario:Editar';
+            PermissaoUserVisualizarGrupoRow.insertPermission = 'Usuario:Editar';
+            PermissaoUserVisualizarGrupoRow.readPermission = 'Usuario:Visualizar';
+            PermissaoUserVisualizarGrupoRow.updatePermission = 'Usuario:Editar';
+        })(PermissaoUserVisualizarGrupoRow = Default.PermissaoUserVisualizarGrupoRow || (Default.PermissaoUserVisualizarGrupoRow = {}));
     })(Default = WebMyMoney.Default || (WebMyMoney.Default = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;
@@ -1610,7 +1654,7 @@ var WebMyMoney;
 (function (WebMyMoney) {
     var Texts;
     (function (Texts) {
-        WebMyMoney['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1, UsuarioId: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Default: { CadAssinante: { Ativo: 1, CadAssinanteId: 1, DataCriacao: 1, QdteGrupoFamiliar: 1, Senha: 1, Telefone: 1, UsarioAdminNome: 1, Username: 1, UsuarioAdminEmail: 1, UsuarioAdminId: 1 }, CadCartaoCredito: { Ativo: 1, CadCartaoCreditoId: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoCartaoCredito: 1, CodigoTabTipoCartaoCreditoDescricao: 1, CodigoTabTipoCartaoCreditoIcone: 1, Descricao: 1, DiaFecharFatura: 1, DiaPagarFatura: 1, DiaVencimentofatura: 1, Saldo: 1, Titulo: 1, ValorLimiteAtual: 1, ValorLimiteTotal: 1 }, CadConta: { Ativo: 1, CadContaId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoConta: 1, CodigoTabTipoContaDescricao: 1, DataInicial: 1, SaldoAtual: 1, Titulo: 1, ValorInicial: 1 }, CadDespesa: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadDespesaId: 1, CadFaturaCartaoCreditoId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoDespesa: 1, CodigoTabTipoDespesaDescricao: 1, CodigoTabTipoDespesaIcone: 1, CpfCnpjParticipante: 1, DataCriacao: 1, DataFixaVencimento: 1, DataPagamento: 1, DataVencimento: 1, Descontos: 1, Imposto: 1, IsFixo: 1, IsParcelado: 1, MultasJuros: 1, NomeParticipante: 1, NumParcela: 1, Pago: 1, QdteParcelas: 1, Titulo: 1, ValorTotal: 1 }, CadFaturaCartaoCredito: { Ativo: 1, CadCartaoCreditoAtivo: 1, CadCartaoCreditoCadContaId: 1, CadCartaoCreditoCadGrupoFamiliarId: 1, CadCartaoCreditoCadUsuarioId: 1, CadCartaoCreditoCodigoTabTipoCartaoCredito: 1, CadCartaoCreditoDescricao: 1, CadCartaoCreditoDiaFecharFatura: 1, CadCartaoCreditoDiaPagarFatura: 1, CadCartaoCreditoDiaVencimentoFatura: 1, CadCartaoCreditoId: 1, CadCartaoCreditoSaldo: 1, CadCartaoCreditoTitulo: 1, CadCartaoCreditoValorLimiteAtual: 1, CadCartaoCreditoValorLimiteTotal: 1, CadFaturaCartaoCreditoId: 1, DataFechamentoFatura: 1, DataPagamentoFatura: 1, DiaFecharFatura: 1, DiaVencimentoFatura: 1, IsParcelarFatura: 1, MesFaturaVigente: 1, MesVigente: 1, NumParcelasFatura: 1, Pago: 1, SaldoAnterior: 1, ValorParcialFaturaAtual: 1 }, CadGrupoFamiliar: { Ativo: 1, CadAssinanteAtivo: 1, CadAssinanteDataCriacao: 1, CadAssinanteId: 1, CadAssinanteQdteGrupoFamiliar: 1, CadAssinanteUsarioAdminNome: 1, CadAssinanteUsuarioAdminEmail: 1, CadAssinanteUsuarioAdminId: 1, CadGrupoFamiliarId: 1, CodigoAcesso: 1, DataCriacao: 1, QdteUsuarios: 1 }, CadObjetivo: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadObjetivoId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoObjetivo: 1, CodigoTabTipoObjetivoDescricao: 1, DataFinal: 1, DataInicial: 1, Descricao: 1, Titulo: 1, ValorAtual: 1, ValorFinal: 1, ValorInicial: 1 }, CadParticipante: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CpfCnpj: 1, NomeRazaoSocial: 1 }, CadReceita: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadReceitaId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoReceita: 1, CodigoTabTipoReceitaDescricao: 1, DataCriacao: 1, DataFixaRecebimento: 1, DataRecebimento: 1, Descricao: 1, Imposto: 1, IsFixo: 1, Juros: 1, Recebido: 1, Rendimento: 1, Titulo: 1, Valor: 1 }, CadUsuario: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioId: 1, DataCriacao: 1, Email: 1, Nome: 1, Telefone: 1, UserDisplayName: 1, UserEmail: 1, UserId: 1, UserInsertDate: 1, UserInsertUserId: 1, UserIsActive: 1, UserLastDirectoryUpdate: 1, UserPasswordHash: 1, UserPasswordSalt: 1, UserSource: 1, UserUpdateDate: 1, UserUpdateUserId: 1, UserUserImage: 1, UserUsername: 1, UserUsuarioId: 1 }, TabTipoCartaoCredito: { CodigoTabTipoCartaoCredito: 1, Descricao: 1, Icone: 1 }, TabTipoConta: { CodigoTabTipoConta: 1, Descricao: 1 }, TabTipoDespesa: { CodigoTabTipoDespesa: 1, Descricao: 1, Icone: 1 }, TabTipoObjetivo: { CodigoTabTipoObjetivo: 1, Descricao: 1 }, TabTipoReceita: { CodigoTabTipoReceita: 1, Descricao: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
+        WebMyMoney['Texts'] = Q.proxyTexts(Texts, '', { Db: { Administration: { Language: { Id: 1, LanguageId: 1, LanguageName: 1 }, Role: { RoleId: 1, RoleName: 1 }, RolePermission: { PermissionKey: 1, RoleId: 1, RolePermissionId: 1, RoleRoleName: 1 }, Translation: { CustomText: 1, EntityPlural: 1, Key: 1, OverrideConfirmation: 1, SaveChangesButton: 1, SourceLanguage: 1, SourceText: 1, TargetLanguage: 1, TargetText: 1 }, User: { DisplayName: 1, Email: 1, InsertDate: 1, InsertUserId: 1, IsActive: 1, LastDirectoryUpdate: 1, Password: 1, PasswordConfirm: 1, PasswordHash: 1, PasswordSalt: 1, Source: 1, UpdateDate: 1, UpdateUserId: 1, UserId: 1, UserImage: 1, Username: 1, UsuarioId: 1 }, UserPermission: { Granted: 1, PermissionKey: 1, User: 1, UserId: 1, UserPermissionId: 1, Username: 1 }, UserRole: { RoleId: 1, User: 1, UserId: 1, UserRoleId: 1, Username: 1 } }, Common: { UserPreference: { Name: 1, PreferenceType: 1, UserId: 1, UserPreferenceId: 1, Value: 1 } }, Default: { CadAssinante: { Ativo: 1, CadAssinanteId: 1, DataCriacao: 1, QdteGrupoFamiliar: 1, Senha: 1, Telefone: 1, UsarioAdminNome: 1, Username: 1, UsuarioAdminEmail: 1, UsuarioAdminId: 1 }, CadCartaoCredito: { Ativo: 1, CadCartaoCreditoId: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoCartaoCredito: 1, CodigoTabTipoCartaoCreditoDescricao: 1, CodigoTabTipoCartaoCreditoIcone: 1, Descricao: 1, DiaFecharFatura: 1, DiaPagarFatura: 1, DiaVencimentofatura: 1, Saldo: 1, Titulo: 1, ValorLimiteAtual: 1, ValorLimiteTotal: 1 }, CadConta: { Ativo: 1, CadContaId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoConta: 1, CodigoTabTipoContaDescricao: 1, DataInicial: 1, SaldoAtual: 1, Titulo: 1, ValorInicial: 1 }, CadDespesa: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadDespesaId: 1, CadFaturaCartaoCreditoId: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoDespesa: 1, CodigoTabTipoDespesaDescricao: 1, CodigoTabTipoDespesaIcone: 1, CpfCnpjParticipante: 1, DataCriacao: 1, DataFixaVencimento: 1, DataPagamento: 1, DataVencimento: 1, Descontos: 1, Imposto: 1, IsFixo: 1, IsParcelado: 1, MultasJuros: 1, NomeParticipante: 1, NumParcela: 1, Pago: 1, QdteParcelas: 1, Titulo: 1, ValorTotal: 1 }, CadFaturaCartaoCredito: { Ativo: 1, CadCartaoCreditoAtivo: 1, CadCartaoCreditoCadContaId: 1, CadCartaoCreditoCadGrupoFamiliarId: 1, CadCartaoCreditoCadUsuarioId: 1, CadCartaoCreditoCodigoTabTipoCartaoCredito: 1, CadCartaoCreditoDescricao: 1, CadCartaoCreditoDiaFecharFatura: 1, CadCartaoCreditoDiaPagarFatura: 1, CadCartaoCreditoDiaVencimentoFatura: 1, CadCartaoCreditoId: 1, CadCartaoCreditoSaldo: 1, CadCartaoCreditoTitulo: 1, CadCartaoCreditoValorLimiteAtual: 1, CadCartaoCreditoValorLimiteTotal: 1, CadFaturaCartaoCreditoId: 1, DataFechamentoFatura: 1, DataPagamentoFatura: 1, DiaFecharFatura: 1, DiaVencimentoFatura: 1, IsParcelarFatura: 1, MesFaturaVigente: 1, MesVigente: 1, NumParcelasFatura: 1, Pago: 1, SaldoAnterior: 1, ValorParcialFaturaAtual: 1 }, CadGrupoFamiliar: { Ativo: 1, CadAssinanteAtivo: 1, CadAssinanteDataCriacao: 1, CadAssinanteId: 1, CadAssinanteQdteGrupoFamiliar: 1, CadAssinanteUsarioAdminNome: 1, CadAssinanteUsuarioAdminEmail: 1, CadAssinanteUsuarioAdminId: 1, CadGrupoFamiliarId: 1, CodigoAcesso: 1, DataCriacao: 1, IsGrupoPessoal: 1, QdteUsuarios: 1, Titulo: 1 }, CadObjetivo: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadObjetivoId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoObjetivo: 1, CodigoTabTipoObjetivoDescricao: 1, DataFinal: 1, DataInicial: 1, Descricao: 1, Titulo: 1, ValorAtual: 1, ValorFinal: 1, ValorInicial: 1 }, CadParticipante: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadParticipanteId: 1, CpfCnpj: 1, NomeRazaoSocial: 1 }, CadReceita: { Ativo: 1, CadContaAtivo: 1, CadContaCadGrupoFamiliarId: 1, CadContaCadUsuarioId: 1, CadContaCodigoTabTipoConta: 1, CadContaDataInicial: 1, CadContaId: 1, CadContaSaldoAtual: 1, CadContaTitulo: 1, CadContaValorInicial: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadReceitaId: 1, CadUsuarioAtivo: 1, CadUsuarioCadGrupoFamiliarId: 1, CadUsuarioDataCriacao: 1, CadUsuarioEmail: 1, CadUsuarioId: 1, CadUsuarioNome: 1, CadUsuarioTelefone: 1, CadUsuarioUserId: 1, CodigoTabTipoReceita: 1, CodigoTabTipoReceitaDescricao: 1, DataCriacao: 1, DataFixaRecebimento: 1, DataRecebimento: 1, Descricao: 1, Imposto: 1, IsFixo: 1, Juros: 1, Recebido: 1, Rendimento: 1, Titulo: 1, Valor: 1 }, CadUsuario: { Ativo: 1, CadGrupoFamiliarAtivo: 1, CadGrupoFamiliarCadAssinanteId: 1, CadGrupoFamiliarCodigoAcesso: 1, CadGrupoFamiliarDataCriacao: 1, CadGrupoFamiliarId: 1, CadGrupoFamiliarQdteUsuarios: 1, CadUsuarioId: 1, DataCriacao: 1, Email: 1, GrupoPessoalId: 1, Nome: 1, Telefone: 1, UserDisplayName: 1, UserEmail: 1, UserId: 1, UserInsertDate: 1, UserInsertUserId: 1, UserIsActive: 1, UserLastDirectoryUpdate: 1, UserPasswordHash: 1, UserPasswordSalt: 1, UserSource: 1, UserUpdateDate: 1, UserUpdateUserId: 1, UserUserImage: 1, UserUsername: 1, UserUsuarioId: 1 }, PermissaoUserVisualizarGrupo: { CadGrupoFamiliarId: 1, CadUsuarioId: 1, NomeGrupo: 1, PermissaoVisualizar: 1 }, TabTipoCartaoCredito: { CodigoTabTipoCartaoCredito: 1, Descricao: 1, Icone: 1 }, TabTipoConta: { CodigoTabTipoConta: 1, Descricao: 1 }, TabTipoDespesa: { CodigoTabTipoDespesa: 1, Descricao: 1, Icone: 1 }, TabTipoObjetivo: { CodigoTabTipoObjetivo: 1, Descricao: 1 }, TabTipoReceita: { CodigoTabTipoReceita: 1, Descricao: 1 } } }, Forms: { Membership: { ChangePassword: { FormTitle: 1, SubmitButton: 1, Success: 1 }, ForgotPassword: { BackToLogin: 1, FormInfo: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, Login: { FacebookButton: 1, ForgotPassword: 1, FormTitle: 1, GoogleButton: 1, OR: 1, RememberMe: 1, SignInButton: 1, SignUpButton: 1 }, ResetPassword: { BackToLogin: 1, EmailSubject: 1, FormTitle: 1, SubmitButton: 1, Success: 1 }, SignUp: { AcceptTerms: 1, ActivateEmailSubject: 1, ActivationCompleteMessage: 1, BackToLogin: 1, ConfirmEmail: 1, ConfirmPassword: 1, DisplayName: 1, Email: 1, FormInfo: 1, FormTitle: 1, Password: 1, SubmitButton: 1, Success: 1 } } }, Site: { AccessDenied: { ClickToChangeUser: 1, ClickToLogin: 1, LackPermissions: 1, NotLoggedIn: 1, PageTitle: 1 }, BasicProgressDialog: { CancelTitle: 1, PleaseWait: 1 }, BulkServiceAction: { AllHadErrorsFormat: 1, AllSuccessFormat: 1, ConfirmationFormat: 1, ErrorCount: 1, NothingToProcess: 1, SomeHadErrorsFormat: 1, SuccessCount: 1 }, Dashboard: { ContentDescription: 1 }, Layout: { FooterCopyright: 1, FooterInfo: 1, FooterRights: 1, GeneralSettings: 1, Language: 1, Theme: 1, ThemeBlack: 1, ThemeBlackLight: 1, ThemeBlue: 1, ThemeBlueLight: 1, ThemeGreen: 1, ThemeGreenLight: 1, ThemePurple: 1, ThemePurpleLight: 1, ThemeRed: 1, ThemeRedLight: 1, ThemeYellow: 1, ThemeYellowLight: 1 }, RolePermissionDialog: { DialogTitle: 1, EditButton: 1, SaveSuccess: 1 }, UserDialog: { EditPermissionsButton: 1, EditRolesButton: 1 }, UserPermissionDialog: { DialogTitle: 1, Grant: 1, Permission: 1, Revoke: 1, SaveSuccess: 1 }, UserRoleDialog: { DialogTitle: 1, SaveSuccess: 1 }, ValidationError: { Title: 1 } }, Validation: { AuthenticationError: 1, CantFindUserWithEmail: 1, CurrentPasswordMismatch: 1, DeleteForeignKeyError: 1, EmailConfirm: 1, EmailInUse: 1, InvalidActivateToken: 1, InvalidResetToken: 1, MinRequiredPasswordLength: 1, SavePrimaryKeyError: 1 } });
     })(Texts = WebMyMoney.Texts || (WebMyMoney.Texts = {}));
 })(WebMyMoney || (WebMyMoney = {}));
 var WebMyMoney;

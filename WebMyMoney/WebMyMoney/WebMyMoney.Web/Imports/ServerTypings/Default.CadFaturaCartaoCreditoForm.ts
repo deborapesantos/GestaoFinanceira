@@ -11,6 +11,7 @@
         NumParcelasFatura: Serenity.IntegerEditor;
         SaldoAnterior: Serenity.DecimalEditor;
         Ativo: Serenity.BooleanEditor;
+        Pago: Serenity.BooleanEditor;
     }
 
     export class CadFaturaCartaoCreditoForm extends Serenity.PrefixedContext {
@@ -41,7 +42,8 @@
                     'IsParcelarFatura', w4,
                     'NumParcelasFatura', w1,
                     'SaldoAnterior', w3,
-                    'Ativo', w4
+                    'Ativo', w4,
+                    'Pago', w4
                 ]);
             }
         }

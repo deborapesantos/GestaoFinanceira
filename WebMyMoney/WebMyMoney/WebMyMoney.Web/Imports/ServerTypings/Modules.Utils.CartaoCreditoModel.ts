@@ -4,7 +4,8 @@
         Descricao?: string;
         Titulo?: string;
         Icone?: string;
-        CadCoartaoCreditoId?: number;
+        CadCartaoCreditoId?: number;
+        CadFaturaId?: number;
         CadContaId?: number;
         CadUsuarioId?: number;
         ValorFatura?: number;
@@ -14,6 +15,7 @@
         LimiteDisponivel?: number;
         FaturaAberta?: boolean;
         Tipo?: number;
+        Pago?: boolean;
     }
 }
 

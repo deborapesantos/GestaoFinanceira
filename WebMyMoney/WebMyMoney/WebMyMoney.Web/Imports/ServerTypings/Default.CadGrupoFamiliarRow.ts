@@ -3,9 +3,11 @@
         CadGrupoFamiliarId?: number;
         CadAssinanteId?: number;
         Ativo?: boolean;
+        IsGrupoPessoal?: boolean;
         DataCriacao?: string;
         CodigoAcesso?: string;
         QdteUsuarios?: number;
+        Titulo?: string;
         CadAssinanteDataCriacao?: string;
         CadAssinanteUsuarioAdminId?: number;
         CadAssinanteUsarioAdminNome?: string;
@@ -32,9 +34,11 @@
             CadGrupoFamiliarId = "CadGrupoFamiliarId",
             CadAssinanteId = "CadAssinanteId",
             Ativo = "Ativo",
+            IsGrupoPessoal = "IsGrupoPessoal",
             DataCriacao = "DataCriacao",
             CodigoAcesso = "CodigoAcesso",
             QdteUsuarios = "QdteUsuarios",
+            Titulo = "Titulo",
             CadAssinanteDataCriacao = "CadAssinanteDataCriacao",
             CadAssinanteUsuarioAdminId = "CadAssinanteUsuarioAdminId",
             CadAssinanteUsarioAdminNome = "CadAssinanteUsarioAdminNome",

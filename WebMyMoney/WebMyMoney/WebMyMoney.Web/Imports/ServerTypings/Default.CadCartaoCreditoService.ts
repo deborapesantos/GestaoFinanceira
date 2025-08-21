@@ -8,6 +8,8 @@
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<CadCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<CadCartaoCreditoRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function ListarCartaoCreditoDepesas(request: Modules.Default.DefaultListRequest, onSuccess?: (response: Modules.Utils.CartaoCreditoModel) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function CriarCartaoCredito(request: Modules.Default.CadReceita.CadCartaoCreditoRetrieveRequest, onSuccess?: (response: CadCartaoCreditoRow) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function GetTabelasAuxiliares(request: Modules.Default.CadDespesa.CadDespesaRetrieveRequest, onSuccess?: (response: Modules.Default.CadDespesa.TabelasAuxiliaresViewModel) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "Default/CadCartaoCredito/Create",
@@ -15,7 +17,9 @@
             Delete = "Default/CadCartaoCredito/Delete",
             Retrieve = "Default/CadCartaoCredito/Retrieve",
             List = "Default/CadCartaoCredito/List",
-            ListarCartaoCreditoDepesas = "Default/CadCartaoCredito/ListarCartaoCreditoDepesas"
+            ListarCartaoCreditoDepesas = "Default/CadCartaoCredito/ListarCartaoCreditoDepesas",
+            CriarCartaoCredito = "Default/CadCartaoCredito/CriarCartaoCredito",
+            GetTabelasAuxiliares = "Default/CadCartaoCredito/GetTabelasAuxiliares"
         }
 
         [
@@ -24,7 +28,9 @@
             'Delete', 
             'Retrieve', 
             'List', 
-            'ListarCartaoCreditoDepesas'
+            'ListarCartaoCreditoDepesas', 
+            'CriarCartaoCredito', 
+            'GetTabelasAuxiliares'
         ].forEach(x => {
             (<any>CadCartaoCreditoService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

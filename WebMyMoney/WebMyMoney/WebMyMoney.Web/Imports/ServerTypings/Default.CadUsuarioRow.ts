@@ -3,6 +3,7 @@
         CadUsuarioId?: number;
         CadGrupoFamiliarId?: number;
         UserId?: number;
+        GrupoPessoalId?: number;
         Nome?: string;
         Telefone?: string;
         DataCriacao?: string;
@@ -47,6 +48,7 @@
             CadUsuarioId = "CadUsuarioId",
             CadGrupoFamiliarId = "CadGrupoFamiliarId",
             UserId = "UserId",
+            GrupoPessoalId = "GrupoPessoalId",
             Nome = "Nome",
             Telefone = "Telefone",
             DataCriacao = "DataCriacao",
