@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build Folders
+bin/
+obj/
+
+# TypeScript/Server Typings (gerados)
+WebMyMoney/WebMyMoney/WebMyMoney.Web/Imports/ServerTypings/
+
+# Outros arquivos temporários
+*.cache
+*.log
